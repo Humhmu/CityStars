@@ -8,12 +8,12 @@ Users that aren't logged in will be able to read reviews on the main feed, but o
 
 The site has many features including:​
 
-City Pages – Browse ratings, reviews, and insights about cities like Glasgow, Edinburgh, Aberdeen, and St. Andrews.​
+- City Pages – Browse ratings, reviews, and insights about cities like Glasgow, Edinburgh, Aberdeen, and St. Andrews.​
 
-User Feed – See posts and reviews from other users about different cities.​
+- User Feed – See posts and reviews from other users about different cities.​
 
-User Authentication – Sign up or log in to interact with other users, post reviews, and personalise your experience.​
+- User Authentication – Sign up or log in to interact with other users, post reviews, and personalise your experience.​
 
-Profile Management – Manage your posts, settings, and city reviews from your personal profile.​
+- Profile Management – Manage your posts, settings, and city reviews from your personal profile.​
 
-Ranking System – Cities are ranked based on user ratings, making it easy to compare different places.​
+- Ranking System – Cities are ranked based on user ratings, making it easy to compare different places.​
