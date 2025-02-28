@@ -1,0 +1,57 @@
+/* Entire background of the website other than the navigation bar
+is a grey colour. */
+body {
+    height: 760px;
+    background: linear-gradient(to bottom, #c2c2d6 0%, #969696 100%);
+    color: #ffffff;
+    font-family: Arial;
+}
+
+/* Main content. */
+.content {
+    background-color: #009999;
+}
+
+/* Mostly used for interactive elements. */
+.interaction {
+    background-color: #004d4d;
+    padding: 10px;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+/* Buttons as part of the navigation bar. */
+.navbutton {
+    background-color: #004d4d;
+    width: 15%;
+    margin-left: 75px;
+    margin-top: 2px;
+    height: 75px;
+    border: none;
+    font-size: 20px;
+    transition-duration: 0.4s;
+    color: white;
+}
+
+/* Changes state (colour) when user points at the button. */
+.navbutton:hover {
+    background-color: white;
+    color: black;
+}
+
+/* User profile picture is aligned to the right. */
+.navpfp {
+    background-color: #004d4d;
+    border: none;
+    float: right;
+}
+
+/* User profile picture. */
+.userpfp {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
