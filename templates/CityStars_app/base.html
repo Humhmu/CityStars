@@ -6,7 +6,7 @@
 <html>
     <head lang="en">
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="base.css"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
         <title>
             CityStars - 
             {% block title_block %}
@@ -19,7 +19,7 @@
             <button class="navbutton" onclick=""><b>Feed</b></button>
             <button class="navbutton" onclick=""><b>Friends</b></button>
             <button class="navbutton" onclick=""><b>My Posts</b></button>
-            <button class="navpfp" onclick=""><img src="{% static 'images/guest_pfp.jpg' %}" alt="user" style="float:right" class="userpfp"></button>
+            <button class="navpfp" onclick=""><img src="{% static 'images/guest_pfp.jpg' %}" alt="user" class="userpfp"></button>
         </div>
         {% block body_block %}
         {% endblock %}
