@@ -7,11 +7,11 @@ def city_stars(request):
 
 
 def city(request, city_slug):
-    return HttpResponse("City Page")
+    return HttpResponse(f"City Page for {city_slug}")
 
 
 def add_post(request, city_slug):
-    return HttpResponse("Add Post Page")
+    return HttpResponse(f"page to add post to {city_slug}")
 
 
 def friend_feed(request):
@@ -23,35 +23,35 @@ def city_feed(request):
 
 
 def profile(request, profile_username):
-    return HttpResponse("Profile Page")
+    return HttpResponse(f"{profile_username}'s profile page")
 
 
 def delete_profile(request, profile_username):
-    return HttpResponse("Delete Profile Page")
+    return HttpResponse(f"Page to delete {profile_username}'s profile")
 
 
 def friends(request, profile_username):
-    return HttpResponse("Friends Page")
+    return HttpResponse(f"{profile_username}'s friends page")
 
 
 def chat(request, profile_username, friend_username):
-    return HttpResponse("Chat Page")
+    return HttpResponse(f"{profile_username}'s chat with {friend_username}")
 
 
 def posts(request, profile_username):
-    return HttpResponse("Posts Page")
+    return HttpResponse(f"Posts page for {profile_username}")
 
 
 def city_post(request, city_slug, post_id):
-    return HttpResponse("Post Page")
+    return HttpResponse(f"Post {post_id} in {city_slug}")
 
 
-def user_post(request, user_id, post_id):
-    return HttpResponse("Post Page")
+def user_post(request, profile_username, post_id):
+    return HttpResponse(f"Post {post_id} from {profile_username}")
 
 
 def delete_post(request, post_id):
-    return HttpResponse("Delete post page")
+    return HttpResponse(f"Delete post {post_id}")
 
 
 def login(request):
