@@ -1,40 +1,57 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
-def cityStars(request):
-    return HttpResponse("Homepage")
+def city_stars(request):
+    return render(request, "CityStars_app/base.html")
 
 
-def city(request):
+def city(request, city_slug):
     return HttpResponse("City Page")
 
 
-def addPost(request):
+def add_post(request, city_slug):
     return HttpResponse("Add Post Page")
 
 
-def friendFeed(request):
+def friend_feed(request):
     return HttpResponse("Friend Feed Page")
 
 
-def cityFeed(request):
+def city_feed(request):
     return HttpResponse("City Feed Page")
 
 
-def profile(request):
+def profile(request, profile_id):
     return HttpResponse("Profile Page")
 
 
-def friends(request):
+def delete_profile(request, profile_id):
+    return HttpResponse("Delete Profile Page")
+
+
+def friends(request, profile_id):
     return HttpResponse("Friends Page")
 
 
-def chat(request):
+def chat(request, profile_id, friend_id):
     return HttpResponse("Chat Page")
 
 
-def posts(request):
+def posts(request, profile_id):
     return HttpResponse("Posts Page")
+
+
+def city_post(request, city_slug, post_id):
+    return HttpResponse("Post Page")
+
+
+def user_post(request, user_id, post_id):
+    return HttpResponse("Post Page")
+
+
+def delete_post(request, post_id):
+    return HttpResponse("Delete post page")
 
 
 def login(request):
