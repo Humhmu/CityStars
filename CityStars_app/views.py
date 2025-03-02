@@ -22,23 +22,23 @@ def city_feed(request):
     return HttpResponse("City Feed Page")
 
 
-def profile(request, profile_id):
+def profile(request, profile_username):
     return HttpResponse("Profile Page")
 
 
-def delete_profile(request, profile_id):
+def delete_profile(request, profile_username):
     return HttpResponse("Delete Profile Page")
 
 
-def friends(request, profile_id):
+def friends(request, profile_username):
     return HttpResponse("Friends Page")
 
 
-def chat(request, profile_id, friend_id):
+def chat(request, profile_username, friend_username):
     return HttpResponse("Chat Page")
 
 
-def posts(request, profile_id):
+def posts(request, profile_username):
     return HttpResponse("Posts Page")
 
 

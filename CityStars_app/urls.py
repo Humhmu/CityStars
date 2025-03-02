@@ -14,17 +14,21 @@ urlpatterns = [
     path("feed/city/", views.city_feed, name="city_feed"),
     path("feed/friends/", views.friend_feed, name="friend_feed"),
     # Profile urls
-    path("profile/<int:profile_id>", views.profile, name="profile"),
+    path("profile/<str:profile_username>", views.profile, name="profile"),
     path(
-        "profile/<int:profile_id>/delete", views.delete_profile, name="delete_profile"
+        "profile/<str:profile_username>/delete",
+        views.delete_profile,
+        name="delete_profile",
     ),
-    path("profile/<int:profile_id>/friends", views.friends, name="friends"),
+    path("profile/<str:profile_username>/friends", views.friends, name="friends"),
     path(
-        "profile/<int:profile_id>/friends/<int:user_id>/chat", views.chat, name="chat"
+        "profile/<str:profile_username>/friends/<str:friend_username>/chat",
+        views.chat,
+        name="chat",
     ),
-    path("profile/<int:profile_id>/posts", views.posts, name="posts"),
+    path("profile/<str:profile_username>/posts", views.posts, name="posts"),
     path(
-        "profile/<int:profile_id>/posts/<int:post_id>",
+        "profile/<str:profile_username>/posts/<int:post_id>",
         views.user_post,
         name="user_post",
     ),
