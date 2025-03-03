@@ -1,7 +1,7 @@
 /* Entire background of the website other than the navigation bar
 is a grey colour. */
-body {
-    height: 760px;
+html {
+    height: 100%;
     background: linear-gradient(to bottom, #c2c2d6 0%, #969696 100%);
     color: #ffffff;
     font-family: Arial;
