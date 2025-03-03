@@ -1,4 +1,4 @@
-#CityStars
+# CityStars
 
 City Stars is an online review and social platform where users can read and write reviews on cities, as well as follow and keep up to date with what their friends are posting. Users also have the ability to browse the main feed filled with content about all the cities.​
 
