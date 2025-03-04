@@ -4,25 +4,38 @@
 <!-- This will be used as the base template for all website content. -->
 
 <html>
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
-        <title>
-            CityStars - 
-            {% block title_block %}
-                CityStars
-            {% endblock %}
-        </title>
-    </head>
-    <body>
-        <div class="interaction">
-            <a href="{% url 'CityStars_app:city_stars' %}"><button class="navbutton" onclick=""><b>Home</b></button></a>
-            <a href="{% url 'CityStars_app:city_feed' %}"><button class="navbutton" onclick=""><b>Feed</b></button></a>
-            <a href="{% url 'CityStars_app:friend_feed' %}"><button class="navbutton" onclick=""><b>Friends</b></button></a>
-            <a href="{% url 'CityStars_app:city_stars' %}"><button class="navbutton" onclick=""><b>My Posts</b></button></a>
-            <a href="{% url 'CityStars_app:city_stars' %}"><button class="navpfp" onclick=""><img src="{% static 'images/guest_pfp.jpg' %}" alt="user" class="userpfp"></button></a>
-        </div>
-        {% block body_block %}
-        {% endblock %}
-    </body>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <title>CityStars - {% block title_block %} CityStars {% endblock %}</title>
+  </head>
+  <body>
+    <div class="interaction">
+      <a href="{% url 'CityStars_app:city_stars' %}"
+        ><button class="navbutton" onclick=""><b>Home</b></button></a
+      >
+      <a href="{% url 'CityStars_app:city_feed' %}"
+        ><button class="navbutton" onclick=""><b>Feed</b></button></a
+      >
+      <a href="{% url 'CityStars_app:friend_feed' %}"
+        ><button class="navbutton" onclick=""><b>Friends</b></button></a
+      >
+      <a href="{% url 'CityStars_app:city_stars' %}"
+        ><button class="navbutton" onclick=""><b>My Posts</b></button></a
+      >
+      <a href="{% url 'CityStars_app:city_stars' %}"
+        ><button class="navpfp" onclick="">
+          <img
+            src="{% static 'images/guest_pfp.jpg' %}"
+            alt="user"
+            class="userpfp"
+          /></button
+      ></a>
+    </div>
+    {% block body_block %} {% endblock %}
+  </body>
 </html>
