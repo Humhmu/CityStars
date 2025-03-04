@@ -1,0 +1,15 @@
+{
+  "name": "citystars",
+  "version": "1.0.0",
+  "description": "City Stars is an online review and social platform where users can read and write reviews on cities, as well as follow and keep up to date with what their friends are posting. Users also have the ability to browse the main feed filled with content about all the cities.​",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}
