@@ -36,5 +36,5 @@ urlpatterns = [
     path("post/<int:post_id>/delete", views.delete_post, name="delete_post"),
     # Account urls
     path("register", views.signup, name="register"),
-    path("login", views.login, name="login"),
+    path("login", views.user_login, name="login"),
 ]

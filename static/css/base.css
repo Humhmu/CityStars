@@ -58,3 +58,21 @@ html {
     height: 75px;
     border-radius: 50%;
 }
+
+/* Register and Login page forms */
+.registerloginform {
+    position: relative;
+    width: 30%;
+    margin: 20vh auto;
+    padding: 20px; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #009999;
+}
+
+/* Error Message */
+.error_message {
+    font-size: 14px; 
+    margin-top: 10px;
+}
