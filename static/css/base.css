@@ -1,3 +1,5 @@
+@import "../bootstrap/css/bootstrap.min.css";
+
 /* Entire background of the website other than the navigation bar
 is a grey colour. */
 html {
@@ -20,7 +22,7 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    position: absolute;
+    position: relative;
 }
 
 /* Buttons as part of the navigation bar. */
@@ -63,7 +65,7 @@ html {
 .registerloginform {
     position: relative;
     width: 30%;
-    margin: 20vh auto;
+    margin-left: 35%;
     padding: 20px; 
     border: 1px solid #ccc;
     border-radius: 8px;

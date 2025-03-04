@@ -6,10 +6,9 @@
 <html>
   <head lang="en">
     <meta charset="UTF-8" />
-    <link
-      rel="stylesheet"
-      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-    />
+    {% block css_block %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% endblock %}
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <title>CityStars - {% block title_block %} CityStars {% endblock %}</title>
   </head>
