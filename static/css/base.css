@@ -29,7 +29,7 @@ html {
 .navbutton {
     background-color: #2A4B49;
     width: 15%;
-    margin-left: 75px;
+    margin-left: 5%;
     margin-top: 2px;
     height: 75px;
     border: none;
@@ -51,7 +51,7 @@ html {
     float: right;
     width: 75px;
     height: 75px;
-    margin-right: 20px;
+    margin-right: 3%;
 }
 
 /* User profile picture. */
