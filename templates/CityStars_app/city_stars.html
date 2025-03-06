@@ -1,9 +1,90 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
-{% block title_block %}
-    City Stars
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/city_stars.css' %}" />
+{% endblock %}
+
+{% block title_block%}
+City Stars
 {% endblock %}
 
 {% block body_block %}
+{% if cities %}
+
+
+<div class="card mb-3 cc-card">
+	{% for city in cities %}
+	<div class="container">
+
+		<p style="line-height: 0.05"><br></p>
+		<div class="row g-0 cc-row">
+
+			<div class="col-md-4 cc-img">
+				<img src="{{ city.image.url }}" class="img-fluid rounded" alt="Img of {{ city.name }}" />
+			</div>
+
+			<div class="col-md-8 cc-content-col">
+				<div class="row g-0 cc-content-row">
+
+					<div class="col-md-6">
+						<div class="card-body">
+							<h5 class="card-title">{{ city.name}}</h5>
+							<p class="card-text">
+								This card is for {{ city.name }} from {{ city.country }}. Details...
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 cc-content-col">
+						<div class="card-body cc-cs">
+							<div class="row">
+								<p class="card-text">{{ posts_week|get_item:city.name }} posts added in
+									the last week
+								</p>
+							</div>
+							<div class="row">
+								<p class="card-text">{{ posts|get_item:city.name }} posts added total</p>
+							</div>
+						</div>
+						<div class="row cc-stars">
+							<ul class="list-group list-group-horizontal">
+								{% for i in 1|to:city.avg_rating %}
+								<li><img src="{% static 'images/guest_pfp.jpg' %}" alt="star" width="32" height="32" />
+								</li>
+								{% endfor %}
+								{% for i in city.avg_rating|to:4 %}
+								<li><img src="{% static 'images/guest_pfp.jpg' %}" alt="nostar" width="32"
+										height="32" />
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row g-0">
+					<div class="col-md-6 cc-btn">
+						<button class="btn btn-primary col-md-12"
+							onclick="window.location.href='{% url 'CityStars_app:city' city.slug %}';">
+							View City Page
+						</button>
+					</div>
+					<div class="col-md-6 cc-btn">
+						<button class="btn btn-primary col-md-12"
+							onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+							View City Feed
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% else %}
+<p>There are no cities present.</p>
+{% endif %}
 {% endblock %}
