@@ -10,20 +10,21 @@ from CityStars_app.models import City,Post,Friendship,Profile,Chat,Message
 from datetime import datetime,timezone
 
 cities = {
-    "Edinbrugh" : {
+    ("Edinbrugh","Scotland") : {
+        "rating": 5,
+        "image": "test.png",
+        "desc":"Edinburgh is the capital city of Scotland and one of its 32 council areas. The city is located in southeast Scotland and is bounded to the north by the Firth of Forth and to the south by the Pentland Hills. "
+    },
+    ("Glasgow","Scotland") : {
         "country":"Scotland",
         "rating": 4,
-        "image": "test.png"
+        "image": "test.png",
+        "desc":"Glasgow is the most populous city in Scotland, located on the banks of the River Clyde in west central Scotland. The city is the third-most-populous city in the United Kingdom and the 27th-most-populous city in Europe. "
     },
-    "Glasgow" : {
-        "country":"Scotland",
-        "rating": 4,
-        "image": "test.png"
-    },
-    "London" : {
-        "country":"England",
-        "rating": 4,
-        "image": "test.png"
+    ("London","England") : {
+        "rating": 3,
+        "image": "test.png",
+        "desc":"London is the capital and largest city of both England and the United Kingdom, with a population of 8,866,180 in 2022. Its wider metropolitan area is the largest in Western Europe, with a population of 14.9 million."
     },
 }
 users = {
@@ -49,28 +50,34 @@ users = {
 
 posts = [
     {
-        "city":"Edinbrugh",
+        "city":("Edinbrugh","Scotland"),
         "user":"John125",
         "date": datetime(year=2025,month=2,day = 14,hour=12,minute=30,tzinfo=timezone.utc),
         "image": "test.png",
         "text": "Very Nice - lots of streets and many houses! very fun!",
-        "rating":4
+        "rating":4,
+        "likes":23,
+        "title":"Buildings!"
     },
     {
-        "city":"Edinbrugh",
+        "city":("Edinbrugh","Scotland"),
         "user":"Julia1",
         "date": datetime(year=2025,month=2,day = 12,hour=11,minute=3,tzinfo=timezone.utc),
         "image": "test.png",
         "text": "With the city's skyline, cobbled streets and colourful characters as your backdrop, there's so many ways to embrace, explore, have fun and create lasting memories in Edinburgh",
-        "rating":5
+        "rating":5,
+        "likes":190,
+        "title":"A Beutiful Walk in a City"
     },
     {
-        "city":"Glasgow",
+        "city":("Glasgow","Scotland"),
         "user":"Julia1",
         "date": datetime(year=2025,month=1,day = 6,hour=13,minute=45,tzinfo=timezone.utc),
         "image": "test.png",
         "text": "Glasgow has an incredible architectural heritage, set within a city full of parks and green spaces.",
-        "rating":4
+        "rating":3,
+        "likes":390,
+        "title":"A Green City!!"
     },
 ]
 
@@ -115,8 +122,8 @@ freindships = {
 
 
 def populate():
-    for city_name in cities.keys():
-        cities[city_name]["object"] = add_city(city_name,cities[city_name])
+    for city_name_country in cities.keys():
+        cities[city_name_country]["object"] = add_city(city_name_country,cities[city_name_country])
 
     for username in users.keys():
         users[username]["object"] = add_user(username,users[username])
@@ -133,11 +140,12 @@ def populate():
             for message in freindships[freindship]["chat"]:
                 add_message(chat,message)
 
-def add_city(name,details):
+def add_city(name_country,details):
     k = City.objects.get_or_create(
-        name = name,
-        country = details["country"],
+        name = name_country[0],
+        country = name_country[1],
         avg_rating = details["rating"],
+        desc = details["desc"],
         image = ImageFile(open( details["image"], "rb"))
         )[0]
 
@@ -163,7 +171,9 @@ def add_post(details):
         posted_date = details["date"],
         image = ImageFile(open( details["image"], "rb")),
         text = details["text"],
-        avg_rating = details["rating"]
+        likes = details["likes"],
+        title = details["title"],
+        rating = details["rating"]
         )[0]
 
     k.save()
