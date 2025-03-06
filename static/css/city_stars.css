@@ -1,0 +1,64 @@
+@import "base.css";
+
+.card-title {
+  color: #fff;
+}
+
+.card-text {
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #004d4d;
+  border-color: #004d4d;
+}
+
+.btn-primary:hover {
+  background-color: #000;
+  border-color: #fff;
+}
+
+.cc-content-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-content-row {
+  flex-grow: 1;
+}
+
+.cc-btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.cc-img {
+  padding: 5px;
+}
+
+.cc-card {
+  background: linear-gradient(to bottom, #c2c2d6 0%, #969696 100%);
+  border-radius: 0;
+}
+
+.cc-row {
+  background-color: #009999;
+  border-radius: 2%;
+}
+
+.container {
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-group-horizontal {
+  list-style-type: none;
+}
+
+.cc-stars {
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10px;
+}
