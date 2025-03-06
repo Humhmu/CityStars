@@ -1,0 +1,49 @@
+@import "base.css";
+
+html,body{height:100%;}
+
+.bg-backing {
+
+    background: linear-gradient(to top, #656265 0%, #B4B4CA 100%);
+
+}
+
+.bg-darkgreen {
+
+    background:#2A4B49 ;
+
+}
+
+.bg-darkgreen:hover {
+
+    background:#3a6b68 ;
+
+}
+
+.bg-lightgreen {
+
+    background: #44837F;
+
+}
+
+.bg-bordergreen {
+
+    background: #437d79;
+
+}
+
+.rounded {
+    border-radius:.99rem!important
+}
+
+.cityImage {
+    max-height: 300px;
+}
+
+.profileImage{
+    max-height: 50px;
+}
+
+.postImage{
+    max-height: 200px;
+}
