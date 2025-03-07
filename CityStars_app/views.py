@@ -31,7 +31,22 @@ def city_stars(request):
 
 
 def city(request, city_slug):
-    return render(request, "CityStars_app/city.html")
+    context_dict = {}
+    try:
+        city = City.objects.get(slug=city_slug)
+        context_dict["city_name"] = city.name
+        context_dict["city_desc"] = city.desc
+        context_dict["city_country"] = city.country
+
+        context_dict["top_posts"] = Post.objects.filter(city = city).order_by('-likes')[:3]
+    except City.DoesNotExist:
+        context_dict["city_name"] = None
+        context_dict["city_desc"] = None
+        context_dict["city_country"] = None
+        context_dict["top_posts"] = []
+
+    return render(request, 'CityStars_app/city.html', context=context_dict)
+
 
 
 def add_post(request, city_slug):
