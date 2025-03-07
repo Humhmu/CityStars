@@ -48,6 +48,7 @@ def city(request, city_slug):
     return render(request, 'CityStars_app/city.html', context=context_dict)
 
 
+
 def add_post(request, city_slug):
     return render(request, "CityStars_app/add_post.html")
 
