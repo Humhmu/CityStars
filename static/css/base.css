@@ -12,7 +12,7 @@ html {
 
 /* Main content. */
 .content {
-    background-color: #009999;
+    background-color: #44837F;
 }
 
 /* Background colour of the main page. */
@@ -22,7 +22,7 @@ html {
 
 /* Mostly used for interactive elements. */
 .interaction {
-    background-color: #004d4d;
+    background-color: #2A4B49;
     padding: 10px;
     display: block;
     top: 0;
@@ -248,9 +248,9 @@ html {
 
 /* Buttons as part of the navigation bar. */
 .navbutton {
-    background-color: #004d4d;
+    background-color: #2A4B49;
     width: 15%;
-    margin-right: 40px;
+    margin-left: 5%;
     margin-top: 2px;
     height: 75px;
     border: none;
@@ -262,18 +262,18 @@ html {
 
 /* Changes state (colour) when user points at the button. */
 .navbutton:hover {
-    background-color: white;
-    color: black;
+    background-color: #3a6b68;
+    color: rgb(255, 255, 255);
 }
 
 /* User profile picture is aligned to the right. */
 .navpfp {
-    background-color: #004d4d;
+    background-color: #2A4B49;
     border: none;
     float: right;
     width: 75px;
     height: 75px;
-    margin-right: 20px;
+    margin-right: 3%;
 }
 
 /* User profile picture. */

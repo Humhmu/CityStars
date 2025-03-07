@@ -1,14 +1,16 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class City(models.Model):
     name = models.CharField(max_length=30, unique=True)
     country = models.CharField(max_length=30)
-    avg_rating = models.IntegerField(default=0)
+    avg_rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
     image = models.ImageField(upload_to="city_images", blank=True)
 
+    desc = models.CharField(max_length=300,default="")
     # note - slug based on city-country uniqueness ensured by constraint
     slug = models.SlugField(unique=True)
 
@@ -46,7 +48,9 @@ class Post(models.Model):
     posted_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="post_images", blank=True)
     text = models.CharField(max_length=500)
-    avg_rating = models.IntegerField(default=0)
+    title = models.CharField(max_length=15,default="")
+    rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return "Post| "+str(self.city)+ " & " + str(self.user)
