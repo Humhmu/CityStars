@@ -14,11 +14,10 @@ html {
 .content {
     background-color: #44837F;
 }
-
 /* Background colour of the main page. */
 .body_content {
     background: linear-gradient(to bottom, #bcbcd0 0%, #999999 100%)
-}
+  }
 
 /* Mostly used for interactive elements. */
 .interaction {
