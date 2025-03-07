@@ -23,12 +23,6 @@ html {
 .interaction {
     background-color: #2A4B49;
     padding: 10px;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-    text-align: center;
 }
 
 /* Background of the currently chosen feed (friend or city). */
