@@ -4,6 +4,7 @@
 <!-- This will be used as the base template for all website content. -->
 
 <html>
+
   <head lang="en">
     <meta charset="UTF-8" />
     {% block css_block %}
@@ -12,30 +13,46 @@
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <title>CityStars - {% block title_block %} CityStars {% endblock %}</title>
   </head>
+
   <body>
     <div class="interaction">
-      <a href="{% url 'CityStars_app:city_stars' %}"
-        ><button class="navbutton" onclick=""><b>Home</b></button></a
-      >
-      <a href="{% url 'CityStars_app:city_feed' %}"
-        ><button class="navbutton" onclick=""><b>Feed</b></button></a
-      >
-      <a href="{% url 'CityStars_app:friend_feed' %}"
-        ><button class="navbutton" onclick=""><b>Friends</b></button></a
-      >
-      <a href="{% url 'CityStars_app:city_stars' %}"
-        ><button class="navbutton" onclick=""><b>My Posts</b></button></a
-      >
-      <a href="{% url 'CityStars_app:city_stars' %}"
-        ><button class="navpfp" onclick="">
-          <img
-            src="{% static 'images/guest_pfp.jpg' %}"
-            alt="user"
-            class="userpfp"
-          /></button
-      ></a>
-      
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:city_stars' %}';">
+        Home
+      </button>
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+        Feed
+      </button>
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
+        Friends
+      </button>
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:city_stars' %}';">
+        My Posts
+      </button>
+
+      <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <img src="{% static 'images/guest_pfp.jpg' %}" alt="user" class="userpfp" />
+      </button>
+      <div class="dropdown-menu" aria-labelledby="triggerId">
+        {% if user.is_authenticated %}
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:profile' user %}';">
+          My Profile
+        </button>
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:city_stars' %}';">
+          Log Out
+        </button>
+        {% else %}
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:login' %}';">
+          Log In
+        </button>
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:register' %}';">
+          Sign Up
+        </button>
+        {% endif %}
+      </div>
+
     </div>
     {% block body_block %} {% endblock %}
   </body>
+
 </html>
