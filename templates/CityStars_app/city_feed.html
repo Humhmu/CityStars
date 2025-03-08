@@ -1,6 +1,10 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/city_feed.css' %}" />
+{% endblock %}
+
 {% block title_block %}
     City Feed
 {% endblock %}
