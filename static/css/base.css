@@ -1,83 +1,78 @@
 @import "../bootstrap/css/bootstrap.min.css";
 
+:root {
+  --BACKGROUND: #918c91;
+  --PRIMARY: #44837f;
+  --SECONDARY: #2a4b49;
+  --ACCENT: #3a6b68;
+}
+
 /* Entire background of the website other than the navigation bar
 is a grey colour. */
 html {
-    height: 100%;
-    background: linear-gradient(to bottom, #c2c2d6 0%, #969696 100%);
-    color: #ffffff;
-    border-style: solid;
-    border-color: black;
+  height: 100%;
+  background: var(--BACKGROUND);
+  color: white;
+  /* border-style: solid;
+  border-color: black; */
 }
 
 /* Main content. */
 .content {
-    background-color: #44837F;
+  background-color: var(--PRIMARY);
+}
+/* Background colour of the main page. */
+.body_content {
+  background: var(--BACKGROUND);
 }
 
 /* Mostly used for interactive elements. */
 .interaction {
-    background-color: #2A4B49;
-    padding: 10px;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    position: relative;
-    text-align: center;
+  background-color: var(--SECONDARY);
+  padding: 10px;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: relative;
+  text-align: center;
+  border-style: solid;
+  border-color: black;
 }
 
 /* Buttons as part of the navigation bar. */
 .navbutton {
-    background-color: #2A4B49;
-    width: 15%;
-    margin-left: 5%;
-    margin-top: 2px;
-    height: 75px;
-    border: none;
-    border-radius: 15px;
-    font-size: 20px;
-    transition-duration: 0.4s;
-    color: white;
+  background-color: var(--SECONDARY);
+  width: 15%;
+  margin-left: 5%;
+  margin-top: 2px;
+  height: 75px;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  transition-duration: 0.4s;
+  color: white;
 }
 
 /* Changes state (colour) when user points at the button. */
 .navbutton:hover {
-    background-color: #3a6b68;
-    color: rgb(255, 255, 255);
+  background-color: var(--ACCENT);
+  color: white;
 }
 
 /* User profile picture is aligned to the right. */
 .navpfp {
-    background-color: #2A4B49;
-    border: none;
-    float: right;
-    width: 75px;
-    height: 75px;
-    margin-right: 3%;
+  background-color: var(--SECONDARY);
+  border: none;
+  float: right;
+  width: 75px;
+  height: 75px;
+  margin-right: 3%;
 }
 
 /* User profile picture. */
 .userpfp {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-}
-
-/* Register and Login page forms */
-.registerloginform {
-    position: relative;
-    width: 30%;
-    margin-left: 35%;
-    padding: 20px; 
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #009999;
-}
-
-/* Error Message */
-.error_message {
-    font-size: 14px; 
-    margin-top: 10px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
 }

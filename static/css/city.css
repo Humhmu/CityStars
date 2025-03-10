@@ -1,49 +1,42 @@
 @import "base.css";
 
-html,body{height:100%;}
+html,
+body {
+  height: 100%;
+}
 
 .bg-backing {
-
-    background: linear-gradient(to top, #656265 0%, #B4B4CA 100%);
-
+  background: var(--BACKGROUND);
 }
 
 .bg-darkgreen {
-
-    background:#2A4B49 ;
-
+  background: var(--SECONDARY);
 }
 
 .bg-darkgreen:hover {
-
-    background:#3a6b68 ;
-
+  background: var(--ACCENT);
 }
 
 .bg-lightgreen {
-
-    background: #44837F;
-
+  background: var(--PRIMARY);
 }
 
 .bg-bordergreen {
-
-    background: #437d79;
-
+  background: var(--ACCENT);
 }
 
 .rounded {
-    border-radius:.99rem!important
+  border-radius: 0.99rem !important;
 }
 
 .cityImage {
-    max-height: 300px;
+  max-height: 300px;
 }
 
-.profileImage{
-    max-height: 50px;
+.profileImage {
+  max-height: 50px;
 }
 
-.postImage{
-    max-height: 200px;
+.postImage {
+  max-height: 200px;
 }
