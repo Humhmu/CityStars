@@ -154,12 +154,11 @@ def add_city(name_country,details):
 
 def add_user(name,details):
     u = get_user_model().objects.create_user(username = name,password = "test",email = details["email"])
-    k = Profile.objects.get_or_create(
-        user = u,
-        bio = details["bio"],
-        profile_picture = ImageFile(open( details["profile_picture"], "rb")),
-        is_verified = details["verified"]
-        )[0]
+    k = Profile.objects.get_or_create(user=u)[0]
+
+    k.bio = details["bio"]
+    k.is_verified = details["verified"]
+    k.profile_picture = ImageFile(open( details["profile_picture"], "rb"))
 
     k.save()
     return k

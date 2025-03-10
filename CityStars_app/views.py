@@ -62,7 +62,13 @@ def city_feed(request):
 
 
 def profile(request, profile_username):
-    return render(request, "CityStars_app/profile.html")
+    context_dict = {}
+
+    profile = Profile.objects.filter(user__in=User.objects.filter(username=profile_username)).get()
+
+    context_dict['profile'] = profile
+
+    return render(request, 'CityStars_app/profile.html', context=context_dict)
 
 
 def delete_profile(request, profile_username):
