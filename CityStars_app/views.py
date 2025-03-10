@@ -131,6 +131,7 @@ def signup(request):
             user.save()
 
             registered = True
+            login(request, user)
             return redirect(reverse("CityStars_app:city_stars"))
         else:
             print(user_form.errors)
