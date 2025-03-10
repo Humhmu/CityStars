@@ -1,32 +1,34 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
-{% block title_block %}
-    Friend Feed
-{% endblock %}
-
 {% block css_block %}
 <link rel="stylesheet" href="{% static 'css/friend_feed.css' %}" />
+{% endblock %}
+
+{% block title_block %}
+    Friend Feed
 {% endblock %}
 
 {% block body_block %}
     <div class="background">
         <div class="feedinteraction">
-            <a href="{% url 'CityStars_app:friend_feed' %}"
-            ><button onclick="" class="feedselect"><h1><b>Friends</b></h1></button></a
-            >
-            <a href="{% url 'CityStars_app:city_feed' %}"
-            ><button onclick="" class="feedbutton"><h1><b>City</b></h1></button></a
-            >
+            <button class="feedselect"
+                onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
+                Friends
+            </button>
+            <button class="feedbutton"
+                onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+                City
+            </button>
         </div>
         {% if user.is_authenticated %}
             <div class="body_content">
-                <div class="feedscroll"
+                {% comment %} <div class="feedscroll"
                 style="height: 549px;
                 overflow-y:scroll;
                 margin-right:40px;
                 border-left: none;
-                border-right: none;">
+                border-right: none;"> {% endcomment %}
                     <div class="feedpost">
                         <div>
                             <img
@@ -102,7 +104,7 @@
                     <div class="feedpost">
                         test
                     </div>
-                </div>
+                {% comment %} </div> {% endcomment %}
             </div>
         {% else %}
             <div class="friendfeedauthenticate">

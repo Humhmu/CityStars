@@ -9,19 +9,17 @@
     City Feed
 {% endblock %}
 
-{% block css_block %}
-<link rel="stylesheet" href="{% static 'css/city_feed.css' %}" />
-{% endblock %}
-
 {% block body_block %}
     <div class="body_content">
         <div class="feedinteraction">
-            <a href="{% url 'CityStars_app:friend_feed' %}"
-            ><button onclick="" class="feedbutton"><h1><b>Friends</b></h1></button></a
-            >
-            <a href="{% url 'CityStars_app:city_feed' %}"
-            ><button onclick="" class="feedselect"><h1><b>City</b></h1></button></a
-            >
+            <button class="feedbutton"
+                onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
+                Friends
+            </button>
+            <button class="feedselect"
+                onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+                City
+            </button>
         </div>
 
         <div class="feeddropdown">
@@ -30,12 +28,12 @@
             <button onclick="" class="feeddropdownbutton">Glasgow (Dropdown Filter)</button>
         </div>
 
-        <div class="feedscroll"
+        {% comment %} <div class="feedscroll"
         style="height: 549px;
         overflow-y:scroll;
         margin-right:40px;
         border-left: none;
-        border-right: none;">
+        border-right: none;"> {% endcomment %}
             <div class="feedpost">
                 <div>
                     <img
@@ -111,6 +109,6 @@
             <div class="feedpost">
                 test
             </div>
-        </div>
+        {% comment %} </div> {% endcomment %}
     </div>
 {% endblock %}
