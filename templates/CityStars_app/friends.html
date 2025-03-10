@@ -5,6 +5,43 @@
     Friends
 {% endblock %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/freinds.css' %}" />
+{% endblock %}
+
 {% block body_block %}
-    <h1>{profile_username}'s Friends Page</h1>
+<div class="fluid-container bg-backing text-white h-100">
+    <div class="container px-5 pb-5">
+
+
+        <h1>TEST {{ profile_username }}'s Friends Page</h1>
+
+
+
+        <div class="container rounded p-1 my-1 bg-bordergreen text-white">
+            <div class="container rounded p-1  bg-lightgreen text-white">
+                <div class="row text-center">
+                    <div class="col-lg-3">
+                        <img src="{{ MEDIA_URL }}profile_images/test.png" class="rounded-circle float-left profileImage" alt="Image of City"/>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>NAME</h4>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn bg-darkgreen text-white btn-lg float-right">Chat</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>No. of posts NUM</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
 {% endblock %}

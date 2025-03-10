@@ -70,7 +70,17 @@ def delete_profile(request, profile_username):
 
 
 def friends(request, profile_username):
-    return render(request, "CityStars_app/friends.html")
+    context_dict = {}
+    try:
+        user = User.objects.get(username = profile_username)
+        profile = Profile.objects.get(user = user)
+        context_dict["profile_username"] = user.username
+        context_dict["friendships"] = Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)
+    except User.DoesNotExist:
+        context_dict["profile_username"] = None
+        context_dict["friendships"] = []
+
+    return render(request, "CityStars_app/friends.html", context=context_dict)
 
 
 def chat(request, profile_username, friend_username):
