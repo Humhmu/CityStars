@@ -75,10 +75,13 @@ def friends(request, profile_username):
         user = User.objects.get(username = profile_username)
         profile = Profile.objects.get(user = user)
         context_dict["profile_username"] = user.username
-        context_dict["friendships"] = Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)
+        context_dict["friends"] = [o.user_requested if o.user_requested.user.username != profile_username else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        for o in context_dict["friends"]:
+            o.numberOfPosts = len(Post.objects.filter(user = o))
+
     except User.DoesNotExist:
         context_dict["profile_username"] = None
-        context_dict["friendships"] = []
+        context_dict["friends"] = []
 
     return render(request, "CityStars_app/friends.html", context=context_dict)
 
