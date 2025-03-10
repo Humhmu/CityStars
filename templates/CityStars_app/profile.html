@@ -1,10 +1,96 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
 {% block title_block %}
     Profile
 {% endblock %}
 
 {% block body_block %}
-    <h1>{profile_username}'s Profile Page</h1>
+    <div class="body_content">
+
+
+        <div class="profile-container">
+            <div class="profile-name">
+                <h1>{{ profile.user.username }}</h1>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col text-center g-5">
+                    <div class="profile-image">    
+                        <img
+                            src={{profile.profile_picture.url}}
+                            class="img-fluid rounded-top    "
+                            alt="Profile Picture"
+                        />
+                    </div>
+                </div>
+                <div class="col text-center g-5">
+                    <div class="profile-bio">
+                        <figure class="text-start">
+                            <blockquote class="blockquote">
+                                <p>{{ profile.bio }}</p>
+                            </blockquote>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% if user == profile.user %}
+
+                    <div class="col text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                        >
+                            Change Profile Image
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                        >
+                            Edit Biography
+                        </button>
+                    </div>
+
+                    <div class="col text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                        >
+                            My Posts
+                        </button>
+                    </div>
+
+                {% else %}
+
+                    <div class="col text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                        >
+                            Send Friend Request
+                        </button>
+                    </div>
+
+                    <div class ="col text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                        >
+                            View Posts
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}

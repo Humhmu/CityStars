@@ -34,7 +34,7 @@ class City(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_images", default="profile_images/default_profile_pic.jpg", blank=True)
-    bio = models.CharField(max_length=1000, blank=True, default="")
+    bio = models.CharField(max_length=1000, blank=True, default="No biography written")
     is_verified = models.BooleanField(default=False)
 
     def __str__(self):
