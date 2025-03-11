@@ -16,19 +16,19 @@ urlpatterns = [
     # Profile urls
     path("profile/<slug:profile_slug>", views.profile, name="profile"),
     path(
-        "profile/<str:profile_username>/delete",
+        "profile/<slug:profile_slug>/delete",
         views.delete_profile,
         name="delete_profile",
     ),
-    path("profile/<str:profile_username>/friends", views.friends, name="friends"),
+    path("profile/<slug:profile_slug>/friends", views.friends, name="friends"),
     path(
-        "profile/<str:profile_username>/friends/<str:friend_username>/chat",
+        "profile/<slug:profile_slug>/friends/<slug:friend_slug>/chat",
         views.chat,
         name="chat",
     ),
-    path("profile/<str:profile_username>/posts", views.posts, name="posts"),
+    path("profile/<slug:profile_slug>/posts", views.posts, name="posts"),
     path(
-        "profile/<str:profile_username>/posts/<int:post_id>",
+        "profile/<slug:profile_slug>/posts/<int:post_id>",
         views.user_post,
         name="user_post",
     ),
