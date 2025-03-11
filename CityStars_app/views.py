@@ -71,41 +71,40 @@ def profile(request, profile_slug):
     return render(request, "CityStars_app/profile.html", context=context_dict)
 
 
-def delete_profile(request, profile_username):
+def delete_profile(request, profile_slug):
     return render(request, "CityStars_app/delete_profile.html")
 
 
-def friends(request, profile_username):
+def friends(request, profile_slug):
     context_dict = {}
     try:
-        user = User.objects.get(username = profile_username)
-        profile = Profile.objects.get(user = user)
-        context_dict["profile_username"] = user.username
-        context_dict["friends"] = [o.user_requested if o.user_requested.user.username != profile_username else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        profile = Profile.objects.get(slug = profile_slug)
+        context_dict["profile"] = profile
+        context_dict["friends"] = [o.user_requested if o.user_requested.slug != profile_slug else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
         for o in context_dict["friends"]:
             o.numberOfPosts = len(Post.objects.filter(user = o))
 
-    except User.DoesNotExist:
+    except Profile.DoesNotExist:
         context_dict["profile_username"] = None
         context_dict["friends"] = []
 
     return render(request, "CityStars_app/friends.html", context=context_dict)
 
 
-def chat(request, profile_username, friend_username):
+def chat(request, profile_slug, friend_slug):
     return render(request, "CityStars_app/chat.html")
 
 
-def posts(request, profile_username):
+def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
 
 def city_post(request, city_slug, post_id):
-    return render(request, "CityStars_app/city_post.html")
+    return render(request, "CityStars_app/post.html")
 
 
-def user_post(request, profile_username, post_id):
-    return render(request, "CityStars_app/user_post.html")
+def user_post(request, profile_slug, post_id):
+    return render(request, "CityStars_app/post.html")
 
 
 def delete_post(request, post_id):
