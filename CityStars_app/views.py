@@ -76,7 +76,20 @@ def delete_profile(request, profile_username):
 
 
 def friends(request, profile_username):
-    return render(request, "CityStars_app/friends.html")
+    context_dict = {}
+    try:
+        user = User.objects.get(username = profile_username)
+        profile = Profile.objects.get(user = user)
+        context_dict["profile_username"] = user.username
+        context_dict["friends"] = [o.user_requested if o.user_requested.user.username != profile_username else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        for o in context_dict["friends"]:
+            o.numberOfPosts = len(Post.objects.filter(user = o))
+
+    except User.DoesNotExist:
+        context_dict["profile_username"] = None
+        context_dict["friends"] = []
+
+    return render(request, "CityStars_app/friends.html", context=context_dict)
 
 
 def chat(request, profile_username, friend_username):
