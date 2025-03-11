@@ -79,7 +79,7 @@ def friends(request, profile_slug):
     context_dict = {}
     try:
         profile = Profile.objects.get(slug = profile_slug)
-        context_dict["profile_username"] = profile.user.username
+        context_dict["profile"] = profile
         context_dict["friends"] = [o.user_requested if o.user_requested.slug != profile_slug else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
         for o in context_dict["friends"]:
             o.numberOfPosts = len(Post.objects.filter(user = o))
