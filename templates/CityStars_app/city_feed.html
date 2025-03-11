@@ -34,6 +34,7 @@
         margin-right:40px;
         border-left: none;
         border-right: none;"> {% endcomment %}
+            {% for city in cities %}
             <div class="feedpost">
                 <div>
                     <img
@@ -63,52 +64,15 @@
                         <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
                         <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
                     </div>
-                    <a href="{% url 'CityStars_app:city_stars' %}">
+                    <a href="{% url 'CityStars_app:city_post' city.slug posts %}">
                         <button onclick="" class="feedviewpagebutton">View Full Post</button>
                     </a>
                     <div class="feedlikes">
-                        <p>83 <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
+                        <p>{{ post.id }} <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
                     </div>
                 </div>
             </div>
-            <div class="feedpost">
-                <div>
-                    <img
-                        src="{% static 'images/guest_pfp.jpg' %}"
-                        alt="user"
-                        class="feedpfp"
-                    />
-                    Jeff
-                </div>
-                <div>
-                    <img
-                        src="{% static 'images/guest_pfp.jpg' %}"
-                        alt="user"
-                        class="feedimage"
-                    />
-                    <div class="feedsectioncontent">
-                        <h3>Lunch with Joe</h3>
-                        <br>
-                        <p>Man I hate Joe...</p>
-                    </div>
-                    <div class="feedreviewstars">
-                        <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                        <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                        <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                        <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                        <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                    </div>
-                    <a href="{% url 'CityStars_app:city_stars' %}">
-                        <button onclick="" class="feedviewpagebutton">View Full Post</button>
-                    </a>
-                    <div class="feedlikes">
-                        <p>68 <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
-                    </div>
-                </div>
-            </div>
-            <div class="feedpost">
-                test
-            </div>
+            {% endfor %}
         {% comment %} </div> {% endcomment %}
     </div>
 {% endblock %}

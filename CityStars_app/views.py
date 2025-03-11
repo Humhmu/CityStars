@@ -58,7 +58,14 @@ def friend_feed(request):
 
 
 def city_feed(request):
-    return render(request, "CityStars_app/city_feed.html")
+    context_dict = {}
+    context_dict["cities"] = City.objects.order_by("name")
+
+    context_dict["posts"] = {}
+    for city in context_dict["cities"]:
+        context_dict["posts"] = len(Post.objects.filter(city=city))
+
+    return render(request, "CityStars_app/city_feed.html", context_dict)
 
 
 def profile(request, profile_username):
@@ -82,7 +89,18 @@ def posts(request, profile_username):
 
 
 def city_post(request, city_slug, post_id):
-    return render(request, "CityStars_app/city_post.html")
+    context_dict = {}
+    
+    try:
+        city = City.objects.get(slug=city_slug)
+        post = Post.objects.get(id=post_id)
+        context_dict["city_name"] = city.name
+        context_dict["city_post_id"] = post
+    except (City.DoesNotExist, Post.DoesNotExist):
+        context_dict["city_name"] = None
+        context_dict["city_post_id"] = None
+        
+    return render(request, "CityStars_app/city_post.html", context_dict)
 
 
 def user_post(request, profile_username, post_id):
