@@ -14,7 +14,7 @@ urlpatterns = [
     path("feed/city/", views.city_feed, name="city_feed"),
     path("feed/friends/", views.friend_feed, name="friend_feed"),
     # Profile urls
-    path("profile/<str:profile_username>", views.profile, name="profile"),
+    path("profile/<slug:profile_slug>", views.profile, name="profile"),
     path(
         "profile/<str:profile_username>/delete",
         views.delete_profile,

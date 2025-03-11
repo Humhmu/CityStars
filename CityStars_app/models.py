@@ -36,6 +36,11 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to="profile_images", default="profile_images/default_profile_pic.jpg", blank=True)
     bio = models.CharField(max_length=1000, blank=True, default="No biography written")
     is_verified = models.BooleanField(default=False)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
         return "Profile| "+self.user.username
