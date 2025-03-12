@@ -5,6 +5,7 @@ from CityStars_app.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
+from django.contrib.auth.decorators import login_required
 
 
 def city_stars(request):
@@ -136,6 +137,11 @@ def user_login(request):
 
     return render(request, "CityStars_app/login.html")
 
+@login_required
+def user_logout(request):
+    logout(request)
+
+    return redirect(reverse("CityStars_app:city_stars"))
 
 def signup(request):
     registered = False
