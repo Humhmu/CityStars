@@ -1,10 +1,54 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/city_post.css' %}" />
+{% endblock %}
+
 {% block title_block %}
     City Post
 {% endblock %}
 
 {% block body_block %}
-    <h1>Post {post_id} in {city_slug}</h1>
+    <div class="currentfeednav">
+        <div class="currentfeedheader">
+            <h1>Winter Festival</h1>
+        </div>
+        <div style="padding:20px; text-align: center;">
+            <button onclick="" class="feednavbutton">Delete Post</button>
+            <button onclick="" class="feednavbutton">View Glasgow</button>
+            <button onclick="" class="feednavbutton">Joe's Profile</button>
+        </div>
+    </div>
+    <div class="fullfeed">
+        <div>
+            <img src="{% static 'images/guest_pfp.jpg' %}"
+            alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
+        </div>
+        <div style="position:relative; float:right; margin-right:30px; margin-top:20px">
+            <div>
+                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+            </div>
+            <div style="line-height: 0.5; margin-top:20px">
+                <p>Posted by: Joe</p>
+                <p>City: Glasgow</p>
+                <p>Date: 29-12-2024</p>
+            </div>
+            <div>
+                <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button> 83</p>
+            </div>
+        </div>
+        <div style="position:relative; float:left; text-align:center">
+            <p>Loved this trip, always enjoy a good festival. There was a moment where I met
+                an old friend of mine and we hung out for a good bit while our wives caught
+                up and kids played.</p>
+            <p>We ended up losing one of the kids and took us a good minute to find him again,
+                was quite the scare for Jeff.</p>
+            <p><img src="{% static 'images/star.png' %}" alt="likes"></img></p>
+        </div>
+    </div>
 {% endblock %}
