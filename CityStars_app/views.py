@@ -38,15 +38,16 @@ def city(request, city_slug):
         context_dict["city_desc"] = city.desc
         context_dict["city_country"] = city.country
 
-        context_dict["top_posts"] = Post.objects.filter(city = city).order_by('-likes')[:3]
+        context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
+            :3
+        ]
     except City.DoesNotExist:
         context_dict["city_name"] = None
         context_dict["city_desc"] = None
         context_dict["city_country"] = None
         context_dict["top_posts"] = []
 
-    return render(request, 'CityStars_app/city.html', context=context_dict)
-
+    return render(request, "CityStars_app/city.html", context=context_dict)
 
 
 def add_post(request, city_slug):
@@ -68,29 +69,55 @@ def city_feed(request):
     return render(request, "CityStars_app/city_feed.html", context_dict)
 
 
-def profile(request, profile_username):
-    return render(request, "CityStars_app/profile.html")
+def profile(request, profile_slug):
+    context_dict = {}
+
+    profile = Profile.objects.filter(slug=profile_slug)[0]
+
+    context_dict["profile"] = profile
+
+    return render(request, "CityStars_app/profile.html", context=context_dict)
 
 
-def delete_profile(request, profile_username):
+def delete_profile(request, profile_slug):
     return render(request, "CityStars_app/delete_profile.html")
 
 
-def friends(request, profile_username):
-    return render(request, "CityStars_app/friends.html")
+def friends(request, profile_slug):
+    context_dict = {}
+    try:
+        profile = Profile.objects.get(slug=profile_slug)
+        context_dict["profile"] = profile
+        context_dict["friends"] = [
+            (
+                o.user_requested
+                if o.user_requested.slug != profile_slug
+                else o.user_initiated
+            )
+            for o in Friendship.objects.filter(user_initiated=profile)
+            | Friendship.objects.filter(user_requested=profile)
+        ]
+        for o in context_dict["friends"]:
+            o.numberOfPosts = len(Post.objects.filter(user=o))
+
+    except Profile.DoesNotExist:
+        context_dict["profile_username"] = None
+        context_dict["friends"] = []
+
+    return render(request, "CityStars_app/friends.html", context=context_dict)
 
 
-def chat(request, profile_username, friend_username):
+def chat(request, profile_slug, friend_slug):
     return render(request, "CityStars_app/chat.html")
 
 
-def posts(request, profile_username):
+def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
 
 def city_post(request, city_slug, post_id):
     context_dict = {}
-    
+
     try:
         city = City.objects.get(slug=city_slug)
         post = Post.objects.get(id=post_id)
@@ -99,12 +126,12 @@ def city_post(request, city_slug, post_id):
     except (City.DoesNotExist, Post.DoesNotExist):
         context_dict["city_name"] = None
         context_dict["city_post_id"] = None
-        
+
     return render(request, "CityStars_app/city_post.html", context_dict)
 
 
-def user_post(request, profile_username, post_id):
-    return render(request, "CityStars_app/user_post.html")
+def user_post(request, profile_slug, post_id):
+    return render(request, "CityStars_app/post.html")
 
 
 def delete_post(request, post_id):
