@@ -59,14 +59,7 @@ def friend_feed(request):
 
 
 def city_feed(request):
-    context_dict = {}
-    context_dict["cities"] = City.objects.order_by("name")
-
-    context_dict["posts"] = {}
-    for city in context_dict["cities"]:
-        context_dict["posts"] = len(Post.objects.filter(city=city))
-
-    return render(request, "CityStars_app/city_feed.html", context_dict)
+    return render(request, "CityStars_app/city_feed.html")
 
 
 def profile(request, profile_slug):
