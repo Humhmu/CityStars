@@ -56,17 +56,33 @@ def add_post(request, city_slug):
 
 
 def friend_feed(request):
-    return render(request, "CityStars_app/friend_feed.html")
+    context_dict = {}
+    context_dict["posts"] =[]
+
+    user = request.user
+    if user.is_authenticated:
+        profile = Profile.objects.get(user = user)
+        friends = [o.user_requested if o.user_requested != profile else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        print(friends)
+        
+        for friend in friends:
+            context_dict["posts"] += Post.objects.filter(user = friend).order_by('-posted_date')
+            print(context_dict["posts"])
+    return render(request, "CityStars_app/friend_feed.html", context=context_dict)
 
 
 def city_feed(request):
-    return render(request, "CityStars_app/city_feed.html")
+    context_dict = {}
+
+    context_dict["posts"] = Post.objects.order_by('-posted_date')
+
+    return render(request, "CityStars_app/city_feed.html", context=context_dict)
 
 
 def profile(request, profile_slug):
     context_dict = {}
 
-    profile = Profile.objects.filter(slug=profile_slug)[0]
+    profile = Profile.objects.filter(slug = profile_slug)[0]
 
     context_dict["profile"] = profile
 
@@ -109,7 +125,7 @@ def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
 
-def city_post(request, city_slug, post_id):
+def post(request, city_slug, post_id):
     context_dict = {}
 
     try:
@@ -122,11 +138,6 @@ def city_post(request, city_slug, post_id):
         context_dict["city_post_id"] = None
 
     return render(request, "CityStars_app/city_post.html", context_dict)
-
-
-def user_post(request, profile_slug, post_id):
-    return render(request, "CityStars_app/post.html")
-
 
 def delete_post(request, post_id):
     return render(request, "CityStars_app/delete_post.html")

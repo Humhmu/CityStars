@@ -44,7 +44,7 @@
       {% endif %}
       <div class="dropdown-menu" aria-labelledby="triggerId">
         {% if user.is_authenticated %}
-        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:profile' user %}';">
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:profile' user.profile.slug %}';">
           My Profile
         </button>
         <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:logout' %}';">
