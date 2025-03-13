@@ -10,6 +10,7 @@
     {% block css_block %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% endblock %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <title>CityStars - {% block title_block %} CityStars {% endblock %}</title>
   </head>
@@ -29,16 +30,24 @@
         My Posts
       </button>
 
+      {% if user.is_authenticated %}
+
       <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        <img src="{% static 'images/guest_pfp.jpg' %}" alt="user" class="userpfp" />
+        <img src="{{ user.profile.profile_picture.url }}" alt="user" class="userpfp" />
       </button>
+      {% else %}
+      <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <img src="{% static 'images/default_profile_pic.jpg' %}" alt="user" class="userpfp" />
+      </button>
+      {% endif %}
       <div class="dropdown-menu" aria-labelledby="triggerId">
         {% if user.is_authenticated %}
         <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:profile' user %}';">
           My Profile
         </button>
-        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:city_stars' %}';">
+        <button class="dropdown-item" onclick="window.location.href='{% url 'CityStars_app:logout' %}';">
           Log Out
         </button>
         {% else %}

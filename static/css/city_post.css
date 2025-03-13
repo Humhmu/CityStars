@@ -1,0 +1,65 @@
+@import "base.css";
+
+.currentfeednav {
+    background: var(--BACKGROUND);
+}
+
+.currentfeedheader {
+    background-color: var(--PRIMARY);
+    float: left;
+    width: 20%;
+    border-style: solid;
+    border-color: var(--ACCENT);
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+}
+
+.feednavbutton {
+    background-color: var(--SECONDARY);
+    margin-left: 30px;
+    width: 12%;
+    border: none;
+    border-style: solid;
+    border-color: var(--ACCENT);
+    color: white;
+    font-size: 20px;
+    transition-duration: 0.4s;
+}
+
+.feednavbutton:hover {
+    background-color: var(--ACCENT);
+    color: black;
+}
+
+.fullfeed {
+    background-color: var(--PRIMARY);
+    width: 96%;
+    height: 550px;
+    border-style: solid;
+    border-color: var(--ACCENT);
+    border-radius: 80px;
+    margin-left: 15px;
+    padding-left: 35px;
+    font-size: 20px;
+    color: white;
+    float: left;
+}
+
+.feedpageimage {
+    width: 20%;
+    height: 20%;
+    border-radius: 20px;
+}
+
+.feedrating {
+    background-color: var(--PRIMARY);
+    border: none;
+}
+
+.feedcurrentlikes {
+    background-color: var(--PRIMARY);
+    border: none;
+}

@@ -5,6 +5,7 @@ from CityStars_app.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
+from django.contrib.auth.decorators import login_required
 
 
 def city_stars(request):
@@ -38,15 +39,16 @@ def city(request, city_slug):
         context_dict["city_desc"] = city.desc
         context_dict["city_country"] = city.country
 
-        context_dict["top_posts"] = Post.objects.filter(city = city).order_by('-likes')[:3]
+        context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
+            :3
+        ]
     except City.DoesNotExist:
         context_dict["city_name"] = None
         context_dict["city_desc"] = None
         context_dict["city_country"] = None
         context_dict["top_posts"] = []
 
-    return render(request, 'CityStars_app/city.html', context=context_dict)
-
+    return render(request, "CityStars_app/city.html", context=context_dict)
 
 
 def add_post(request, city_slug):
@@ -94,11 +96,19 @@ def delete_profile(request, profile_slug):
 def friends(request, profile_slug):
     context_dict = {}
     try:
-        profile = Profile.objects.get(slug = profile_slug)
+        profile = Profile.objects.get(slug=profile_slug)
         context_dict["profile"] = profile
-        context_dict["friends"] = [o.user_requested if o.user_requested.slug != profile_slug else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        context_dict["friends"] = [
+            (
+                o.user_requested
+                if o.user_requested.slug != profile_slug
+                else o.user_initiated
+            )
+            for o in Friendship.objects.filter(user_initiated=profile)
+            | Friendship.objects.filter(user_requested=profile)
+        ]
         for o in context_dict["friends"]:
-            o.numberOfPosts = len(Post.objects.filter(user = o))
+            o.numberOfPosts = len(Post.objects.filter(user=o))
 
     except Profile.DoesNotExist:
         context_dict["profile_username"] = None
@@ -114,8 +124,20 @@ def chat(request, profile_slug, friend_slug):
 def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
-def post(request, profile_slug, post_id):
-    return render(request, "CityStars_app/post.html")
+
+def post(request, city_slug, post_id):
+    context_dict = {}
+
+    try:
+        city = City.objects.get(slug=city_slug)
+        post = Post.objects.get(id=post_id)
+        context_dict["city_name"] = city.name
+        context_dict["city_post_id"] = post
+    except (City.DoesNotExist, Post.DoesNotExist):
+        context_dict["city_name"] = None
+        context_dict["city_post_id"] = None
+
+    return render(request, "CityStars_app/city_post.html", context_dict)
 
 def delete_post(request, post_id):
     return render(request, "CityStars_app/delete_post.html")
@@ -146,6 +168,11 @@ def user_login(request):
 
     return render(request, "CityStars_app/login.html")
 
+@login_required
+def user_logout(request):
+    logout(request)
+
+    return redirect(reverse("CityStars_app:city_stars"))
 
 def signup(request):
     registered = False
