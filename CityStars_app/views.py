@@ -82,7 +82,7 @@ def city_feed(request):
 def profile(request, profile_slug):
     context_dict = {}
 
-    profile = Profile.objects.filter(slug=profile_slug)[0]
+    profile = Profile.objects.filter(slug = profile_slug)[0]
 
     context_dict["profile"] = profile
 
