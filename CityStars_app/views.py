@@ -139,7 +139,7 @@ def post(request, city_slug, post_id):
         context_dict["city_name"] = None
         context_dict["city_post_id"] = None
 
-    return render(request, "CityStars_app/city_post.html", context_dict)
+    return render(request, "CityStars_app/post.html", context_dict)
 
 def delete_post(request, post_id):
     return render(request, "CityStars_app/delete_post.html")

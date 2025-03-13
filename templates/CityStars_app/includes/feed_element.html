@@ -20,15 +20,15 @@
             <br>
             <p>{{ post.text }}</p>
         </div>
-        <a href="{% url 'CityStars_app:post' post.user.user post.id %}">
+        <a href="{% url 'CityStars_app:post' post.city.slug post.id %}">
             <button onclick="" class="feedviewpagebutton">View Full Post</button>
         </a>
         {% for i in "x"|rjust:" 5 " %}
-            {%if forloop.counter <= post.rating %}
+            {% if forloop.counter <= post.rating %}
                 <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
-            {%else %}
+            {% else %}
                 <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
-            {%endif %}
+            {% endif %}
         {% endfor %}
         <div class="feedlikes">
             <p>{{post.likes}} <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
