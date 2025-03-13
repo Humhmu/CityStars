@@ -53,13 +53,19 @@ def add_post(request, city_slug):
     return render(request, "CityStars_app/add_post.html")
 
 
-def friend_feed(request,user):
+def friend_feed(request):
     context_dict = {}
-    try:
-        context_dict["posts"] = Post.objects.filter(city = city).order_by('-posted_date')
-    except Post.DoesNotExist:
-        context_dict["posts"] = []
+    context_dict["posts"] =[]
 
+    user = request.user
+    if user.is_authenticated:
+        profile = Profile.objects.get(user = user)
+        friends = [o.user_requested if o.user_requested != profile else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        print(friends)
+        
+        for friend in friends:
+            context_dict["posts"] += Post.objects.filter(user = friend).order_by('-posted_date')
+            print(context_dict["posts"])
     return render(request, "CityStars_app/friend_feed.html", context=context_dict)
 
 
@@ -67,7 +73,7 @@ def city_feed(request):
     context_dict = {}
 
     context_dict["posts"] = Post.objects.order_by('-posted_date')
-    print(context_dict["posts"])
+
     return render(request, "CityStars_app/city_feed.html", context=context_dict)
 
 
