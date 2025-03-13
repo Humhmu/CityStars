@@ -10,39 +10,39 @@ from CityStars_app.models import City,Post,Friendship,Profile,Chat,Message
 from datetime import datetime,timezone
 
 cities = {
-    ("Edinbrugh","Scotland") : {
+    ("Edinburgh","Scotland") : {
         "rating": 5,
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "desc":"Edinburgh is the capital city of Scotland and one of its 32 council areas. The city is located in southeast Scotland and is bounded to the north by the Firth of Forth and to the south by the Pentland Hills. "
     },
     ("Glasgow","Scotland") : {
         "country":"Scotland",
         "rating": 4,
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "desc":"Glasgow is the most populous city in Scotland, located on the banks of the River Clyde in west central Scotland. The city is the third-most-populous city in the United Kingdom and the 27th-most-populous city in Europe. "
     },
     ("London","England") : {
         "rating": 3,
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "desc":"London is the capital and largest city of both England and the United Kingdom, with a population of 8,866,180 in 2022. Its wider metropolitan area is the largest in Western Europe, with a population of 14.9 million."
     },
 }
 users = {
     "John125":{
         "email": "John125@mail.test",
-        "profile_picture": "test.png",
+        "profile_picture": "static/images/default_profile_pic.jpg",
         "bio": "I love looking around cities and i am a keen photographer.",
         "verified": False
     },
     "kim89" : {
         "email": "kim89@mail.test",
-        "profile_picture": "test.png",
+        "profile_picture": "static/images/default_profile_pic.jpg",
         "bio": "I am a fan of many cities and i like looking at and talking about cities.",
         "verified": False
     },
     "Julia1" : {
         "email": "Julia1@mail.test",
-        "profile_picture": "test.png",
+        "profile_picture": "static/images/default_profile_pic.jpg",
         "bio": "I am a proffesional city reveiwer and i have been to every city in the world.",
         "verified": True
     },
@@ -50,20 +50,20 @@ users = {
 
 posts = [
     {
-        "city":("Edinbrugh","Scotland"),
+        "city":("Edinburgh","Scotland"),
         "user":"John125",
         "date": datetime(year=2025,month=2,day = 14,hour=12,minute=30,tzinfo=timezone.utc),
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "text": "Very Nice - lots of streets and many houses! very fun!",
         "rating":4,
         "likes":23,
         "title":"Buildings!"
     },
     {
-        "city":("Edinbrugh","Scotland"),
+        "city":("Edinburgh","Scotland"),
         "user":"Julia1",
         "date": datetime(year=2025,month=2,day = 12,hour=11,minute=3,tzinfo=timezone.utc),
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "text": "With the city's skyline, cobbled streets and colourful characters as your backdrop, there's so many ways to embrace, explore, have fun and create lasting memories in Edinburgh",
         "rating":5,
         "likes":190,
@@ -73,7 +73,7 @@ posts = [
         "city":("Glasgow","Scotland"),
         "user":"Julia1",
         "date": datetime(year=2025,month=1,day = 6,hour=13,minute=45,tzinfo=timezone.utc),
-        "image": "test.png",
+        "image": "static/images/default_profile_pic.jpg",
         "text": "Glasgow has an incredible architectural heritage, set within a city full of parks and green spaces.",
         "rating":3,
         "likes":390,
