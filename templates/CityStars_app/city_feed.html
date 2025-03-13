@@ -33,37 +33,35 @@
                 <div class="feedpost">
                     <div>
                         <img
-                            src="{% static 'images/guest_pfp.jpg' %}"
+                            src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
                             alt="user"
                             class="feedpfp"
                         />
-                        Joe
+                        {{post.user.user.username}}
                     </div>
                     <div>
                         <img 
-                            src="{% static 'images/guest_pfp.jpg' %}"
+                            src="{{ MEDIA_URL }}{{ post.image }}"
                             alt="user"
                             class="feedimage"
                         />
                         <div class="feedsectioncontent">
-                            <h3>Winter Festival</h3>
+                            <h3>{{ post.title }}</h3>
                             <br>
-                            <p>Loved this trip, always enjoy a good festival. There was a
-                                moment where I met an old friend of mine and we...
-                            </p>
+                            <p>{{ post.text }}</p>
                         </div>
-                        <div class="feedreviewstars">
-                            <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                            <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                            <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                            <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                            <button onclick="" class="feedreviewstarsbutton"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                        </div>
-                        <a href="{% url 'CityStars_app:city_stars' %}">
+                        <a href="{% url 'CityStars_app:post' post.user.user post.id %}">
                             <button onclick="" class="feedviewpagebutton">View Full Post</button>
                         </a>
+                        {% for i in "x"|rjust:" 5 " %}
+                            {%if forloop.counter <= post.rating %}
+                                <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
+                            {%else %}
+                                <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
+                            {%endif %}
+                        {% endfor %}
                         <div class="feedlikes">
-                            <p>83 <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
+                            <p>{{post.likes}} <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
                         </div>
                     </div>
                 </div>

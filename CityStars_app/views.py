@@ -108,14 +108,8 @@ def chat(request, profile_slug, friend_slug):
 def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
-
-def city_post(request, city_slug, post_id):
+def post(request, profile_slug, post_id):
     return render(request, "CityStars_app/post.html")
-
-
-def user_post(request, profile_slug, post_id):
-    return render(request, "CityStars_app/post.html")
-
 
 def delete_post(request, post_id):
     return render(request, "CityStars_app/delete_post.html")

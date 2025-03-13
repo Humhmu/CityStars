@@ -96,7 +96,6 @@
   border-color: var(--ACCENT);
   color: white;
   left: 57%;
-  position: relative;
   transition-duration: 0.4s;
 }
 
