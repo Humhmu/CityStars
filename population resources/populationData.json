@@ -1,0 +1,197 @@
+{
+    "cities":{
+       "Edinburgh%Scotland":{
+          "rating":5,
+          "image":"population resources/images/city_images/EdinburghScotland.jpg",
+          "desc":"Edinburgh is the capital city of Scotland and one of its 32 council areas. The city is located in southeast Scotland and is bounded to the north by the Firth of Forth and to the south by the Pentland Hills. "
+       },
+       "Glasgow%Scotland":{
+          "country":"Scotland",
+          "rating":4,
+          "image":"population resources/images/city_images/GlasgowScotland.jpg",
+          "desc":"Glasgow is the most populous city in Scotland, located on the banks of the River Clyde in west central Scotland. The city is the third-most-populous city in the United Kingdom and the 27th-most-populous city in Europe. "
+       },
+       "London%England":{
+          "rating":3,
+          "image":"population resources/images/city_images/LondonEngland.jpg",
+          "desc":"London is the capital and largest city of both England and the United Kingdom, with a population of 8,866,180 in 2022. Its wider metropolitan area is the largest in Western Europe, with a population of 14.9 million."
+       },
+       "Lichfield%England":{
+          "rating":2,
+          "image":"population resources/images/city_images/LichfieldEngland.jpg",
+          "desc":"Lichfield is a cathedral city and civil parish in Staffordshire, England. With a population of just 34,738 it is one of England's smallest cities."
+       }
+    },
+    "users":{
+       "John125":{
+          "email":"John125@mail.test",
+          "profile_picture":"population resources/images/profile_photos/John.jpg",
+          "bio":"I love looking around cities and i am a keen photographer.",
+          "verified":false
+       },
+       "kim89":{
+          "email":"kim89@mail.test",
+          "profile_picture":"population resources/images/profile_photos/Kim.jpg",
+          "bio":"I am a fan of many cities and i like looking at and talking about cities.",
+          "verified":false
+       },
+       "Julia1":{
+          "email":"Julia1@mail.test",
+          "profile_picture":"population resources/images/profile_photos/Julia.jpg",
+          "bio":"I am a proffesional city reveiwer and i have been to every city in the world.",
+          "verified":true
+       },
+       "Maya 900":{
+         "email":"Maya@mail.test",
+         "profile_picture":"population resources/images/profile_photos/Maya.jpg",
+         "bio":"I am an intrested traveler who has plenty of money and likes easy to use websites.",
+         "verified":false
+       }
+   },
+    "posts":[
+       {
+          "city":[
+             "Edinburgh",
+             "Scotland"
+          ],
+          "user":"John125",
+          "date":1739536200.0,
+          "image":"population resources/images/post_images/Edinburgh1.jpg",
+          "text":"Very Nice - lots of streets and many houses! very fun!",
+          "rating":4,
+          "likes":23,
+          "title":"Buildings!"
+       },
+       {
+          "city":[
+             "Edinburgh",
+             "Scotland"
+          ],
+          "user":"Julia1",
+          "date":1739358180.0,
+          "image":"population resources/images/post_images/Edinburgh2.jpg",
+          "text":"With the city's skyline, cobbled streets and colourful characters as your backdrop, there's so many ways to embrace, explore, have fun and create lasting memories in Edinburgh",
+          "rating":5,
+          "likes":190,
+          "title":"A Beutiful Walk in a City"
+       },
+       {
+          "city":[
+             "Glasgow",
+             "Scotland"
+          ],
+          "user":"Julia1",
+          "date":1736171100.0,
+          "image":"population resources/images/post_images/Glasgow1.jpg",
+          "text":"Glasgow has an incredible architectural heritage, set within a city full of parks and green spaces.",
+          "rating":3,
+          "likes":390,
+          "title":"A Green City!!"
+       },
+       {
+         "city":[
+            "Glasgow",
+            "Scotland"
+         ],
+         "user":"Maya 900",
+         "date":1733451100.0,
+         "image":"population resources/images/post_images/Glasgow2.jpg",
+         "text":"I have seen many river but wow!... this one was very cool! I wish i could go for a swim in it, such a warm day and the water looked so refreshing!",
+         "rating":5,
+         "likes":7,
+         "title":"A big river"
+      },
+      {
+         "city":[
+            "Glasgow",
+            "Scotland"
+         ],
+         "user":"John125",
+         "date":1736541100.0,
+         "image":"population resources/images/post_images/Glasgow3.jpg",
+         "text":"I Really apreciate the JPMORGAN and the BARCLAYS. what beautiful buildings and how modern looking. ",
+         "rating":5,
+         "likes":13,
+         "title":"A Modern City?"
+      },
+      {
+         "city":[
+            "Glasgow",
+            "Scotland"
+         ],
+         "user":"John125",
+         "date":1736456100.0,
+         "image":"population resources/images/post_images/Glasgow4.jpg",
+         "text":"Great area, What's not to like.",
+         "rating":2,
+         "likes":0,
+         "title":"Lost in Westend"
+      },
+       {
+         "city":[
+            "London",
+            "England"
+         ],
+         "user":"Julia1",
+         "date":173456100.0,
+         "image":"population resources/images/post_images/London1.jpg",
+         "text":"London is one of the most diverse and cosmopolitan cities in the world; but is it nice? Its very busy and expensive but offers endless choice.",
+         "rating":3,
+         "likes":567,
+         "title":"A Huge City!!"
+      },
+      {
+         "city":[
+            "London",
+            "England"
+         ],
+         "user":"Maya 900",
+         "date":1736567100.0,
+         "image":"population resources/images/post_images/London2.jpg",
+         "text":"Lodnon is a very intresting city. i really enjoyed the eye and also big ben but i was sad when the queen was not in her palace and when my phone was snatched...",
+         "rating":3,
+         "likes":390,
+         "title":"Fun but some downsides..."
+      }
+    ],
+    "freindships":{
+       "John125%kim89":{
+          "pending":false,
+          "chat":[
+             {
+                "sent_by":"John125",
+                "date":1735938600.0,
+                "text":"Hey there!"
+             },
+             {
+                "sent_by":"kim89",
+                "date":1735938660.0,
+                "text":"hello!"
+             },
+             {
+                "sent_by":"John125",
+                "date":1735938780.0,
+                "text":"i really liked your latest post!"
+             }
+          ]
+       },
+       "kim89%Julia1":{
+          "pending":false,
+          "chat":[
+             {
+                "sent_by":"kim89",
+                "date":1739015100.0,
+                "text":"Glasgow is a city in the west of scotland"
+             },
+             {
+                "sent_by":"Julia1",
+                "date":1742069160.0,
+                "text":"Yes."
+             }
+          ]
+       },
+       "John125%Julia1":{
+          "pending":false
+       }
+    }
+ }

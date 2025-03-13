@@ -8,145 +8,38 @@ from django.contrib.auth import get_user_model
 from django.core.files.images import ImageFile
 from CityStars_app.models import City,Post,Friendship,Profile,Chat,Message
 from datetime import datetime,timezone
-
-cities = {
-    ("Edinburgh","Scotland") : {
-        "rating": 5,
-        "image": "static/images/default_profile_pic.jpg",
-        "desc":"Edinburgh is the capital city of Scotland and one of its 32 council areas. The city is located in southeast Scotland and is bounded to the north by the Firth of Forth and to the south by the Pentland Hills. "
-    },
-    ("Glasgow","Scotland") : {
-        "country":"Scotland",
-        "rating": 4,
-        "image": "static/images/default_profile_pic.jpg",
-        "desc":"Glasgow is the most populous city in Scotland, located on the banks of the River Clyde in west central Scotland. The city is the third-most-populous city in the United Kingdom and the 27th-most-populous city in Europe. "
-    },
-    ("London","England") : {
-        "rating": 3,
-        "image": "static/images/default_profile_pic.jpg",
-        "desc":"London is the capital and largest city of both England and the United Kingdom, with a population of 8,866,180 in 2022. Its wider metropolitan area is the largest in Western Europe, with a population of 14.9 million."
-    },
-}
-users = {
-    "John125":{
-        "email": "John125@mail.test",
-        "profile_picture": "static/images/default_profile_pic.jpg",
-        "bio": "I love looking around cities and i am a keen photographer.",
-        "verified": False
-    },
-    "kim89" : {
-        "email": "kim89@mail.test",
-        "profile_picture": "static/images/default_profile_pic.jpg",
-        "bio": "I am a fan of many cities and i like looking at and talking about cities.",
-        "verified": False
-    },
-    "Julia1" : {
-        "email": "Julia1@mail.test",
-        "profile_picture": "static/images/default_profile_pic.jpg",
-        "bio": "I am a proffesional city reveiwer and i have been to every city in the world.",
-        "verified": True
-    },
-}
-
-posts = [
-    {
-        "city":("Edinburgh","Scotland"),
-        "user":"John125",
-        "date": datetime(year=2025,month=2,day = 14,hour=12,minute=30,tzinfo=timezone.utc),
-        "image": "static/images/default_profile_pic.jpg",
-        "text": "Very Nice - lots of streets and many houses! very fun!",
-        "rating":4,
-        "likes":23,
-        "title":"Buildings!"
-    },
-    {
-        "city":("Edinburgh","Scotland"),
-        "user":"Julia1",
-        "date": datetime(year=2025,month=2,day = 12,hour=11,minute=3,tzinfo=timezone.utc),
-        "image": "static/images/default_profile_pic.jpg",
-        "text": "With the city's skyline, cobbled streets and colourful characters as your backdrop, there's so many ways to embrace, explore, have fun and create lasting memories in Edinburgh",
-        "rating":5,
-        "likes":190,
-        "title":"A Beutiful Walk in a City"
-    },
-    {
-        "city":("Glasgow","Scotland"),
-        "user":"Julia1",
-        "date": datetime(year=2025,month=1,day = 6,hour=13,minute=45,tzinfo=timezone.utc),
-        "image": "static/images/default_profile_pic.jpg",
-        "text": "Glasgow has an incredible architectural heritage, set within a city full of parks and green spaces.",
-        "rating":3,
-        "likes":390,
-        "title":"A Green City!!"
-    },
-]
-
-freindships = {
-    ("John125","kim89") : { 
-        "pending" : False,
-        "chat" : [
-                    {
-                        "sent_by":"John125",
-                        "date": datetime(year=2025,month=1,day = 3,hour=21,minute=10,tzinfo=timezone.utc),
-                        "text": "Hey there!"
-                    },
-                    {
-                        "sent_by":"kim89",
-                        "date": datetime(year=2025,month=1,day = 3,hour=21,minute=11,tzinfo=timezone.utc),
-                        "text": "hello!"
-                    },
-                    {
-                        "sent_by":"John125",
-                        "date": datetime(year=2025,month=1,day = 3,hour=21,minute=13,tzinfo=timezone.utc),
-                        "text": "i really liked your latest post!"
-                    },
-                ]
-    },
-    ("kim89","Julia1") : { 
-        "pending" : False,
-        "chat" :[
-                    {
-                        "sent_by":"kim89",
-                        "date": datetime(year=2025,month=2,day = 8,hour=11,minute=45,tzinfo=timezone.utc),
-                        "text": "Glasgow is a city in the west of scotland"
-                    },
-                    {
-                        "sent_by":"Julia1",
-                        "date": datetime(year=2025,month=3,day = 15,hour=20,minute=6,tzinfo=timezone.utc),
-                        "text": "Yes."
-                    },
-                ]
-    },
-}
-
-
+import json
 
 def populate():
-    for city_name_country in cities.keys():
-        cities[city_name_country]["object"] = add_city(city_name_country,cities[city_name_country])
+    with open("population resources/populationData.json","r") as f:
+        data = json.loads(f.read())
 
-    for username in users.keys():
-        users[username]["object"] = add_user(username,users[username])
+    for city_name_country in data["cities"].keys():
+        data["cities"][city_name_country]["object"] = add_city(city_name_country,data["cities"][city_name_country])
 
-    for post in posts:
-        post["object"] = add_post(post)
+    for username in data["users"].keys():
+        data["users"][username]["object"] = add_user(username,data["users"][username])
 
-    for freindship in freindships.keys():
-        freindships[freindship]["object"] = add_freindship(freindship,freindships[freindship])
+    for post in data["posts"]:
+        post["object"] = add_post(post,data["users"],data["cities"])
 
-        if "chat" in freindships[freindship]:
-            chat = add_chat(freindships[freindship]["object"])
+    for freindship in data["freindships"].keys():
+        data["freindships"][freindship]["object"] = add_freindship(freindship,data["freindships"][freindship],data["users"])
 
-            for message in freindships[freindship]["chat"]:
-                add_message(chat,message)
+        if "chat" in data["freindships"][freindship]:
+            chat = add_chat(data["freindships"][freindship]["object"])
+
+            for message in data["freindships"][freindship]["chat"]:
+                add_message(chat,message,data["users"])
 
 def add_city(name_country,details):
+    name,country = name_country.split("%")
     k = City.objects.get_or_create(
-        name = name_country[0],
-        country = name_country[1],
+        name = name,
+        country = country,
         avg_rating = details["rating"],
         desc = details["desc"],
-        image = ImageFile(open( details["image"], "rb"))
+        image = ImageFile(open( details["image"], "rb"),name = name+country+"_city_photo.jpg")
         )[0]
 
     k.save()
@@ -158,17 +51,17 @@ def add_user(name,details):
 
     k.bio = details["bio"]
     k.is_verified = details["verified"]
-    k.profile_picture = ImageFile(open( details["profile_picture"], "rb"))
+    k.profile_picture = ImageFile(open( details["profile_picture"], "rb"),name = name+"_profile_photo.jpg")
 
     k.save()
     return k
 
-def add_post(details):
+def add_post(details,users,cities):
     k = Post.objects.get_or_create(
-        city = cities[details["city"]]["object"],
+        city = cities["%".join(details["city"])]["object"],
         user = users[details["user"]]["object"],
-        posted_date = details["date"],
-        image = ImageFile(open( details["image"], "rb")),
+        posted_date = datetime.fromtimestamp(details["date"],tz=timezone.utc),
+        image = ImageFile(open( details["image"], "rb"),name = "post_photo.jpg"),
         text = details["text"],
         likes = details["likes"],
         title = details["title"],
@@ -178,10 +71,11 @@ def add_post(details):
     k.save()
     return k
 
-def add_freindship(freindship,details):
+def add_freindship(freindship,details,users):
+    freindInt,friendReq = freindship.split("%")
     k = Friendship.objects.get_or_create(
-        user_initiated = users[freindship[0]]["object"],
-        user_requested = users[freindship[1]]["object"],
+        user_initiated = users[freindInt]["object"],
+        user_requested = users[friendReq]["object"],
         pending = details["pending"]
         )[0]
 
@@ -196,11 +90,11 @@ def add_chat(friendship):
     k.save()
     return k
 
-def add_message(chat,details):
+def add_message(chat,details,users):
     k = Message.objects.get_or_create(
         chat = chat,
         user = users[details["sent_by"]]["object"],
-        sent_date = details["date"],
+        sent_date = datetime.fromtimestamp(details["date"],tz=timezone.utc),
         text = details["text"]
         )[0]
 

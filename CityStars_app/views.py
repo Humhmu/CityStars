@@ -38,6 +38,7 @@ def city(request, city_slug):
         context_dict["city_name"] = city.name
         context_dict["city_desc"] = city.desc
         context_dict["city_country"] = city.country
+        context_dict["city_image"] = city.image
 
         context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
             :3
@@ -46,6 +47,7 @@ def city(request, city_slug):
         context_dict["city_name"] = None
         context_dict["city_desc"] = None
         context_dict["city_country"] = None
+        context_dict["city_image"] = ""
         context_dict["top_posts"] = []
 
     return render(request, "CityStars_app/city.html", context=context_dict)
