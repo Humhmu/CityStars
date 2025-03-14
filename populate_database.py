@@ -16,7 +16,7 @@ def populate():
         data = json.loads(f.read())
     
     ##ADD DEFALUT PROFILE PICTURE
-    add_user("DEFAULT",{"bio":"","email":"","verified":False,"profile_picture":"population resources\images\profile_photos\default_profile_pic.jpg"})
+    add_user("DEFAULT",{"bio":"","email":"","verified":False,"profile_picture":"static\images\DEFAULT_profile_photo.jpg"})
 
     for city_name_country in data["cities"].keys():
         data["cities"][city_name_country]["object"] = add_city(city_name_country,data["cities"][city_name_country])
