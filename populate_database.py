@@ -1,3 +1,4 @@
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','CityStars_project.settings')
 import django
@@ -13,8 +14,9 @@ import json
 def populate():
     with open("population resources/populationData.json","r") as f:
         data = json.loads(f.read())
-
-    with open()
+    
+    ##ADD DEFALUT PROFILE PICTURE
+    add_user("DEFAULT",{"bio":"","email":"","verified":False,"profile_picture":"population resources\images\profile_photos\default_profile_pic.jpg"})
 
     for city_name_country in data["cities"].keys():
         data["cities"][city_name_country]["object"] = add_city(city_name_country,data["cities"][city_name_country])
