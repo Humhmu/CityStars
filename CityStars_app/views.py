@@ -127,19 +127,19 @@ def posts(request, profile_slug):
     return render(request, "CityStars_app/posts.html")
 
 
-def post(request, city_slug, post_id):
+def post(request, post_id):
     context_dict = {}
 
     try:
-        city = City.objects.get(slug=city_slug)
         post = Post.objects.get(id=post_id)
+        city = post.city
         context_dict["city_name"] = city.name
         context_dict["city_post_id"] = post
     except (City.DoesNotExist, Post.DoesNotExist):
         context_dict["city_name"] = None
         context_dict["city_post_id"] = None
 
-    return render(request, "CityStars_app/city_post.html", context_dict)
+    return render(request, "CityStars_app/post.html", context_dict)
 
 def delete_post(request, post_id):
     return render(request, "CityStars_app/delete_post.html")

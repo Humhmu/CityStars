@@ -30,7 +30,7 @@ urlpatterns = [
     # Post urls
     path("post/<int:post_id>/delete", views.delete_post, name="delete_post"),
     path(
-        "post/<slug:profile_slug>/posts/<int:post_id>",
+        "post/posts/<int:post_id>",
         views.post,
         name="post",
     ),
