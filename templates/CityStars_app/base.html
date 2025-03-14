@@ -30,7 +30,7 @@
         My Posts
       </button>
 
-      {% if user.is_authenticated %}
+      {% if user.is_authenticated and user.image != NONE %}
 
       <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">

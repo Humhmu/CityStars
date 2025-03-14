@@ -14,6 +14,8 @@ def populate():
     with open("population resources/populationData.json","r") as f:
         data = json.loads(f.read())
 
+    with open()
+
     for city_name_country in data["cities"].keys():
         data["cities"][city_name_country]["object"] = add_city(city_name_country,data["cities"][city_name_country])
 
