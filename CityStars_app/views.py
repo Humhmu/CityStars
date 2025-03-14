@@ -64,6 +64,7 @@ def friend_feed(request):
     user = request.user
     if user.is_authenticated:
         profile = Profile.objects.get(user = user)
+
         friends = [o.user_requested if o.user_requested != profile else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
         print(friends)
         
