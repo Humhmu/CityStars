@@ -20,7 +20,7 @@
             <br>
             <p>{{ post.text }}</p>
         </div>
-        <a href="{% url 'CityStars_app:post' post.user.user post.id %}">
+        <a href="{% url 'CityStars_app:post' post.user.slug post.id %}">
             <button onclick="" class="feedviewpagebutton">View Full Post</button>
         </a>
         {% for i in "x"|rjust:" 5 " %}
