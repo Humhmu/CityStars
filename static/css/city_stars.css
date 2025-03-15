@@ -8,16 +8,6 @@
   color: white;
 }
 
-.btn-primary {
-  background-color: var(--SECONDARY);
-  border-color: var(--ACCENT);
-}
-
-.btn-primary:hover {
-  background-color: var(--ACCENT);
-  border-color: var(--ACCENT);
-}
-
 .cc-content-col {
   display: flex;
   flex-direction: column;
