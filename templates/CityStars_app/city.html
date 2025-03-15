@@ -40,9 +40,13 @@ City
                 </div>
 
 
-                <button type="button" class="btn bg-darkgreen text-white btn-lg">View {{ city.name }} Feed</button>
+                <button type="button" class="btn bg-darkgreen text-white btn-lg"
+                    onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">View {{ city.name }}
+                    Feed</button>
+                {% if user.is_authenticated %}
                 <button type="button" class="btn bg-darkgreen text-white btn-lg float-right"
                     onclick="window.location.href='{% url 'CityStars_app:add_post' city.slug %}';">Make Post</button>
+                {% endif %}
             </div>
         </div>
 
