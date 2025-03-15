@@ -20,7 +20,7 @@ form {
   border-color: var(--ACCENT);
 }
 
-.post_form {
+.post-form {
   margin: auto;
   max-width: 60%;
   padding: 2%;
