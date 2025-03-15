@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from CityStars_app.forms import UserForm
+from CityStars_app.forms import UserForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
@@ -35,37 +35,59 @@ def city(request, city_slug):
     context_dict = {}
     try:
         city = City.objects.get(slug=city_slug)
-        context_dict["city_name"] = city.name
-        context_dict["city_desc"] = city.desc
-        context_dict["city_country"] = city.country
-        context_dict["city_image"] = city.image
+        context_dict["city"] = city
 
         context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
             :3
         ]
     except City.DoesNotExist:
-        context_dict["city_name"] = None
-        context_dict["city_desc"] = None
-        context_dict["city_country"] = None
-        context_dict["city_image"] = ""
-        context_dict["top_posts"] = []
+        context_dict["city"] = None
 
     return render(request, "CityStars_app/city.html", context=context_dict)
 
 
 def add_post(request, city_slug):
-    return render(request, "CityStars_app/add_post.html")
+    city = City.objects.filter(slug=city_slug)[0]
+    cities = City.objects.get_queryset()
+
+    if request.method == "POST":
+        profile = Profile.objects.filter(user=request.user)[0]
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            newpost = form.save(commit=False)
+            newpost.city = city
+            newpost.user = profile
+            newpost.save()
+            return redirect(reverse("CityStars_app:city_stars"))
+        else:
+            return render(
+                request,
+                "CityStars_app/add_post.html",
+                {"city": city, "cities": cities, "form": form},
+            )
+    else:
+        form = PostForm()
+
+    return render(
+        request,
+        "CityStars_app/add_post.html",
+        {"form": form, "city": city, "cities": cities},
+    )
 
 
 def friend_feed(request):
     context_dict = {}
-    context_dict["posts"] =[]
+    context_dict["posts"] = []
 
     user = request.user
     if user.is_authenticated:
         profile = Profile.objects.get(user = user)
 
-        friends = [o.user_requested if o.user_requested != profile else o.user_initiated for o in Friendship.objects.filter(user_initiated = profile) | Friendship.objects.filter(user_requested = profile)]
+        friends = [
+            o.user_requested if o.user_requested != profile else o.user_initiated
+            for o in Friendship.objects.filter(user_initiated=profile)
+            | Friendship.objects.filter(user_requested=profile)
+        ]
         print(friends)
         
         for friend in friends:
@@ -77,7 +99,7 @@ def friend_feed(request):
 def city_feed(request):
     context_dict = {}
 
-    context_dict["posts"] = Post.objects.order_by('-posted_date')
+    context_dict["posts"] = Post.objects.order_by("-posted_date")
 
     return render(request, "CityStars_app/city_feed.html", context=context_dict)
 
