@@ -2,9 +2,58 @@
 {% load static %}
 
 {% block title_block %}
-    Add Post
+Add Post
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add Post to {city_slug}</h1>
+<h1>Add Post to {{city.name}}</h1>
+
+<form id="post_form" method="post" action="{% url 'CityStars_app:add_post' city.slug %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    {% comment %} <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <textarea class="form-control" name="title" id="title" rows="1"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <select class="form-select form-select-lg" name="city" id="city">
+            {% for c in cities %}
+            {% if c.slug == city %}
+            <option selected value={{ c }}>{{ c }}</option>
+            {% else %}
+            <option value={{ c }}>{{ c }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="image" class="form-label">Choose Image:</label>
+        <input type="file" class="form-control" name="image" id="image" placeholder="" />
+    </div>
+    <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <select class="form-select form-select-sm" name="rating" id="rating">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Describe your trip:</label>
+        <textarea class="form-control" name="text" id="text" rows="3"></textarea>
+    </div> {% endcomment %}
+
+    <button type="submit" class="btn btn-primary">
+        Submit
+    </button>
+</form type="submit" name="submit" value="Create Post">
+{% if error_message %}
+<div class="error-message">
+    {{ error_message }}
+</div>
+{% endif %}
+
 {% endblock %}
