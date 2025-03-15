@@ -1,6 +1,10 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/add_post.css' %}" />
+{% endblock %}
+
 {% block title_block %}
 Add Post
 {% endblock %}
@@ -8,28 +12,26 @@ Add Post
 {% block body_block %}
 <h1>Add Post to {{city.name}}</h1>
 
-<form id="post_form" method="post" action="{% url 'CityStars_app:add_post' city.slug %}" enctype="multipart/form-data">
+<form class="post_form" id="post_form" method="post" action="{% url 'CityStars_app:add_post' city.slug %}"
+    enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
-    {% comment %} <div class="mb-3">
-        <label for="title" class="form-label">Title:</label>
-        <textarea class="form-control" name="title" id="title" rows="1"></textarea>
-    </div>
     <div class="mb-3">
-        <label for="city" class="form-label">City</label>
-        <select class="form-select form-select-lg" name="city" id="city">
-            {% for c in cities %}
-            {% if c.slug == city %}
-            <option selected value={{ c }}>{{ c }}</option>
-            {% else %}
-            <option value={{ c }}>{{ c }}</option>
-            {% endif %}
-            {% endfor %}
-        </select>
+        <label for="title" class="form-label">Title:</label>
+        <textarea class="form-control" name="title" id="title" rows="1" maxlength="20"></textarea>
+        <p class="form-text text-muted char-count" id="title-char-count">0/20</p>
     </div>
     <div class="mb-3">
         <label for="image" class="form-label">Choose Image:</label>
-        <input type="file" class="form-control" name="image" id="image" placeholder="" />
+        {{ form.image }}
+        <div class="image-preview-div" id="image-preview-container">
+            <img class="image-preview" id="image-preview" src="" alt="Image Preview">
+        </div>
+
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Describe your trip:</label>
+        <textarea class="form-control" name="text" id="text" rows="3" maxlength="500"></textarea>
+        <p class="form-text text-muted char-count" id="text-char-count">0/500</p>
     </div>
     <div class="mb-3">
         <label for="rating" class="form-label">Rating</label>
@@ -41,19 +43,12 @@ Add Post
             <option value="5">5</option>
         </select>
     </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">Describe your trip:</label>
-        <textarea class="form-control" name="text" id="text" rows="3"></textarea>
-    </div> {% endcomment %}
 
     <button type="submit" class="btn btn-primary">
         Submit
     </button>
 </form type="submit" name="submit" value="Create Post">
-{% if error_message %}
-<div class="error-message">
-    {{ error_message }}
-</div>
-{% endif %}
+
+<script src="{% static 'js/add_post.js' %}"></script>
 
 {% endblock %}

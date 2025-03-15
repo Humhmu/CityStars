@@ -1,0 +1,44 @@
+@import "base.css";
+
+h1 {
+  text-align: center;
+}
+
+body {
+  background-color: var(--BACKGROUND);
+}
+
+form {
+  background-color: var(--PRIMARY);
+}
+
+.form-control {
+  border-color: var(--ACCENT);
+}
+
+.form-select {
+  border-color: var(--ACCENT);
+}
+
+.post_form {
+  margin: auto;
+  max-width: 60%;
+  padding: 2%;
+  border-style: double;
+}
+
+.char-count {
+  text-align: right;
+}
+
+.image-preview-div {
+  display: none;
+  margin-top: 10px;
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+}
