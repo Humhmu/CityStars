@@ -57,9 +57,9 @@ class Post(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     posted_date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="post_images", blank=True)
-    text = models.CharField(max_length=TEXT_MAX_LENGTH)
-    title = models.CharField(max_length=TITLE_MAX_LENGTH,default="")
+    image = models.ImageField(upload_to="post_images", blank=False)
+    text = models.CharField(max_length=TEXT_MAX_LENGTH, blank=False)
+    title = models.CharField(max_length=TITLE_MAX_LENGTH, blank=False)
     rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
     likes = models.IntegerField(default=0)
 
