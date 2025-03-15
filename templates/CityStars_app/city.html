@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title_block %}
-    City
+City
 {% endblock %}
 
 {% block css_block %}
@@ -12,102 +12,120 @@
 
 {% block body_block %}
 
+
 <div class="fluid-container bg-backing text-white h-100">
     <div class="container px-5 pb-5">
+        {% if city %}
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="container rounded p-1 my-1 bg-bordergreen text-white">
-                <div class="container rounded p-5  bg-lightgreen text-white">
-                    
-                    <img src="{{ MEDIA_URL }}{{ city_image }}" class="img-fluid mx-auto d-block rounded cityImage" alt="Image of City"/>
-    
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="container rounded p-1 my-1 bg-bordergreen text-white">
-                <div class="container rounded p-5  bg-lightgreen text-white">
-                    
-                    <h4>{{ city_name }} - {{ city_country }}<h4>
-                    <p>{{ city_desc }}</p>
-                    
-                </div>
-            </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="container rounded p-1 my-1 bg-bordergreen text-white">
+                    <div class="container rounded p-5  bg-lightgreen text-white">
 
+                        <img src="{{ city.image.url }}" class="img-fluid mx-auto d-block rounded cityImage"
+                            alt="Image of City" />
 
-            <button type="button" class="btn bg-darkgreen text-white btn-lg">View {{ city_name }} Feed</button>
-            <button type="button" class="btn bg-darkgreen text-white btn-lg float-right">Make Post</button>
-        </div>
-    </div>
-
-
-
-
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="container rounded p-1 mt-5 mw-25 bg-bordergreen text-white">
-                <div class="container rounded p-1 bg-lightgreen text-white">           
-                    <h4 class = "text-center">Popular Posts</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    {%if top_posts%}
-    <div class="row">
-
-
-        {% for post in top_posts%}
-        <div class="col-lg-4">
-            <div class="container rounded p-1 my-1 mw-25 bg-bordergreen text-white">
-                <div class="container rounded p-1 bg-lightgreen text-white">
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}" class="rounded-circle float-left profileImage" alt="Image of City"/>
-                        </div>
-                        <div class="col-lg-6"><h4>{{ post.user.user.username }}</h4></div>
                     </div>
-                    
-                    <h5 class = "text-center">{{ post.title }}</h5>
-                    <img src="{{ MEDIA_URL }}{{ post.image }}" class="img-fluid mx-auto d-block rounded postImage" alt="Image of City"/>
-                    <h5 >{{ post.posted_date}}</h5>
-                    
-                    {% for i in "x"|rjust:" 5 " %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="container rounded p-1 my-1 bg-bordergreen text-white">
+                    <div class="container rounded p-5  bg-lightgreen text-white">
+
+                        <h4>{{ city.name }} - {{ city.country }}
+                            <h4>
+                                <p>{{ city.desc }}</p>
+
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn bg-darkgreen text-white btn-lg"
+                    onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">View {{ city.name }}
+                    Feed</button>
+                {% if user.is_authenticated %}
+                <button type="button" class="btn bg-darkgreen text-white btn-lg float-right"
+                    onclick="window.location.href='{% url 'CityStars_app:add_post' city.slug %}';">Make Post</button>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="container rounded p-1 mt-5 mw-25 bg-bordergreen text-white">
+                    <div class="container rounded p-1 bg-lightgreen text-white">
+                        <h4 class="text-center">Popular Posts</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {%if top_posts%}
+        <div class="row">
+
+
+            {% for post in top_posts%}
+            <div class="col-lg-4">
+                <div class="container rounded p-1 my-1 mw-25 bg-bordergreen text-white">
+                    <div class="container rounded p-1 bg-lightgreen text-white">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
+                                    class="rounded-circle float-left profileImage" alt="Image of City" />
+                            </div>
+                            <div class="col-lg-6">
+                                <h4>{{ post.user.user.username }}</h4>
+                            </div>
+                        </div>
+
+                        <h5 class="text-center">{{ post.title }}</h5>
+                        <img src="{{ MEDIA_URL }}{{ post.image }}" class="img-fluid mx-auto d-block rounded postImage"
+                            alt="Image of City" />
+                        <h5>{{ post.posted_date}}</h5>
+
+                        {% for i in "x"|rjust:" 5 " %}
 
                         {%if forloop.counter <= post.rating %}
-                            <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
+                        <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
                         {%else %}
-                            <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
+                        <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
                         {%endif %}
-                    {% endfor %}
-
-                    
-
-                
-                    <svg style = "float:right;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                    </svg>
-                    <p style = "float:right;padding-right: 4px;">{{ post.likes }}</p>
-                    
+                        {% endfor %}
 
 
+
+
+                        <svg style="float:right;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
+                            class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                        </svg>
+                        <p style="float:right;padding-right: 4px;">{{ post.likes }}</p>
+
+
+
+                    </div>
                 </div>
             </div>
+            {% endfor %}
+
         </div>
-        {% endfor %}
-
-    </div>
-    {%else %}
-    <strong>There are no posts yet! - Be the First!</strong>
-    {%endif %}
+        {%else %}
+        <strong>There are no posts yet! - Be the First!</strong>
+        {%endif %}
 
 
+
+        {% else %}
+        <strong>This city is not on our system.</strong>
+        {% endif %}
     </div>
 </div>
-
 {% endblock %}

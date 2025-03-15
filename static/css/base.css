@@ -40,6 +40,17 @@ html {
   border-color: black;
 }
 
+.btn-primary {
+  background-color: var(--SECONDARY);
+  border-color: var(--ACCENT);
+}
+
+.btn-primary:hover {
+  background-color: var(--ACCENT);
+  border-color: var(--ACCENT);
+}
+
+
 /* Buttons as part of the navigation bar. */
 .navbutton {
   background-color: var(--SECONDARY);

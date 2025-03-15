@@ -1,10 +1,78 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/add_post.css' %}" />
+{% endblock %}
+
 {% block title_block %}
-    Add Post
+Add Post
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add Post to {city_slug}</h1>
+<h1>Add Post to {{city.name}}</h1>
+
+<form class="post-form" id="post_form" method="post" action="{% url 'CityStars_app:add_post' city.slug %}"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        {% if form.errors.title %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>{{form.errors.title}}</strong>
+        </div>
+        {% endif %}
+        <textarea class="form-control" name="title" id="title" rows="1"
+            maxlength="20">{% if form.title.value %}{{ form.title.value }}{% endif %}</textarea>
+        <p class="form-text text-muted char-count" id="title-char-count"></p>
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Choose Image:</label>
+        {% if form.errors.image %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>{{form.errors.image}}</strong>
+        </div>
+        {% endif %}
+        <input type="file" accept="image/*" class="form-control" name="image" id="image" placeholder=""
+            aria-describedby="fileHelpId" />
+        <div class="image-preview-div" id="image-preview-container">
+            <img class="image-preview" id="image-preview" src="" alt="Image Preview">
+        </div>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="text" class="form-label">Describe your trip:</label>
+        {% if form.errors.text %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>{{form.errors.text}}</strong>
+        </div>
+        {% endif %}
+        <textarea class="form-control" name="text" id="text" rows="3"
+            maxlength="500">{% if form.text.value %}{{ form.text.value }}{% endif %}</textarea>
+        <p class="form-text text-muted char-count" id="text-char-count"></p>
+    </div>
+
+    <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <select class="form-select form-select-sm" name="rating" id="rating">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Submit
+    </button>
+</form type="submit" name="submit" value="Create Post">
+
+<script src="{% static 'js/add_post.js' %}"></script>
+
 {% endblock %}

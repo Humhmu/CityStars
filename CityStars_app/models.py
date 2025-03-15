@@ -5,12 +5,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class City(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    country = models.CharField(max_length=30)
+    CITY_MAX_LENGTH = 30
+    COUNTRY_MAX_LENGTH = 30
+    DESC_MAX_LENGTH = 300
+    name = models.CharField(max_length=CITY_MAX_LENGTH, unique=True)
+    country = models.CharField(max_length=COUNTRY_MAX_LENGTH)
     avg_rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
     image = models.ImageField(upload_to="city_images", blank=True)
 
-    desc = models.CharField(max_length=300,default="")
+    desc = models.CharField(max_length=DESC_MAX_LENGTH,default="")
     # note - slug based on city-country uniqueness ensured by constraint
     slug = models.SlugField(unique=True)
 
@@ -32,9 +35,10 @@ class City(models.Model):
 
 
 class Profile(models.Model):
+    BIO_MAX_LENGTH = 1000
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_images", default="profile_images/DEFAULT_profile_photo.jpg", blank=True)
-    bio = models.CharField(max_length=1000, blank=True, default="No biography written")
+    bio = models.CharField(max_length=BIO_MAX_LENGTH, blank=True, default="No biography written")
     is_verified = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)
 
@@ -47,13 +51,15 @@ class Profile(models.Model):
 
 
 class Post(models.Model):
+    TEXT_MAX_LENGTH = 500
+    TITLE_MAX_LENGTH = 20
     # note - Cascade ensures if a city/User is deleted all of the posts associated will also be deleted
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     posted_date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="post_images", blank=True)
-    text = models.CharField(max_length=500)
-    title = models.CharField(max_length=15,default="")
+    image = models.ImageField(upload_to="post_images", blank=False)
+    text = models.CharField(max_length=TEXT_MAX_LENGTH, blank=False)
+    title = models.CharField(max_length=TITLE_MAX_LENGTH, blank=False)
     rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
     likes = models.IntegerField(default=0)
 
@@ -87,10 +93,11 @@ class Chat(models.Model):
         return "Chat| "+str(self.friendship)
 
 class Message(models.Model):
+    MESSAGE_MAX_LENGTH = 200
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     sent_date = models.DateTimeField(auto_now_add=True)
-    text = models.CharField(max_length=200)
+    text = models.CharField(max_length=MESSAGE_MAX_LENGTH)
 
     def __str__(self):
         return "Message| "+str(self.user)
