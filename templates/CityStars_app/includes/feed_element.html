@@ -1,37 +1,48 @@
 {% load static %}
+<div class="container">
 
-<div class="feedpost">
-    <div>
-        <img
-            src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
-            alt="user"
-            class="feedpfp"
-        />
-        {{post.user.user.username}}
-    </div>
-    <div>
-        <img 
-            src="{{ MEDIA_URL }}{{ post.image }}"
-            alt="user"
-            class="feedimage"
-        />
-        <div class="feedsectioncontent">
-            <h3>{{ post.title }}</h3>
-            <br>
-            <p>{{ post.text }}</p>
+    <div class="feedpost row g-0">
+        <div class="row g-0">
+            <div class="col-sm-1">
+                <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}" alt="user" class="feedpfp" />
+            </div>
+            <div class="col-sm-2">
+                <p class="username">{{post.user.user.username}}</p>
+            </div>
         </div>
-        <a href="{% url 'CityStars_app:post' post.id %}">
-            <button onclick="" class="feedviewpagebutton">View Full Post</button>
-        </a>
-        {% for i in "x"|rjust:" 5 " %}
-            {%if forloop.counter <= post.rating %}
-                <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
-            {%else %}
-                <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
-            {%endif %}
-        {% endfor %}
-        <div class="feedlikes">
-            <p>{{post.likes}} <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button></p>
+        <div class="col-md-4">
+            <div class="feedimagediv">
+                <div>
+                    <img src="{{ MEDIA_URL }}{{ post.image }}" alt="user" class="feedimage" />
+                </div>
+            </div>
+            <div class="feedlikes">
+                <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes"
+                        class="feedlikesimage"></button>{{post.likes}}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div>
+                <h3>{{ post.title }}</h3>
+                <br>
+                <p>{{ post.text }}</p>
+            </div>
+        </div>
+        <div class="col-sm-2 rightinfodiv">
+            <div class="row g-0 stardiv">
+                {% for i in "x"|rjust:" 5 " %}
+                    {%if forloop.counter <= post.rating %}
+                        <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
+                    {%else %}
+                        <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
+                    {%endif %}
+                {% endfor %}
+            </div>
+            <button class="btn btn-primary feedviewbutton"
+                onclick="window.location.href='{% url 'CityStars_app:post' post.id %}';">
+                View Full Post
+            </button>
+
         </div>
     </div>
 </div>

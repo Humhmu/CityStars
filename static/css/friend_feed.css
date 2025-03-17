@@ -32,20 +32,31 @@
 /* All posts related to cities. */
 .feedpost {
   background-color: var(--PRIMARY);
-  width: 96%;
-  height: 265px;
+  height: auto;
   border-style: solid;
-  border-color: black;
+  border-color: var(--ACCENT);
   border-radius: 40px;
-  margin-left: 15px;
   margin-top: 8px;
-  padding-left: 35px;
+  padding: 20px;
   font-size: 20px;
   color: white;
-  float: left;
+}
+
+.username {
+  padding-top: 8%;
+  font-size: larger;
+  font-weight: bold;
 }
 
 /* The user's profile picture from the post. */
+.feedimagediv {
+  width: 400px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .feedpfp {
   width: 65px;
   height: 65px;
@@ -56,13 +67,12 @@
 
 /* The user's image for the post. */
 .feedimage {
-  width: 15%;
-  height: 15%;
-  margin-left: 20px;
   border-style: dashed;
   border-color: var(--ACCENT);
   border-radius: 15px;
-  float: left;
+  max-width: 400px;
+  max-height: 250px;
+  display: block;
 }
 
 /* What the user have said about the city. */
@@ -70,16 +80,6 @@
   width: 60%;
   height: 130px;
   margin-left: 18%;
-}
-
-/* Average rating of the city (functionality need implemented). */
-.feedreviewstars {
-  width: 203px;
-  height: 40px;
-  margin-right: 38px;
-  position: relative;
-  float: right;
-  bottom: 135px;
 }
 
 .feedreviewstarsimage {
@@ -93,21 +93,6 @@
   border: none;
   position: relative;
   float: left;
-}
-
-/* Number of likes can be shown below the user's uploaded city image. */
-.feedlikes {
-  width: 110px;
-  height: 40px;
-  top: 9px;
-  right: 170px;
-  float: left;
-  position: relative;
-}
-
-.feedlikesimage {
-  width: 40px;
-  height: 40px;
 }
 
 /* Users can like posts. */
@@ -139,8 +124,9 @@
   background-color: var(--PRIMARY);
   text-align: center;
   padding-top: 90px;
-  margin-top: 70px;
-  margin-left: 36%;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
   width: 400px;
   height: 400px;
   border-style: solid;
