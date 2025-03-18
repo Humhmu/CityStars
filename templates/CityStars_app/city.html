@@ -65,67 +65,24 @@ City
 
 
 
+    {%if top_posts%}
+    <div class="row">
 
-        {%if top_posts%}
-        <div class="row">
 
+    {% for post in top_posts%}
+        {% include "CityStars_app\includes\post_tile.html" %}  
+    {% endfor %}
 
-            {% for post in top_posts%}
-            <div class="col-lg-4">
-                <div class="container rounded p-1 my-1 mw-25 bg-bordergreen text-white">
-                    <div class="container rounded p-1 bg-lightgreen text-white">
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
-                                    class="rounded-circle float-left profileImage" alt="Image of City" />
-                            </div>
-                            <div class="col-lg-6">
-                                <h4>{{ post.user.user.username }}</h4>
-                            </div>
-                        </div>
-
-                        <h5 class="text-center">{{ post.title }}</h5>
-                        <img src="{{ MEDIA_URL }}{{ post.image }}" class="img-fluid mx-auto d-block rounded postImage"
-                            alt="Image of City" />
-                        <h5>{{ post.posted_date}}</h5>
-
-                        {% for i in "x"|rjust:" 5 " %}
-
-                        {%if forloop.counter <= post.rating %}
-                        <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
-                        {%else %}
-                        <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
-                        {%endif %}
-                        {% endfor %}
+    </div>
+    {%else %}
+    <strong>There are no posts yet! - Be the First!</strong>
+    {%endif %}
 
 
 
-
-                        <svg style="float:right;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
-                            class="bi bi-heart-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
-                        </svg>
-                        <p style="float:right;padding-right: 4px;">{{ post.likes }}</p>
-
-
-
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-        </div>
-        {%else %}
-        <strong>There are no posts yet! - Be the First!</strong>
-        {%endif %}
-
-
-
-        {% else %}
-        <strong>This city is not on our system.</strong>
-        {% endif %}
+    {% else %}
+    <strong>This city is not on our system.</strong>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

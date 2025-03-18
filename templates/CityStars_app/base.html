@@ -23,6 +23,21 @@
       <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
         Feed
       </button>
+
+      
+      {% if user.is_authenticated %}
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:friends' user.profile.slug %}';">
+        Friends
+      </button>
+      <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:posts' user.profile.slug %}';">
+        My Posts
+      </button>
+
+      <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <img src="{{ user.profile.profile_picture.url }}" alt="user" class="userpfp" />
+      </button>
+      {% else %}
       <button class="btn btn-primary navbutton" onclick="window.location.href='{% url 'CityStars_app:friends' user %}';">
         Friends
       </button>
@@ -30,13 +45,6 @@
         My Posts
       </button>
 
-      {% if user.is_authenticated %}
-
-      <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <img src="{{ user.profile.profile_picture.url }}" alt="user" class="userpfp" />
-      </button>
-      {% else %}
       <button class="navpfp dropdown-toggle" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         <img src="{% static 'images/DEFAULT_profile_photo.jpg' %}" alt="user" class="userpfp" />
