@@ -107,11 +107,24 @@ def city_feed(request):
 def profile(request, profile_slug):
     context_dict = {}
 
-    profile = Profile.objects.filter(slug = profile_slug)[0]
+    user = request.user
+    if user.is_authenticated:
+        user_profile = Profile.objects.get(user = user)
+        profile = Profile.objects.filter(slug = profile_slug)[0]
+        context_dict["friend"] = any([
+                (
+                    True
+                    if o.user_requested == profile or o.user_initiated == profile
+                    else False
+                )
+                for o in Friendship.objects.filter(user_initiated=user_profile)
+                | Friendship.objects.filter(user_requested=user_profile)
+            ])
+        context_dict["profile"] = profile
 
-    context_dict["profile"] = profile
-
-    return render(request, "CityStars_app/profile.html", context=context_dict)
+        return render(request, "CityStars_app/profile.html", context=context_dict)
+    else:
+        return redirect('CityStars_app:login')
 
 
 def delete_profile(request, profile_slug):
@@ -120,26 +133,32 @@ def delete_profile(request, profile_slug):
 
 def friends(request, profile_slug):
     context_dict = {}
-    try:
-        profile = Profile.objects.get(slug=profile_slug)
-        context_dict["profile"] = profile
-        context_dict["friends"] = [
-            (
-                o.user_requested
-                if o.user_requested.slug != profile_slug
-                else o.user_initiated
-            )
-            for o in Friendship.objects.filter(user_initiated=profile)
-            | Friendship.objects.filter(user_requested=profile)
-        ]
-        for o in context_dict["friends"]:
-            o.numberOfPosts = len(Post.objects.filter(user=o))
 
-    except Profile.DoesNotExist:
-        context_dict["profile_username"] = None
-        context_dict["friends"] = []
+    user = request.user
+    if user.is_authenticated and user.profile.slug == profile_slug:
+        try:
+            profile = Profile.objects.get(slug=profile_slug)
+            context_dict["profile"] = profile
+            context_dict["friends"] = [
+                (
+                    o.user_requested
+                    if o.user_requested.slug != profile_slug
+                    else o.user_initiated
+                )
+                for o in Friendship.objects.filter(user_initiated=profile)
+                | Friendship.objects.filter(user_requested=profile)
+            ]
+            for o in context_dict["friends"]:
+                o.numberOfPosts = len(Post.objects.filter(user=o))
 
-    return render(request, "CityStars_app/friends.html", context=context_dict)
+        except Profile.DoesNotExist:
+            context_dict["profile_username"] = None
+            context_dict["friends"] = []
+
+        return render(request, "CityStars_app/friends.html", context=context_dict)
+    
+    else:
+        return redirect('CityStars_app:login')
 
 
 def chat(request, profile_slug, friend_slug):

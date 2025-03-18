@@ -70,6 +70,17 @@
 
                 {% else %}
 
+                    {% if friend %}
+                    <div class="col text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                            onclick="window.location.href='{% url 'CityStars_app:chat' profile.slug profile.slug %}';"
+                        >
+                            Chat
+                        </button>
+                    </div>
+                    {% else %}
                     <div class="col text-center g-5">
                         <button
                             type="button"
@@ -78,7 +89,7 @@
                             Send Friend Request
                         </button>
                     </div>
-
+                    {% endif %}
                     <div class ="col text-center g-5">
                         <button
                             type="button"
