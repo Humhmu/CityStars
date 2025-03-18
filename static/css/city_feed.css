@@ -22,16 +22,28 @@
   border-radius: 50%;
 }
 
+.feedpfprow {
+  padding-bottom: 10px;
+}
+
 .username {
   padding-top: 8%;
   font-size: larger;
   font-weight: bold;
 }
 
+.feedposttext {
+  word-wrap: break-word;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* The user's image for the post. */
 .feedimagediv {
-  width: 400px;
-  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +53,7 @@
   border-style: dashed;
   border-color: var(--ACCENT);
   border-radius: 15px;
-  max-width: 400px;
+  max-width: 100%;
   max-height: 250px;
   display: block;
 }
