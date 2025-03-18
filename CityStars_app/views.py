@@ -107,11 +107,24 @@ def city_feed(request):
 def profile(request, profile_slug):
     context_dict = {}
 
-    profile = Profile.objects.filter(slug = profile_slug)[0]
+    user = request.user
+    if user.is_authenticated:
+        user_profile = Profile.objects.get(user = user)
+        profile = Profile.objects.filter(slug = profile_slug)[0]
+        context_dict["friend"] = any([
+                (
+                    True
+                    if o.user_requested == profile or o.user_initiated == profile
+                    else False
+                )
+                for o in Friendship.objects.filter(user_initiated=user_profile)
+                | Friendship.objects.filter(user_requested=user_profile)
+            ])
+        context_dict["profile"] = profile
 
-    context_dict["profile"] = profile
-
-    return render(request, "CityStars_app/profile.html", context=context_dict)
+        return render(request, "CityStars_app/profile.html", context=context_dict)
+    else:
+        return redirect('CityStars_app:login')
 
 
 def delete_profile(request, profile_slug):
@@ -122,7 +135,7 @@ def friends(request, profile_slug):
     context_dict = {}
 
     user = request.user
-    if user.is_authenticated:
+    if user.is_authenticated and user.profile.slug == profile_slug:
         profile = Profile.objects.get(user = user)
         context_dict["profile"] = profile
         context_dict["friends"] = [
@@ -139,7 +152,7 @@ def friends(request, profile_slug):
 
         return render(request, "CityStars_app/friends.html", context=context_dict)
     else:
-        return redirect('CityStars_app:login')
+        return redirect('CityStars_app:city_stars')
     
 
 
