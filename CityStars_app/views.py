@@ -89,11 +89,11 @@ def friend_feed(request):
             for o in Friendship.objects.filter(user_initiated=profile)
             | Friendship.objects.filter(user_requested=profile)
         ]
-        print(friends)
+
         
         for friend in friends:
             context_dict["posts"] += Post.objects.filter(user = friend).order_by('-posted_date')
-            print(context_dict["posts"])
+
     return render(request, "CityStars_app/friend_feed.html", context=context_dict)
 
 
@@ -169,7 +169,7 @@ def posts(request, profile_slug):
         profile = Profile.objects.get(slug = profile_slug)
         context_dict["user_posts"] = Post.objects.filter(user=profile)
         context_dict["profile"] = profile
-        print(context_dict)
+
         return render(request, "CityStars_app/posts.html",context=context_dict)
     else:
         return redirect('CityStars_app:login')
