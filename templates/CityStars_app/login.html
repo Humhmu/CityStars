@@ -10,22 +10,26 @@
 {% endblock %}
 
 {% block body_block %}
-    <div class = "registerloginform">
-    <form id="login_form" method="post" action="{% url 'CityStars_app:login' %}">
-        {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" />
+<div class="fluid-container bg-backing text-white h-100">
+    <div class="container px-3 pb-3">
+        <div class = "registerloginform rounded">
+            <form id="login_form" method="post" action="{% url 'CityStars_app:login' %}">
+                {% csrf_token %}
+                Username: <input type="text" name="username" value="" class = "w-100"/>
+                <br />
+                Password: <input type="password" name="password" value="" class = "w-100"/>
+                <br />
+                <input type="submit" value="Log In" class = "m-1"/>
+            </form>
+        Don't have an account?
         <br />
-        Password: <input type="password" name="password" value="" size="50" />
-        <br />
-        <input type="submit" value="Log In" />
-    </form>
-    Don't have an account?
-    <br />
-    <a href="{% url 'CityStars_app:register' %}">Sign up</a>
-    {% if error_message %}
-        <div class="error-message">
-            {{ error_message }}
+        <a href="{% url 'CityStars_app:register' %}">Sign up</a>
+        {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+        {% endif %}
         </div>
-    {% endif %}
     </div>
+</div>
 {% endblock %}

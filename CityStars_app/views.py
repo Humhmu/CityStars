@@ -23,7 +23,7 @@ def city_stars(request):
             len(
                 Post.objects.filter(
                     city=city,
-                    posted_date=datetime.datetime.now() - datetime.timedelta(weeks=1),
+                    posted_date__gte=datetime.datetime.now(tz=datetime.timezone.utc) - datetime.timedelta(weeks=1),
                 )
             ),
         )
@@ -37,6 +37,7 @@ def city(request, city_slug):
         city = City.objects.get(slug=city_slug)
         context_dict["city"] = city
 
+        context_dict["header"] = True   
         context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
             :3
         ]

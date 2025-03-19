@@ -1,12 +1,16 @@
 @import "base.css";
 
+.bg-backing {
+  background: var(--BACKGROUND);
+}
+
 /* Register and Login page forms */
 .registerloginform {
   position: relative;
   width: 30%;
   margin-left: 35%;
   padding: 20px;
-  border: 1px solid white;
+  border: 1px solid --SECONDARY;
   border-radius: 8px;
   text-align: center;
   background-color: var(--PRIMARY);
