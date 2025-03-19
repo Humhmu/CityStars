@@ -1,35 +1,51 @@
 {% load static %}
 <div class="container">
 
-    <div class="feedpost row g-0">
+    <div class="feedpost row g-0 ">
         <div class="row g-0 feedpfprow">
-            <div class="col-sm-1 feedpfpdiv">
-                <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}" alt="user" class="feedpfp" />
+            <div class="col-auto feedpfpdiv"
+                 onclick="window.location.href='{% url 'CityStars_app:profile' post.user.slug%}';">
+                <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}" alt="user" class="rounded-circle float-left feedpfp pr-10" />
             </div>
-            <div class="col-sm-2">
-                <p class="username">{{post.user.user.username}}</p>
+            <div class="col-auto"
+                 onclick="window.location.href='{% url 'CityStars_app:profile' post.user.slug%}';">
+                <h3 class="username">{{post.user.user.username}}
+                    {%if post.user.is_verified%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                        </svg>
+                    {%endif %}
+                </h3>
             </div>
         </div>
+
+
         <div class="col-md-4">
             <div class="feedimagediv">
                 <div>
                     <img src="{{ MEDIA_URL }}{{ post.image }}" alt="user" class="feedimage" />
                 </div>
             </div>
-            <div class="feedlikes">
-                <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes"
-                        class="feedlikesimage"></button>{{post.likes}}
-            </div>
         </div>
         <div class="col-sm-6">
-            <div>
+            <div class = "text-center">
                 <h3>{{ post.title }}</h3>
                 <br>
                 <p class="feedposttext">{{ post.text }}</p>
             </div>
         </div>
         <div class="col-sm-2 rightinfodiv">
-            <div class="row g-0 stardiv">
+            
+            <button class="btn btn-primary feedviewbutton"
+                onclick="window.location.href='{% url 'CityStars_app:post' post.id %}';">
+                View Full Post
+            </button>
+
+            <div class="feedlikes">
+                <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes"
+                        class="feedlikesimage"></button>{{post.likes}}
+            </div>
+            <div class="stardiv">
                 {% for i in "x"|rjust:" 5 " %}
                     {%if forloop.counter <= post.rating %}
                         <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
@@ -38,11 +54,9 @@
                     {%endif %}
                 {% endfor %}
             </div>
-            <button class="btn btn-primary feedviewbutton"
-                onclick="window.location.href='{% url 'CityStars_app:post' post.id %}';">
-                View Full Post
-            </button>
+            
 
         </div>
+        
     </div>
 </div>

@@ -14,13 +14,13 @@ City
 
 
 <div class="fluid-container bg-backing text-white h-100">
-    <div class="container px-5 pb-5">
+    <div class="container px-3 pb-3">
         {% if city %}
 
         <div class="row">
             <div class="col-lg-6">
                 <div class="container rounded p-1 my-1 bg-bordergreen text-white">
-                    <div class="container rounded p-5  bg-lightgreen text-white">
+                    <div class="container rounded p-4  bg-lightgreen text-white">
 
                         <img src="{{ city.image.url }}" class="img-fluid mx-auto d-block rounded cityImage"
                             alt="Image of City" />
@@ -32,9 +32,8 @@ City
                 <div class="container rounded p-1 my-1 bg-bordergreen text-white">
                     <div class="container rounded p-5  bg-lightgreen text-white">
 
-                        <h4>{{ city.name }} - {{ city.country }}
-                            <h4>
-                                <p>{{ city.desc }}</p>
+                        <h3>{{ city.name }} - {{ city.country }}</h3>
+                        <h5>{{ city.desc }}</h5>
 
                     </div>
                 </div>

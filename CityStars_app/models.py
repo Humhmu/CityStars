@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+import django
 
 class City(models.Model):
     CITY_MAX_LENGTH = 30
@@ -56,7 +56,7 @@ class Post(models.Model):
     # note - Cascade ensures if a city/User is deleted all of the posts associated will also be deleted
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    posted_date = models.DateTimeField(auto_now_add=True)
+    posted_date = models.DateTimeField(default=django.utils.timezone.now)
     image = models.ImageField(upload_to="post_images", blank=False)
     text = models.CharField(max_length=TEXT_MAX_LENGTH, blank=False)
     title = models.CharField(max_length=TITLE_MAX_LENGTH, blank=False)
