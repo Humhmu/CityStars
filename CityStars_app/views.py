@@ -179,12 +179,19 @@ def post(request, post_id):
 
     try:
         post = Post.objects.get(id=post_id)
+        form = PostForm(request.POST, request.FILES)
         city = post.city
+        context_dict["form"] = form
         context_dict["city_name"] = city.name
         context_dict["city_post_id"] = post
+        context_dict["city_post_date"] = post.posted_date
+        context_dict["post_likes"] = post.likes
     except (City.DoesNotExist, Post.DoesNotExist):
-        context_dict["city_name"] = None
-        context_dict["city_post_id"] = None
+        context_dict["form"] = None
+        context_dict["city_name"] = "N/A"
+        context_dict["city_post_id"] = "N/A"
+        context_dict["city_post_date"] = "N/A"
+        context_dict["post_likes"] = 0
 
     return render(request, "CityStars_app/post.html", context_dict)
 

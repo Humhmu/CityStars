@@ -20,13 +20,13 @@
         </div>
         <div style="padding:20px; text-align: center;">
             <button onclick="" class="feednavbutton">Delete Post</button>
-            <button onclick="" class="feednavbutton">View {{ city.name }}</button>
-            <button onclick="" class="feednavbutton">{{ profile.user.username }}'s Profile</button>
+            <button onclick="" class="feednavbutton">View {{ city_name }}</button>
+            <button onclick="" class="feednavbutton">{{ user.profile.user.username }}'s Profile</button>
         </div>
     </div>
     <div class="fullfeed">
         <div>
-            <img src="{% static 'images/guest_pfp.jpg' %}"
+            <img src="{% static 'images/DEFAULT_profile_photo.jpg' %}"
             alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
         </div>
         <div style="position:relative; float:right; margin-right:30px; margin-top:20px">
@@ -38,12 +38,12 @@
                 <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
             </div>
             <div style="line-height: 0.5; margin-top:20px">
-                <p>Posted by: {{ profile.user.username }}</p>
-                <p>City: {{ city.name }}</p>
-                <p>Date: {{ post.posted_date }}</p>
+                <p>Posted by: {{ user.profile.user.username }}</p>
+                <p>City: {{ city_name }}</p>
+                <p>Date: {{ city_post_date }}</p>
             </div>
             <div>
-                <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button> 83</p>
+                <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button> {{ post_likes }}</p>
             </div>
         </div>
         <div style="position:relative; float:left; text-align:center">
