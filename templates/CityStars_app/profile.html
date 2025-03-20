@@ -43,31 +43,32 @@
 
             <div class="row">
                 {% if user == profile.user %}
-
                     <div class="col text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                        >
-                            Change Profile Image
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                        >
-                            Edit Biography
-                        </button>
-                    </div>
+                        <form class="profile-form" id="profile_form" method="post"
+                            enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button
+                                type="button"
+                                class="btn btn-primary profile-btn"
+                            >
+                                Change Profile Image - 
+                                <input type="file" accept="image/*" class="form-control" name="profile_picture" id="profile_picture" placeholder=""
+                                       aria-describedby="fileHelpId" />
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary profile-btn"
+                            >
+                                Edit Biography -
+                                <textarea class="form-control" name="bio" id="bio" rows="3" cols="88"
+                                          maxlength="1000">{{ profile.bio }}</textarea>
+                            </button>
 
-                    <div class="col text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                        >
-                            My Posts
-                        </button>
+                            <button type="submit" class="btn btn-primary">
+                                Apply changes
+                            </button>
+                        </form type="submit" name="submit" value="Update Profile">
                     </div>
-
                 {% else %}
 
                     {% if friend %}

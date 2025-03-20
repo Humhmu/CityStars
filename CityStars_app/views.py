@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from CityStars_app.forms import UserForm, PostForm
+from CityStars_app.forms import UserForm, PostForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
@@ -110,8 +110,18 @@ def profile(request, profile_slug):
 
     user = request.user
     if user.is_authenticated:
+
         user_profile = Profile.objects.get(user = user)
         profile = Profile.objects.filter(slug = profile_slug)[0]
+
+        if request.method == "POST" and user_profile == profile:
+            old_picture = profile.profile_picture
+            form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+            if form.is_valid():
+                form.save()
+
+        
         context_dict["friend"] = any([
                 (
                     True

@@ -38,7 +38,7 @@ class Profile(models.Model):
     BIO_MAX_LENGTH = 1000
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to="profile_images", default="profile_images/DEFAULT_profile_photo.jpg", blank=True)
-    bio = models.CharField(max_length=BIO_MAX_LENGTH, blank=True, default="No biography written")
+    bio = models.CharField(max_length=BIO_MAX_LENGTH, blank=True, default="Hey! Im new here!")
     is_verified = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)
 
