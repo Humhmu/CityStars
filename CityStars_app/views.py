@@ -85,8 +85,8 @@ def friend_feed(request):
 
         friends = [
             o.user_requested if o.user_requested != profile else o.user_initiated
-            for o in Friendship.objects.filter(user_initiated=profile)
-            | Friendship.objects.filter(user_requested=profile)
+            for o in Friendship.objects.filter(user_initiated=profile, pending=False)
+            | Friendship.objects.filter(user_requested=profile, pending=False)
         ]
         print(friends)
         
@@ -151,7 +151,7 @@ def send_friend_request(request, profile_slug):
 
     Friendship.objects.create(user_initiated=sender_profile, user_requested=receiver_profile)
 
-    return redirect('CityStars_app:city_stars')
+    return redirect('CityStars_app:profile', profile_slug=receiver_profile.slug)
 
 @login_required
 def accept_friend_request(request, profile_slug):
@@ -163,7 +163,7 @@ def accept_friend_request(request, profile_slug):
     friendship.pending = False
     friendship.save()
 
-    return redirect('CityStars_app:city_stars')
+    return redirect('CityStars_app:profile', profile_slug=sender_profile.slug)
 
 @login_required
 def reject_friend_request(request, profile_slug):
@@ -174,7 +174,7 @@ def reject_friend_request(request, profile_slug):
 
     friendship.delete()
 
-    return redirect('CityStars_app:city_stars')
+    return redirect('CityStars_app:profile', profile_slug=sender_profile.slug)
 
 def delete_profile(request, profile_slug):
     return render(request, "CityStars_app/delete_profile.html")
@@ -193,8 +193,8 @@ def friends(request, profile_slug):
                 if o.user_requested != profile
                 else o.user_initiated
             )
-            for o in Friendship.objects.filter(user_initiated=profile)
-            | Friendship.objects.filter(user_requested=profile)
+            for o in Friendship.objects.filter(user_initiated=profile, pending=False)
+            | Friendship.objects.filter(user_requested=profile, pending=False)
         ]
         for o in context_dict["friends"]:
             o.numberOfPosts = len(Post.objects.filter(user=o))
