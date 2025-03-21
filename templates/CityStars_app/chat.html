@@ -1,10 +1,81 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+{% endblock %}
+
 {% block title_block %}
-    Chat
+Chat
 {% endblock %}
 
 {% block body_block %}
-    <h1>{profile_username}'s Chat with {friend_username}</h1>
+
+{% comment %}
+--------------------------------Chat page if it looked good-------------------------------
+<div class="container">
+    <div class="chat-window" id="id_chat_item_container">
+        {% if messages %}
+        {% for message in messages%}
+        {% if message.user == friend %}
+        <p class="friend-msg">{{ message.text }} - {{ message.user}} at {{ message.sent_date.time }}</p><br>
+        {% else %}
+        <p class="profile-msg">{{ message.text }} - {{ message.user}} at {{ message.sent_date.time }}</p><br>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <p class="no-msg">No messages with {{friend.user.username}}, say hi!</p>
+        {% endif %}
+    </div>
+    <div class="text-window">
+        <form action="{% url 'CityStars_app:chat' profile.slug friend.slug %}" method="post">
+            {% csrf_token %}
+            <input type="text" class="text-input" id="id_message_send_input" rows="1" maxlength="200">
+            <button type="submit" class="text-submit" id="id_message_send_button">Send</button>
+            <p class="form-text text-muted char-count" id="title-char-count">0/200</p>
+        </form>
+    </div>
+</div> {% endcomment %}
+
+{% comment %} Working chat page minus saving messages {% endcomment %}
+<div class="container">
+    <div class="chat-window" id="id_chat_item_container" style="font-size: 20px">
+    </div>
+    <input type="text" id="id_message_send_input" />
+    <button type="submit" id="id_message_send_button">Send Message</button>
+</div>
+<script>
+    const chatSocket = new WebSocket("ws://" + window.location.host +
+        "/city_stars/profile/{{ profile.slug }}/friends/{{ friend.slug }}/chat/");
+
+    document.querySelector("#id_message_send_input").focus();
+    document.querySelector("#id_message_send_input").onkeyup = function (e) {
+        if (e.keyCode == 13) {
+            document.querySelector("#id_message_send_button").click();
+        }
+    };
+
+    document.querySelector("#id_message_send_button").onclick = function (e) {
+        var messageInput = document.querySelector(
+            "#id_message_send_input"
+        ).value;
+        chatSocket.send(JSON.stringify({
+            message: messageInput,
+            username: "{{ profile.user.username }}"
+        }));
+    };
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+
+        var div = document.createElement("div");
+        div.innerHTML = data.username + " : " + data.message;
+        document.querySelector("#id_message_send_input").value = "";
+        document.querySelector("#id_chat_item_container").appendChild(div);
+    };
+</script>
+
+
+
+
 {% endblock %}

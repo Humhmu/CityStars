@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 def city_stars(request):
@@ -203,11 +204,38 @@ def friends(request, profile_slug):
         return render(request, "CityStars_app/friends.html", context=context_dict)
     else:
         return redirect('CityStars_app:city_stars')
-    
 
 
 def chat(request, profile_slug, friend_slug):
-    return render(request, "CityStars_app/chat.html")
+    # Prevent user from seeing other user's chats
+    if request.user.profile.slug != profile_slug:
+        # TODO: take user to a "You should not be here" page
+        return redirect("CityStars_app:city_stars")
+    
+    context_dict = {}
+    profile = Profile.objects.filter(slug=profile_slug)[0]
+    friend = Profile.objects.filter(slug=friend_slug)[0]
+    friendship = Friendship.objects.filter(
+        Q(user_initiated=profile, user_requested=friend)
+        | Q(user_initiated=friend, user_requested=profile)
+    )
+    if len(friendship) > 0:
+        chat = Chat.objects.filter(friendship=friendship[0])
+        if len(chat) == 0:
+            Chat.objects.create(friendship=friendship[0])
+            chat = Chat.objects.get(friendship=friendship[0])
+    else:
+        # TODO: take user to a "You cannot chat with a user if not friends" page
+        return redirect("CityStars_app:city_stars")
+    
+    messages = Message.objects.filter(chat=chat[0]).order_by("-sent_date")
+
+    context_dict["profile"] = profile
+    context_dict["friend"] = friend
+    context_dict["chat"] = chat
+    context_dict["messages"] = messages
+
+    return render(request, "CityStars_app/chat.html", context_dict)
 
 
 def posts(request, profile_slug):
