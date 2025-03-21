@@ -114,7 +114,25 @@ def profile(request, profile_slug):
         context_dict["friend"] = any([
                 (
                     True
-                    if o.user_requested == profile or o.user_initiated == profile
+                    if (o.user_requested == profile or o.user_initiated == profile) and o.pending == False
+                    else False
+                )
+                for o in Friendship.objects.filter(user_initiated=user_profile)
+                | Friendship.objects.filter(user_requested=user_profile)
+            ])
+        context_dict["pending"] = any([
+                (
+                    True
+                    if (o.user_requested == profile and o.user_initiated == user_profile) and o.pending == True
+                    else False
+                )
+                for o in Friendship.objects.filter(user_initiated=user_profile)
+                | Friendship.objects.filter(user_requested=user_profile)
+            ])
+        context_dict["requested"] = any([
+                (
+                    True
+                    if (o.user_requested == user_profile or o.user_initiated == profile) and o.pending == True
                     else False
                 )
                 for o in Friendship.objects.filter(user_initiated=user_profile)
@@ -126,6 +144,37 @@ def profile(request, profile_slug):
     else:
         return redirect('CityStars_app:login')
 
+@login_required
+def send_friend_request(request, profile_slug):
+    sender_profile = request.user.profile
+    receiver_profile = Profile.objects.filter(slug = profile_slug)[0]
+
+    Friendship.objects.create(user_initiated=sender_profile, user_requested=receiver_profile)
+
+    return redirect('CityStars_app:city_stars')
+
+@login_required
+def accept_friend_request(request, profile_slug):
+    sender_profile = Profile.objects.filter(slug = profile_slug)[0]
+    receiver_profile = request.user.profile
+
+    friendship = Friendship.objects.get(user_initiated=sender_profile, user_requested=receiver_profile, pending=True)
+
+    friendship.pending = False
+    friendship.save()
+
+    return redirect('CityStars_app:city_stars')
+
+@login_required
+def reject_friend_request(request, profile_slug):
+    sender_profile = Profile.objects.filter(slug = profile_slug)[0]
+    receiver_profile = request.user.profile
+
+    friendship = Friendship.objects.get(user_initiated=sender_profile, user_requested=receiver_profile, pending=True)
+
+    friendship.delete()
+
+    return redirect('CityStars_app:city_stars')
 
 def delete_profile(request, profile_slug):
     return render(request, "CityStars_app/delete_profile.html")
