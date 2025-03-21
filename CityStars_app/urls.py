@@ -38,4 +38,9 @@ urlpatterns = [
     path("register", views.signup, name="register"),
     path("login", views.user_login, name="login"),
     path("logout/", views.user_logout, name="logout"),
+
+    #Friendship urls
+    path("profile/<slug:profile_slug>/send_friend_request/", views.send_friend_request, name="send_friend_request"),
+    path("profile/<slug:profile_slug>/accept_friend_request/", views.accept_friend_request, name="accept_friend_request"),
+    path("profile/<slug:profile_slug>/reject_friend_request/", views.reject_friend_request, name="reject_friend_request")
 ]
