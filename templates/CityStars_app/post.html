@@ -1,5 +1,6 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block css_block %}
 <link rel="stylesheet" href="{% static 'css/city_post.css' %}" />
@@ -12,11 +13,7 @@
 {% block body_block %}
     <div class="currentfeednav">
         <div class="currentfeedheader">
-            {% if form.title.value %}
-            <h1>{{ form.title.value }}</h1>
-            {% else %}
-            <h1>Untitled</h1>
-            {% endif %}
+            <h1>{{ city_post_title }}</h1>
         </div>
         <div style="padding:20px; text-align: center;">
             <button onclick="" class="feednavbutton">Delete Post</button>
@@ -26,32 +23,34 @@
     </div>
     <div class="fullfeed">
         <div>
+            {% if post.image.url %}
+            <img src="{{ post.image.url }}"
+            alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
+            {% else %}
             <img src="{% static 'images/DEFAULT_profile_photo.jpg' %}"
             alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
+            {% endif %}
         </div>
-        <div style="position:relative; float:right; margin-right:30px; margin-top:20px">
+        <div style="position:relative; float:right; margin-right:50px; margin-top:20px">
             <div>
-                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
-                <button onclick="" class="feedrating"><img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage"></button>
+                {% for i in 1|to:city_average_rating %}
+                <img src="{% static 'images/star.png' %}" alt="star" width="60" height="60" />
+                {% endfor %}
+                {% for i in city_average_rating|to:4 %}
+                <img src="{% static 'images/emptystar.png' %}" alt="nostar" width="60" height="60" />
+                {% endfor %}
             </div>
-            <div style="line-height: 0.5; margin-top:20px">
+            <div style="line-height:0.5; margin-top:20px">
                 <p>Posted by: {{ user.profile.user.username }}</p>
                 <p>City: {{ city_name }}</p>
                 <p>Date: {{ city_post_date }}</p>
             </div>
             <div>
-                <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes" class="feedlikesimage"></button> {{ post_likes }}</p>
+                <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes" width="80" height="80" class="feedlikesimage"></button> {{ post_likes }}</p>
             </div>
         </div>
-        <div style="position:relative; float:left; text-align:center">
-            {% if form.text.value %}
-            <p>{{ form.text.value }}</p>
-            {% else %}
-            <p>The user has not commented on this post.</p>
-            {% endif %}
+        <div style="position:relative; float:left; text-align:center; margin-left:20px">
+            <p>{{ city_post_text }}</p>
         </div>
     </div>
 {% endblock %}
