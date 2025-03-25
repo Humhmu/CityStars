@@ -8,10 +8,17 @@ const chatSocket = new WebSocket(
     "/chat/"
 );
 const chatContainer = document.querySelector("#id_chat_item_container");
+const textCharCount = document.getElementById("message-char-count");
+const messageInput = document.getElementById("id_message_send_input");
 
 window.onload = function () {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 };
+
+messageInput.addEventListener("input", () => {
+  const currentLength = messageInput.value.length;
+  textCharCount.textContent = `${currentLength}/200`;
+});
 
 document.querySelector("#id_message_send_input").focus();
 document.querySelector("#id_message_send_input").onkeyup = function (e) {
