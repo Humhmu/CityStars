@@ -18,30 +18,25 @@
         <div style="padding:20px; text-align: center;">
             <button onclick="" class="feednavbutton">Delete Post</button>
             <button onclick="" class="feednavbutton">View {{ city_name }}</button>
-            <button onclick="" class="feednavbutton">{{ user.profile.user.username }}'s Profile</button>
+            <button onclick="" class="feednavbutton">{{ city_post_user }}'s Profile</button>
         </div>
     </div>
     <div class="fullfeed">
         <div>
-            {% if post.image.url %}
-            <img src="{{ post.image.url }}"
+            <img src="{{ city_post_image.url }}"
             alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
-            {% else %}
-            <img src="{% static 'images/DEFAULT_profile_photo.jpg' %}"
-            alt="image" style="margin-top:20px; float:left" class="feedpageimage"></img>
-            {% endif %}
         </div>
         <div style="position:relative; float:right; margin-right:50px; margin-top:20px">
             <div>
-                {% for i in 1|to:city_average_rating %}
+                {% for i in 1|to:post_rating %}
                 <img src="{% static 'images/star.png' %}" alt="star" width="60" height="60" />
                 {% endfor %}
-                {% for i in city_average_rating|to:4 %}
+                {% for i in post_rating|to:4 %}
                 <img src="{% static 'images/emptystar.png' %}" alt="nostar" width="60" height="60" />
                 {% endfor %}
             </div>
             <div style="line-height:0.5; margin-top:20px">
-                <p>Posted by: {{ user.profile.user.username }}</p>
+                <p>Posted by: {{ city_post_user }}</p>
                 <p>City: {{ city_name }}</p>
                 <p>Date: {{ city_post_date }}</p>
             </div>
