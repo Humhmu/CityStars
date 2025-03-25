@@ -1,0 +1,43 @@
+@import "base.css";
+
+.chat-window {
+  background-color: var(--PRIMARY);
+  border-color: var(--ACCENT);
+  border-style: solid;
+  height: 500px;
+  font-size: 20px;
+
+  overflow-y: auto;
+  /* display: flex; */
+}
+
+.no-msg {
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.friend-msg {
+  border-color: var(--ACCENT);
+  border-style: groove;
+  text-align: left;
+}
+
+.profile-msg {
+  border-color: var(--ACCENT);
+  border-style: groove;
+  text-align: right;
+}
+
+.chat-window .friend-msg,
+.chat-window .profile-msg {
+  word-wrap: break-word;
+}
+
+.text-input {
+  width: 90%;
+}
+
+.text-submit {
+  width: 9%;
+}
