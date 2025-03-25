@@ -232,9 +232,25 @@ def post(request, post_id):
         city = post.city
         context_dict["city_name"] = city.name
         context_dict["city_post_id"] = post
+        context_dict["city_post_user"] = post.user.user.username
+        context_dict["user_slug"] = post.user.slug
+        context_dict["city_post_image"] = post.image
+        context_dict["city_post_title"] = post.title
+        context_dict["city_post_text"] = post.text
+        context_dict["city_post_date"] = post.posted_date
+        context_dict["post_likes"] = post.likes
+        context_dict["post_rating"] = post.rating
     except (City.DoesNotExist, Post.DoesNotExist):
-        context_dict["city_name"] = None
-        context_dict["city_post_id"] = None
+        context_dict["city_name"] = "City"
+        context_dict["city_post_id"] = "ID"
+        context_dict["city_post_user"] = "Unknown"
+        context_dict["user_slug"] = "Unknown"
+        context_dict["city_post_image"] = "DEFAULT_profile_photo.jpg"
+        context_dict["city_post_title"] = "Untitled"
+        context_dict["city_post_text"] = "The user has not commented on this post."
+        context_dict["city_post_date"] = "Date"
+        context_dict["post_likes"] = 0
+        context_dict["post_rating"] = 1
 
     return render(request, "CityStars_app/post.html", context_dict)
 
