@@ -63,6 +63,7 @@ chatSocket.onmessage = function (e) {
   div.appendChild(p);
 
   document.querySelector("#id_message_send_input").value = "";
+  textCharCount.textContent = "0/200";
   chatContainer.appendChild(div);
   if (
     chatContainer.scrollHeight - chatContainer.scrollTop <=
