@@ -191,7 +191,8 @@
           ]
        },
        "John125%Julia1":{
-          "pending":false
+          "pending":false,
+          "chat":[]
        }
     }
  }

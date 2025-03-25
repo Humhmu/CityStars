@@ -5,6 +5,9 @@
   border-color: var(--ACCENT);
   border-style: solid;
   height: 500px;
+  font-size: 20px;
+
+  overflow-y: auto;
   /* display: flex; */
 }
 
@@ -17,19 +20,18 @@
 .friend-msg {
   border-color: var(--ACCENT);
   border-style: groove;
-  border-left: none;
-  font-size: larger;
-  padding: 1%;
-  float: left;
+  text-align: left;
 }
 
 .profile-msg {
   border-color: var(--ACCENT);
   border-style: groove;
-  border-right: none;
-  font-size: larger;
-  padding: 1%;
-  float: right;
+  text-align: right;
+}
+
+.chat-window .friend-msg,
+.chat-window .profile-msg {
+  word-wrap: break-word;
 }
 
 .text-input {
