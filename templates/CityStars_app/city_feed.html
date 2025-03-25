@@ -6,34 +6,68 @@
 {% endblock %}
 
 {% block title_block %}
-    City Feed
+City Feed
 {% endblock %}
 
 {% block body_block %}
-    <div class="body_content">
-        <div class="feedinteraction">
-            <button class="feedbutton"
-                onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
-                Friends
-            </button>
-            <button class="feedselect"
-                onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
-                City
-            </button>
-        </div>
-
-        <div class="feeddropdown">
-            <button onclick="" class="feeddropdownbutton">Search Bar</button>
-            <button onclick="" class="feeddropdownbutton">Scotland (Dropdown Filter)</button>
-            <button onclick="" class="feeddropdownbutton">Glasgow (Dropdown Filter)</button>
-        </div>
-
-        {%if posts%}
-            {% for post in posts%}
-                {% include "CityStars_app\includes\feed_element.html" %}  
-            {% endfor %}
-        {%else %}
-        <strong>There are no posts yet! - Be the First!</strong>
-        {%endif %}
+<div class="body_content">
+    <div class="feedinteraction">
+        <button class="feedbutton" onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
+            Friends
+        </button>
+        <button class="feedselect" onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+            City
+        </button>
     </div>
+
+    <div class="feeddropdown">
+        <input class="feeddropdownbutton" id="searchBar" oninput="filterPosts()" placeholder="Search Posts..."
+            style="color: white; text-align: center;"></input>
+
+        <select id="countryDropdown" onchange="filterPosts()" class="feeddropdownbutton">
+            <option value="all">All Countries</option>
+            {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+            {% endfor %}
+        </select>
+
+        <select id="cityDropdown" onchange="filterPosts()" class="feeddropdownbutton">
+            <option value="all">All Cities</option>
+            {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {%if posts%}
+    {% for post in posts%}
+    {% include "CityStars_app\includes\feed_element.html" %}
+    {% endfor %}
+    {%else %}
+    <strong>There are no posts yet! - Be the First!</strong>
+    {%endif %}
+</div>
+
+<script>
+    function filterPosts() {
+        const searchInput = document.getElementById("searchBar").value.toLowerCase();
+        const filterCountry = document.getElementById("countryDropdown").value.toLowerCase();
+        const filterCity = document.getElementById("cityDropdown").value.toLowerCase();
+        const posts = document.querySelectorAll(".feedpostt");
+
+        posts.forEach(post => {
+            const postContentTitle = post.dataset.postContent.toLowerCase();
+            const postContentCountry = post.dataset.country.toLowerCase();
+            const postContentCity = post.dataset.city.toLowerCase();
+            if (postContentTitle.includes(searchInput) && (postContentCountry.includes(filterCountry) ||
+                    filterCountry === "all") && (postContentCity.includes(filterCity) || filterCity ===
+                    "all")) {
+                post.style.display = "block";
+            } else {
+                post.style.display = "none";
+            }
+        })
+
+    }
+</script>
 {% endblock %}
