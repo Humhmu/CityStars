@@ -11,7 +11,9 @@ from django.db.models import Q
 
 def city_stars(request):
     context_dict = {}
-    context_dict["cities"] = City.objects.order_by("name")
+    context_dict["cities"] = City.objects.filter(
+        id__in=Post.objects.values_list("city", flat=True)
+    ).distinct()
 
     context_dict["posts"] = {}
     for city in context_dict["cities"]:
