@@ -123,8 +123,17 @@ def profile(request, profile_slug):
 
     user = request.user
     if user.is_authenticated:
+
         user_profile = Profile.objects.get(user=user)
         profile = Profile.objects.filter(slug=profile_slug)[0]
+
+        if request.method == "POST" and user_profile == profile:
+            old_picture = profile.profile_picture
+            form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+            if form.is_valid():
+                form.save()
+
         context_dict["friend"] = any(
             [
                 (
