@@ -81,15 +81,46 @@
                             Chat
                         </button>
                     </div>
+
+                    {% elif pending %}
+                    <div class="col text-center g-5 profile-container">  
+                        <div class="profile-pending">                      
+                            <p>Request Pending</p>
+                        </div>
+                    </div>
+
+                    {% elif requested %}
+                    <div class="col-md-3 text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                            onclick="window.location.href='{% url 'CityStars_app:accept_friend_request' profile.slug %}';"
+                        >
+                            Accept Friend Request
+                        </button>
+                    </div>
+
+                    <div class="col-md-3 text-center g-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary profile-btn"
+                            onclick="window.location.href='{% url 'CityStars_app:reject_friend_request' profile.slug %}';"
+                        >
+                            Reject Friend Request
+                        </button>
+                    </div>
+
                     {% else %}
                     <div class="col text-center g-5">
                         <button
                             type="button"
                             class="btn btn-primary profile-btn"
+                            onclick="window.location.href='{% url 'CityStars_app:send_friend_request' profile.slug %}';"
                         >
                             Send Friend Request
                         </button>
                     </div>
+
                     {% endif %}
                     <div class ="col text-center g-5">
                         <button

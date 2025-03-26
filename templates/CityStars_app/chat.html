@@ -1,10 +1,50 @@
 {% extends 'CityStars_app/base.html' %}
 {% load static %}
 
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}" />
+{% endblock %}
+
 {% block title_block %}
-    Chat
+Chat
 {% endblock %}
 
 {% block body_block %}
-    <h1>{profile_username}'s Chat with {friend_username}</h1>
+
+<div class="container">
+    <div class="chat-window" id="id_chat_item_container">
+        {% if messages %}
+        {% for message in messages%}
+        {% if message.user == friend %}
+        <div class="row g-0 friend-msg flex">
+            <strong>{{ message.user.user.username }} - {{ message.sent_date|date:"H:i" }}</strong>
+            <p>{{ message.text }}</p>
+        </div>
+        {% else %}
+        <div class="row g-0 profile-msg flex">
+            <strong>{{ message.user.user.username }} - {{ message.sent_date|date:"H:i" }}</strong>
+            <p>{{ message.text }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="text-window">
+        <input type="text" class="text-input" id="id_message_send_input" rows="1" maxlength="200">
+        <button type="submit" class="text-submit" id="id_message_send_button">Send</button>
+        <p class="form-text text-muted char-count" id="message-char-count">0/200</p>
+    </div>
+</div>
+
+<script>
+    const profile_slug = "{{ profile.slug }}";
+    const friend_slug = "{{ friend.slug }}";
+    const chat_id = "{{ chat.id }}";
+    const user_username = "{{ user.username }}";
+    const profile_username = "{{ profile.user.username }}";
+</script>
+<script src="{% static 'js/chat.js' %}"></script>
+
+
+
 {% endblock %}

@@ -17,6 +17,10 @@ html {
   border-color: black; */
 }
 
+body {
+  background-color: var(--BACKGROUND);
+}
+
 /* Main content. */
 .content {
   background-color: var(--PRIMARY);
@@ -49,7 +53,6 @@ html {
   background-color: var(--ACCENT);
   border-color: var(--ACCENT);
 }
-
 
 /* Buttons as part of the navigation bar. */
 .navbutton {
@@ -86,4 +89,16 @@ html {
   width: 75px;
   height: 75px;
   border-radius: 50%;
+}
+
+.searchBar {
+  color: white;
+  text-align: center;
+  background-color: var(--SECONDARY);
+  border-style: solid;
+  border-color: var(--ACCENT);
+  width: 25%;
+  margin-top: 15px;
+  margin-right: 11px;
+  transition-duration: 0.4s;
 }

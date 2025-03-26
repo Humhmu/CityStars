@@ -35,3 +35,10 @@
     background-color: var(--SECONDARY);
     border-color: var(--SECONDARY);
 }
+
+.profile-pending p {
+    padding: 1%;
+    background-color: var(--PRIMARY);
+    color: white;
+    font-weight: bolder;
+}

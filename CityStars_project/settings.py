@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "daphne",
     "django.contrib.staticfiles",
     "CityStars_app",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -66,14 +68,16 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                'django.template.context_processors.media', 
+                "django.template.context_processors.media",
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = "CityStars_project.wsgi.application"
+ASGI_APPLICATION = "CityStars_project.asgi.application"
 
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
