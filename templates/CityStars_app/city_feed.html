@@ -21,8 +21,7 @@ City Feed
     </div>
 
     <div class="feeddropdown">
-        <input class="feeddropdownbutton" id="searchBar" oninput="filterPosts()" placeholder="Search Posts..."
-            style="color: white; text-align: center;"></input>
+        <input class="searchBar" id="searchBar" oninput="filterPosts()" placeholder="Search Posts..."></input>
 
         <select id="countryDropdown" onchange="filterPosts()" class="feeddropdownbutton">
             <option value="all">All Countries</option>
@@ -48,26 +47,5 @@ City Feed
     {%endif %}
 </div>
 
-<script>
-    function filterPosts() {
-        const searchInput = document.getElementById("searchBar").value.toLowerCase();
-        const filterCountry = document.getElementById("countryDropdown").value.toLowerCase();
-        const filterCity = document.getElementById("cityDropdown").value.toLowerCase();
-        const posts = document.querySelectorAll(".feedpostt");
-
-        posts.forEach(post => {
-            const postContentTitle = post.dataset.postContent.toLowerCase();
-            const postContentCountry = post.dataset.country.toLowerCase();
-            const postContentCity = post.dataset.city.toLowerCase();
-            if (postContentTitle.includes(searchInput) && (postContentCountry.includes(filterCountry) ||
-                    filterCountry === "all") && (postContentCity.includes(filterCity) || filterCity ===
-                    "all")) {
-                post.style.display = "block";
-            } else {
-                post.style.display = "none";
-            }
-        })
-
-    }
-</script>
+<script src="{% static "js/city_feed.js" %}"></script>r
 {% endblock %}
