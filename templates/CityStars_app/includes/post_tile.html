@@ -7,7 +7,7 @@
             <div class="container rounded p-1 bg-lightgreen text-white text-center">
                 
                 {%if header %}
-                <div class="row "
+                <div class="row rounded"
                      onclick="window.location.href='{% url 'CityStars_app:profile' post.user.slug%}';">
                     <div class="col-auto">
                         <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"

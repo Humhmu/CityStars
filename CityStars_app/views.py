@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from CityStars_app.models import *
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 def city_stars(request):
@@ -190,6 +191,8 @@ def accept_friend_request(request, profile_slug):
 
     friendship.pending = False
     friendship.save()
+    chat = Chat(friendship=friendship)
+    chat.save()
 
     return redirect("CityStars_app:profile", profile_slug=sender_profile.slug)
 
@@ -233,7 +236,32 @@ def friends(request, profile_slug):
 
 
 def chat(request, profile_slug, friend_slug):
-    return render(request, "CityStars_app/chat.html")
+    # Prevent user from seeing other user's chats
+    if request.user.profile.slug != profile_slug:
+        # TODO: take user to a "You should not be here" page
+        return redirect("CityStars_app:city_stars")
+
+    context_dict = {}
+    profile = Profile.objects.filter(slug=profile_slug)[0]
+    friend = Profile.objects.filter(slug=friend_slug)[0]
+    friendship = Friendship.objects.filter(
+        Q(user_initiated=profile, user_requested=friend)
+        | Q(user_initiated=friend, user_requested=profile)
+    )
+    if len(friendship) > 0:
+        chat = Chat.objects.filter(friendship=friendship[0])[0]
+    else:
+        # TODO: take user to a "You cannot chat with a user if not friends" page
+        return redirect("CityStars_app:city_stars")
+
+    messages = Message.objects.filter(chat=chat).order_by("sent_date")
+
+    context_dict["profile"] = profile
+    context_dict["friend"] = friend
+    context_dict["chat"] = chat
+    context_dict["messages"] = messages
+
+    return render(request, "CityStars_app/chat.html", context_dict)
 
 
 def posts(request, profile_slug):
@@ -258,9 +286,25 @@ def post(request, post_id):
         city = post.city
         context_dict["city_name"] = city.name
         context_dict["city_post_id"] = post
+        context_dict["city_post_user"] = post.user.user.username
+        context_dict["user_slug"] = post.user.slug
+        context_dict["city_post_image"] = post.image
+        context_dict["city_post_title"] = post.title
+        context_dict["city_post_text"] = post.text
+        context_dict["city_post_date"] = post.posted_date
+        context_dict["post_likes"] = post.likes
+        context_dict["post_rating"] = post.rating
     except (City.DoesNotExist, Post.DoesNotExist):
-        context_dict["city_name"] = None
-        context_dict["city_post_id"] = None
+        context_dict["city_name"] = "City"
+        context_dict["city_post_id"] = "ID"
+        context_dict["city_post_user"] = "Unknown"
+        context_dict["user_slug"] = "Unknown"
+        context_dict["city_post_image"] = "DEFAULT_profile_photo.jpg"
+        context_dict["city_post_title"] = "Untitled"
+        context_dict["city_post_text"] = "The user has not commented on this post."
+        context_dict["city_post_date"] = "Date"
+        context_dict["post_likes"] = 0
+        context_dict["post_rating"] = 1
 
     return render(request, "CityStars_app/post.html", context_dict)
 
