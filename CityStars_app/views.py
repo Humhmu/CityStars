@@ -66,15 +66,14 @@ def city(request, city_slug):
         context_dict["city"] = city
 
         context_dict["header"] = True
-        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()))[:3]
+        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()), reverse=True)[:3]
     except City.DoesNotExist:
         context_dict["city"] = None
 
     return render(request, "CityStars_app/city.html", context=context_dict)
 
 
-def add_post(request, city_slug):
-    city = City.objects.filter(slug=city_slug)[0]
+def add_post(request):
     cities = City.objects.get_queryset()
 
     if request.method == "POST":
@@ -82,7 +81,6 @@ def add_post(request, city_slug):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             newpost = form.save(commit=False)
-            newpost.city = city
             newpost.user = profile
             newpost.save()
             return redirect(reverse("CityStars_app:city_stars"))
@@ -90,7 +88,7 @@ def add_post(request, city_slug):
             return render(
                 request,
                 "CityStars_app/add_post.html",
-                {"city": city, "cities": cities, "form": form},
+                {"cities": cities, "form": form},
             )
     else:
         form = PostForm()
@@ -98,7 +96,7 @@ def add_post(request, city_slug):
     return render(
         request,
         "CityStars_app/add_post.html",
-        {"form": form, "city": city, "cities": cities},
+        {"form": form, "cities": cities},
     )
 
 
@@ -346,7 +344,11 @@ def post(request, post_id):
 
 
 def delete_post(request, post_id):
-    return render(request, "CityStars_app/delete_post.html")
+    profile_slug = request.user.profile.slug
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    # return redirect("CityStars_app:city_stars")
+    return redirect("CityStars_app:posts", profile_slug=profile_slug)
 
 
 def user_login(request):

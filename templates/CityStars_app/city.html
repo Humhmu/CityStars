@@ -40,11 +40,13 @@ City
 
 
                 <button type="button" class="btn bg-darkgreen text-white btn-lg"
-                    onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">View {{ city.name }}
+                    onclick="window.location.href='{% url 'CityStars_app:city_feed' %}?city={{city.name|urlencode}}&country={{city.country|urlencode}}';">View
+                    {{ city.name }}
                     Feed</button>
                 {% if user.is_authenticated %}
                 <button type="button" class="btn bg-darkgreen text-white btn-lg float-right"
-                    onclick="window.location.href='{% url 'CityStars_app:add_post' city.slug %}';">Make Post</button>
+                    onclick="window.location.href='{% url 'CityStars_app:add_post' %}?city={{city.name|urlencode}}_{{city.id|urlencode}}';">Make
+                    Post</button>
                 {% endif %}
             </div>
         </div>
@@ -64,24 +66,24 @@ City
 
 
 
-    {%if top_posts%}
-    <div class="row">
+        {%if top_posts%}
+        <div class="row">
 
 
-    {% for post in top_posts%}
-        {% include "CityStars_app\includes\post_tile.html" %}  
-    {% endfor %}
+            {% for post in top_posts%}
+            {% include "CityStars_app\includes\post_tile.html" %}
+            {% endfor %}
 
-    </div>
-    {%else %}
-    <strong>There are no posts yet! - Be the First!</strong>
-    {%endif %}
+        </div>
+        {%else %}
+        <strong>There are no posts yet! - Be the First!</strong>
+        {%endif %}
 
 
 
-    {% else %}
-    <strong>This city is not on our system.</strong>
-    {% endif %}
+        {% else %}
+        <strong>This city is not on our system.</strong>
+        {% endif %}
     </div>
 </div>
 
