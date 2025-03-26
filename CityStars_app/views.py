@@ -11,7 +11,9 @@ from django.db.models import Q
 
 def city_stars(request):
     context_dict = {}
-    context_dict["cities"] = City.objects.order_by("name")
+    context_dict["cities"] = City.objects.filter(
+        id__in=Post.objects.values_list("city", flat=True)
+    ).distinct()
 
     context_dict["posts"] = {}
     for city in context_dict["cities"]:
@@ -104,6 +106,14 @@ def city_feed(request):
     context_dict = {}
 
     context_dict["posts"] = Post.objects.order_by("-posted_date")
+    context_dict["countries"] = City.objects.values_list(
+        "country", flat=True
+    ).distinct()
+    context_dict["cities"] = (
+        City.objects.filter(id__in=Post.objects.values_list("city", flat=True))
+        .values_list("name", flat=True)
+        .distinct()
+    )
 
     return render(request, "CityStars_app/city_feed.html", context=context_dict)
 

@@ -54,7 +54,6 @@ body {
   border-color: var(--ACCENT);
 }
 
-
 /* Buttons as part of the navigation bar. */
 .navbutton {
   background-color: var(--SECONDARY);
@@ -90,4 +89,16 @@ body {
   width: 75px;
   height: 75px;
   border-radius: 50%;
+}
+
+.searchBar {
+  color: white;
+  text-align: center;
+  background-color: var(--SECONDARY);
+  border-style: solid;
+  border-color: var(--ACCENT);
+  width: 25%;
+  margin-top: 15px;
+  margin-right: 11px;
+  transition-duration: 0.4s;
 }

@@ -6,34 +6,46 @@
 {% endblock %}
 
 {% block title_block %}
-    City Feed
+City Feed
 {% endblock %}
 
 {% block body_block %}
-    <div class="body_content">
-        <div class="feedinteraction">
-            <button class="feedbutton"
-                onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
-                Friends
-            </button>
-            <button class="feedselect"
-                onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
-                City
-            </button>
-        </div>
-
-        <div class="feeddropdown">
-            <button onclick="" class="feeddropdownbutton">Search Bar</button>
-            <button onclick="" class="feeddropdownbutton">Scotland (Dropdown Filter)</button>
-            <button onclick="" class="feeddropdownbutton">Glasgow (Dropdown Filter)</button>
-        </div>
-
-        {%if posts%}
-            {% for post in posts%}
-                {% include "CityStars_app\includes\feed_element.html" %}  
-            {% endfor %}
-        {%else %}
-        <strong>There are no posts yet! - Be the First!</strong>
-        {%endif %}
+<div class="body_content">
+    <div class="feedinteraction">
+        <button class="feedbutton" onclick="window.location.href='{% url 'CityStars_app:friend_feed' %}';">
+            Friends
+        </button>
+        <button class="feedselect" onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';">
+            City
+        </button>
     </div>
+
+    <div class="feeddropdown">
+        <input class="searchBar" id="searchBar" oninput="filterPosts()" placeholder="Search Posts..."></input>
+
+        <select id="countryDropdown" onchange="filterPosts()" class="feeddropdownbutton">
+            <option value="all">All Countries</option>
+            {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+            {% endfor %}
+        </select>
+
+        <select id="cityDropdown" onchange="filterPosts()" class="feeddropdownbutton">
+            <option value="all">All Cities</option>
+            {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {%if posts%}
+    {% for post in posts%}
+    {% include "CityStars_app\includes\feed_element.html" %}
+    {% endfor %}
+    {%else %}
+    <strong>There are no posts yet! - Be the First!</strong>
+    {%endif %}
+</div>
+
+<script src="{% static "js/city_feed.js" %}"></script>r
 {% endblock %}

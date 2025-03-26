@@ -1,6 +1,5 @@
 @import "base.css";
 
-
 .center {
   align-self: center;
   margin-left: auto;
@@ -25,7 +24,6 @@
 .feedpfp {
   max-height: 50px;
   margin-right: 20px;
-  
 }
 
 .feedpfprow {
