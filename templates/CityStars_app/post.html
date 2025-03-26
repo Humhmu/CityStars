@@ -16,7 +16,9 @@ Post
         <h1>{{ city_post_title }}</h1>
     </div>
     <div class="buttons">
-        <button onclick="" class="feednavbutton">Delete Post</button>
+        {% if city_post_id.user.user == user %}
+        <button onclick="window.location.href='{% url 'CityStars_app:delete_post' city_post_id.id %}';" class="feednavbutton">Delete Post</button>
+        {% endif %}
         <button onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';" class="feednavbutton">View
             {{ city_name }}</button>
         <button onclick="window.location.href='{% url 'CityStars_app:profile' user_slug %}';"
