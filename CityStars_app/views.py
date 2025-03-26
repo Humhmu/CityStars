@@ -234,7 +234,7 @@ def friends(request, profile_slug):
 
         return render(request, "CityStars_app/friends.html", context=context_dict)
     else:
-        return redirect("CityStars_app:city_stars")
+        return redirect("CityStars_app:login")
 
 
 def chat(request, profile_slug, friend_slug):
