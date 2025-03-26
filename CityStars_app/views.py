@@ -286,6 +286,7 @@ def post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
         city = post.city
+        context_dict["city"] = city
         context_dict["city_name"] = city.name
         context_dict["city_post_id"] = post
         context_dict["city_post_user"] = post.user.user.username
@@ -297,6 +298,7 @@ def post(request, post_id):
         context_dict["post_likes"] = post.likes
         context_dict["post_rating"] = post.rating
     except (City.DoesNotExist, Post.DoesNotExist):
+        context_dict["city"] = "Unknown"
         context_dict["city_name"] = "City"
         context_dict["city_post_id"] = "ID"
         context_dict["city_post_user"] = "Unknown"
