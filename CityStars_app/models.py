@@ -61,7 +61,7 @@ class Post(models.Model):
     text = models.CharField(max_length=TEXT_MAX_LENGTH, blank=False)
     title = models.CharField(max_length=TITLE_MAX_LENGTH, blank=False)
     rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
-    likes = models.IntegerField(default=0)
+    liked_by = models.ManyToManyField(User)
 
     def __str__(self):
         return "Post| "+str(self.city)+ " & " + str(self.user)

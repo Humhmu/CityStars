@@ -7,6 +7,30 @@ from CityStars_app.models import *
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.templatetags.static import static
+from django.http import JsonResponse
+
+
+def like_post(request):
+    if request.method == "GET":
+        user = request.user
+        if user.is_authenticated:
+            post_id = request.GET['post_id']
+            try:
+                post = Post.objects.get(id=int(post_id))
+            except Post.DoesNotExist or ValueError:
+                return HttpResponse(-1)
+
+            if user in post.liked_by.all():
+                img = static('images/emptyheart.png')
+                post.liked_by.remove(user)
+                post.save()
+            else:
+                img = static('images/heart.png')
+                post.liked_by.add(user)
+                post.save()
+
+            return JsonResponse([len(post.liked_by.all()),img], safe=False)
 
 
 def city_stars(request):
@@ -42,9 +66,7 @@ def city(request, city_slug):
         context_dict["city"] = city
 
         context_dict["header"] = True
-        context_dict["top_posts"] = Post.objects.filter(city=city).order_by("-likes")[
-            :3
-        ]
+        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()))[:3]
     except City.DoesNotExist:
         context_dict["city"] = None
 
@@ -304,8 +326,9 @@ def post(request, post_id):
         context_dict["city_post_title"] = post.title
         context_dict["city_post_text"] = post.text
         context_dict["city_post_date"] = post.posted_date
-        context_dict["post_likes"] = post.likes
+        context_dict["post_likes"] = post.liked_by
         context_dict["post_rating"] = post.rating
+        context_dict["post"] = post
     except (City.DoesNotExist, Post.DoesNotExist):
         context_dict["city"] = "Unknown"
         context_dict["city_name"] = "City"

@@ -60,8 +60,11 @@
             <strong>{{ profile.user.username }} has no posts yet.</strong>
         {% endif %}
         {% endif %}
-        {% endblock %}
 
     </div>
 </div>
 
+<script src="{% static 'js/jquery-3.3.1.min.js' %}" crossorigin="anonymous"></script>
+<script src="{% static "js/like.js" %}"></script>
+
+{% endblock %}
