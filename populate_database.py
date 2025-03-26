@@ -67,10 +67,12 @@ def add_post(details,users,cities):
         posted_date = datetime.fromtimestamp(details["date"],tz=timezone.utc),
         image = ImageFile(open( details["image"], "rb"),name = "post_photo.jpg"),
         text = details["text"],
-        likes = details["likes"],
         title = details["title"],
         rating = details["rating"]
         )[0]
+    
+    for name in details["liked_by"]:
+        k.liked_by.add(users[name]["object"].user)
 
     k.save()
     return k
