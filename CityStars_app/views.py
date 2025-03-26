@@ -335,7 +335,11 @@ def post(request, post_id):
 
 
 def delete_post(request, post_id):
-    return render(request, "CityStars_app/delete_post.html")
+    profile_slug = request.user.profile.slug
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    # return redirect("CityStars_app:city_stars")
+    return redirect("CityStars_app:posts", profile_slug=profile_slug)
 
 
 def user_login(request):
