@@ -51,8 +51,7 @@ def city(request, city_slug):
     return render(request, "CityStars_app/city.html", context=context_dict)
 
 
-def add_post(request, city_slug):
-    city = City.objects.filter(slug=city_slug)[0]
+def add_post(request):
     cities = City.objects.get_queryset()
 
     if request.method == "POST":
@@ -60,7 +59,6 @@ def add_post(request, city_slug):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             newpost = form.save(commit=False)
-            newpost.city = city
             newpost.user = profile
             newpost.save()
             return redirect(reverse("CityStars_app:city_stars"))
@@ -68,7 +66,7 @@ def add_post(request, city_slug):
             return render(
                 request,
                 "CityStars_app/add_post.html",
-                {"city": city, "cities": cities, "form": form},
+                {"cities": cities, "form": form},
             )
     else:
         form = PostForm()
@@ -76,7 +74,7 @@ def add_post(request, city_slug):
     return render(
         request,
         "CityStars_app/add_post.html",
-        {"form": form, "city": city, "cities": cities},
+        {"form": form, "cities": cities},
     )
 
 

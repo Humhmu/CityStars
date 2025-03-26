@@ -1,3 +1,29 @@
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  const dets = params.get("city") ? params.get("city").split("_") : null;
+  return {
+    city: dets ? dets[0] : "-",
+    cityId: dets ? dets[1] : "-",
+  };
+}
+
+function a() {
+  const { city, cityId } = getQueryParams();
+  addTo.innerHTML = "Add post to " + city;
+  if (city === "-") {
+    addTo.style.display = "none";
+    cityChoice.style.display = "block";
+  } else {
+    form.setAttribute("action", window.location.href);
+    addTo.style.display = "block";
+    cityChoice.style.display = "block";
+    var option = document.createElement("option");
+    option.setAttribute("selected", null);
+    option.setAttribute("value", cityId);
+    citySelect.appendChild(option);
+  }
+}
+
 const titleInput = document.getElementById("title");
 const textInput = document.getElementById("text");
 const titleCharCount = document.getElementById("title-char-count");
@@ -9,6 +35,13 @@ const imagePreview = document.getElementById("image-preview");
 const imagePreviewContainer = document.getElementById(
   "image-preview-container"
 );
+
+const addTo = document.getElementById("add-to");
+const cityChoice = document.getElementById("city-choice");
+const citySelect = document.getElementById("city");
+const form = document.getElementById("post_form");
+
+window.onload = a();
 
 document.addEventListener("DOMContentLoaded", function () {
   titleCharCount.textContent = `${titleInput.value.length}/20`;

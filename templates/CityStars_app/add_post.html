@@ -10,9 +10,9 @@ Add Post
 {% endblock %}
 
 {% block body_block %}
-<h1>Add Post to {{city.name}}</h1>
+<h1 id="add-to"></h1>
 
-<form class="post-form" id="post_form" method="post" action="{% url 'CityStars_app:add_post' city.slug %}"
+<form class="post-form" id="post_form" method="post" action="{% url 'CityStars_app:add_post' %}"
     enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
@@ -27,6 +27,23 @@ Add Post
             maxlength="20">{% if form.title.value %}{{ form.title.value }}{% endif %}</textarea>
         <p class="form-text text-muted char-count" id="title-char-count"></p>
     </div>
+
+    <div class="mb-3" id="city-choice">
+        <label for="city" class="form-label">City:</label>
+        {% if form.errors.city %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>{{form.errors.city}}</strong>
+        </div>
+        {% endif %}
+        <select class="form-select form-select-md" name="city" id="city">
+            <option selected>Select one</option>
+            {% for c in cities %}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
 
     <div class="mb-3">
         <label for="image" class="form-label">Choose Image:</label>
@@ -72,6 +89,7 @@ Add Post
         Submit
     </button>
 </form type="submit" name="submit" value="Create Post">
+
 
 <script src="{% static 'js/add_post.js' %}"></script>
 
