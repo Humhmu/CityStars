@@ -1,60 +1,68 @@
 {% load static %}
 
 <div class="col-lg-4">
-    <button class = "tile">
 
         <div class="container rounded p-1 my-1 mw-25 bg-bordergreen text-white">
             <div class="container rounded p-1 bg-lightgreen text-white text-center">
-                
                 {%if header %}
-                <div class="row rounded"
-                     onclick="window.location.href='{% url 'CityStars_app:profile' post.user.slug%}';">
-                    <div class="col-auto">
-                        <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
-                            class="rounded-circle float-left profileImage" alt="Image of City" />
+                <button class = "tile">
+                    <div class="row rounded"
+                        onclick="window.location.href='{% url 'CityStars_app:profile' post.user.slug%}';">
+                        <div class="col-auto">
+                            <img src="{{ MEDIA_URL }}{{ post.user.profile_picture }}"
+                                class="rounded-circle float-left profileImage" alt="Image of City" />
+                        </div>
+                        <div class="col-auto">
+                            <h4>{{ post.user.user.username }}
+                                {%if post.user.is_verified%}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                    </svg>
+                                {%endif %}
+                            </h4>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <h4>{{ post.user.user.username }}
-                            {%if post.user.is_verified%}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
-                                    <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                                </svg>
-                            {%endif %}
-                        </h4>
-                    </div>
-                </div>
+                </button>
                 {%endif %}
 
                 <div onclick="window.location.href='{% url 'CityStars_app:post' post.id%}';">
-                    <h5>{{ post.title }}</h5>
-                    <img src="{{ MEDIA_URL }}{{ post.image }}" class="img-fluid mx-auto d-block rounded postImage"
-                        alt="Image of City" />
-                    <p>{{ post.posted_date}}</p>
 
-                    
+                    <button class="tile">
+                        <h5>{{ post.title }}</h5>
+                        <img src="{{ MEDIA_URL }}{{ post.image }}" class="img-fluid mx-auto d-block rounded postImage"
+                            alt="Image of City" />
+                        <p>{{ post.posted_date}}</p>
+                    </button>
+                        
+                </div>
 
+                <div class="row text-center">
+                    <div class="col-auto ">
+                        {% for i in "x"|rjust:" 5 " %}
+                        {%if forloop.counter <= post.rating %}
+                        <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
+                        {%else %}
+                        <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
+                        {%endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-auto ">
 
-                    <div class="row text-center">
-                        <div class="col-auto ">
-                            {% for i in "x"|rjust:" 5 " %}
-                            {%if forloop.counter <= post.rating %}
-                            <img src="{% static 'images/star.png' %}" class="feedreviewstarsimage">
+                            {% if user.is_authenticated %}
+                            <button onclick="" class="tile like_button" id="" data-postid="{{ post.id }}">
                             {%else %}
-                            <img src="{% static 'images/emptystar.png' %}" class="feedreviewstarsimage">
+                            <button onclick="" class="tile" id="" data-postid="{{ post.id }}">
                             {%endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-auto ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
-                                class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
-                            </svg>
-                            <p>{{ post.likes }}</p>
-                        </div>
+                                {%if user in post.liked_by.all%}
+                                <img src="{% static 'images/heart.png' %}" alt="likes" id="heart{{ post.id }}">
+                                {%else %}
+                                <img src="{% static 'images/emptyheart.png' %}" alt="likes" id="heart{{ post.id }}">
+                                {%endif %}
+                                <p id = "likes{{ post.id }}">{{ post.liked_by.all|length }}</p>
+                            </button>
                     </div>
                 </div>
+
             </div>
         </div>
-    </button>
 </div>
