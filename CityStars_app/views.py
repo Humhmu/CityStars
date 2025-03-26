@@ -66,7 +66,7 @@ def city(request, city_slug):
         context_dict["city"] = city
 
         context_dict["header"] = True
-        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()))[:3]
+        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()), reverse=True)[:3]
     except City.DoesNotExist:
         context_dict["city"] = None
 

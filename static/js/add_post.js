@@ -16,7 +16,7 @@ function a() {
   } else {
     form.setAttribute("action", window.location.href);
     addTo.style.display = "block";
-    cityChoice.style.display = "block";
+    cityChoice.style.display = "none";
     var option = document.createElement("option");
     option.setAttribute("selected", null);
     option.setAttribute("value", cityId);
