@@ -17,7 +17,7 @@ Post
     </div>
     <div class="buttons">
         <button onclick="" class="feednavbutton">Delete Post</button>
-        <button onclick="window.location.href='{% url 'CityStars_app:city_feed' %}';" class="feednavbutton">View
+        <button onclick="window.location.href='{% url 'CityStars_app:city' city.slug %}';" class="feednavbutton">View
             {{ city_name }}</button>
         <button onclick="window.location.href='{% url 'CityStars_app:profile' user_slug %}';"
             class="feednavbutton">{{ city_post_user }}'s Profile</button>
@@ -42,12 +42,25 @@ Post
             <p>Date: {{ city_post_date }}</p>
         </div>
         <div>
-            <p><button onclick="" class="feedcurrentlikes"><img src="{% static 'images/emptyheart.png' %}" alt="likes"
-                        width="80" height="80" class="feedlikesimage"></button> {{ post_likes }}</p>
+            {% if user.is_authenticated %}
+            <button onclick="" class="feedcurrentlikes text-white like_button" id="" data-postid="{{ post.id }}">
+            {%else %}
+            <button onclick="" class="feedcurrentlikes text-white" id="" data-postid="{{ post.id }}">
+            {%endif %}
+                {%if user in post.liked_by.all%}
+                <img src="{% static 'images/heart.png' %}" alt="likes" id="heart{{ post.id }}">
+                {%else %}
+                <img src="{% static 'images/emptyheart.png' %}" alt="likes" id="heart{{ post.id }}">
+                {%endif %}
+                <p id = "likes{{ post.id }}">{{ post.liked_by.all|length }}</p>
+            </button>
         </div>
     </div>
     <div class="post-text">
         <p>{{ city_post_text }}</p>
     </div>
 </div>
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}" crossorigin="anonymous"></script>
+<script src="{% static "js/like.js" %}"></script>
 {% endblock %}

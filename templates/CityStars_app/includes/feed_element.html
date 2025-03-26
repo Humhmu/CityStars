@@ -42,8 +42,18 @@
             </button>
 
             <div class="feedlikes">
-                <button onclick="" class="feedlikesbutton"><img src="{% static 'images/emptyheart.png' %}" alt="likes"
-                        class="feedlikesimage"></button>{{post.likes}}
+                    {% if user.is_authenticated %}
+                    <button onclick="" class="feedlikesbutton text-white like_button" id="" data-postid="{{ post.id }}">
+                    {%else %}
+                    <button onclick="" class="feedlikesbutton text-white" id="" data-postid="{{ post.id }}">
+                    {%endif %}
+                        {%if user in post.liked_by.all%}
+                        <img src="{% static 'images/heart.png' %}" alt="likes" id="heart{{ post.id }}">
+                        {%else %}
+                        <img src="{% static 'images/emptyheart.png' %}" alt="likes" id="heart{{ post.id }}">
+                        {%endif %}
+                        <p id = "likes{{ post.id }}">{{ post.liked_by.all|length }}</p>
+                    </button>
             </div>
             <div class="stardiv">
                 {% for i in "x"|rjust:" 5 " %}

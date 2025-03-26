@@ -33,6 +33,7 @@ urlpatterns = [
         views.post,
         name="post",
     ),
+    path('post/posts/like_post/', views.like_post, name='like_post'),
     # Account urls
     path("register", views.signup, name="register"),
     path("login", views.user_login, name="login"),
