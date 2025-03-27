@@ -51,3 +51,7 @@
 .modal-dialog {
   max-width: fit-content;
 }
+
+.btn-warn {
+  background-color: var(--WARN);
+}

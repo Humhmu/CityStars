@@ -256,9 +256,10 @@ def reject_friend_request(request, profile_slug):
 def delete_profile(request, profile_slug):
     profile = Profile.objects.get(slug=profile_slug)
     if request.user == profile.user:
+        logout(request)
         profile.delete()
 
-    return render(request, "CityStars_app/delete_profile.html")
+    return redirect("CityStars_app:city_stars")
 
 
 @login_required(login_url="CityStars_app:login")
@@ -313,7 +314,7 @@ def chat(request, profile_slug, friend_slug):
 def posts(request, profile_slug):
     profile = Profile.objects.filter(slug=profile_slug)
     if len(profile) == 0:
-        return render(request, "CityStars_app/404.html")
+        return render(request, "CityStars_app/login.html")
     else:
         profile = profile[0]
 

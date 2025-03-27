@@ -11,8 +11,6 @@ Profile
 
 {% block body_block %}
 <div class="body_content">
-
-
     <div class="profile-container">
         <div class="profile-name">
             <h1>{{ profile.user.username }}</h1>
@@ -23,7 +21,7 @@ Profile
         <div class="row">
             <div class="col text-center g-5">
                 <div class="profile-image">
-                    <img src={{profile.profile_picture.url}} class="img-fluid rounded-top    " alt="Profile Picture" />
+                    <img src={{profile.profile_picture.url}} class="img-fluid rounded-top" alt="Profile Picture" />
                 </div>
             </div>
             <div class="col text-center g-5">
@@ -42,74 +40,86 @@ Profile
 
             {% if user == profile.user %}
             <div class="col text-center g-5">
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                    data-bs-target="#profileModal">
-                    Change Profile Image
-                </button>
+                <div class="row g-0">
+                    <button type="button" class="btn btn-primary btn-md col-md-6" data-bs-toggle="modal"
+                        data-bs-target="#profileModal">
+                        Change Profile Image
+                    </button>
 
-                <div class="modal fade" id="profileModal" tabindex="-1" data-bs-backdrop="static"
-                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitleId">
-                                    Choose an image
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form class="profile-form" id="profile_form" method="post"
-                                    enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <input type="file" accept="image/*" class="form-control" name="profile_picture"
-                                        id="profile_picture" placeholder="" aria-describedby="fileHelpId" />
+                    <div class="modal fade" id="profileModal" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                            role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitleId">
+                                        Choose an image
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="profile-form" id="profile_form" method="post"
+                                        enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="file" accept="image/*" class="form-control" name="profile_picture"
+                                            id="profile_picture" placeholder="" aria-describedby="fileHelpId" />
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    </form type="submit" name="submit" value="Update Profile">
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                </form type="submit" name="submit" value="Update Profile">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-md col-md-6" data-bs-toggle="modal"
+                        data-bs-target="#bioModal">
+                        Change Bio
+                    </button>
+
+                    <div class="modal fade" id="bioModal" tabindex="-1" data-bs-backdrop="static"
+                        data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                            role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitleId">
+                                        Change your bio
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="profile-form" id="profile_form" method="post"
+                                        enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <textarea class="form-control" name="bio" id="bio" rows="3" cols="88"
+                                            maxlength="1000">{{ profile.bio }}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    </form type="submit" name="submit" value="Update Profile">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bioModal">
-                    Change Bio
-                </button>
-
-                <div class="modal fade" id="bioModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitleId">
-                                    Change your bio
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form class="profile-form" id="profile_form" method="post"
-                                    enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <textarea class="form-control" name="bio" id="bio" rows="3" cols="88"
-                                        maxlength="1000">{{ profile.bio }}</textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                </form type="submit" name="submit" value="Update Profile">
-                            </div>
-                        </div>
-                    </div>
+                <div class="row g-0">
+                    <button type="button" class="btn btn-primary btn-md btn-warn"
+                        onclick="window.location.href='{% url 'CityStars_app:delete_profile' user.profile.slug %}';">
+                        Delete Profile
+                    </button>
                 </div>
             </div>
+
             {% else %}
 
             {% if friend %}
