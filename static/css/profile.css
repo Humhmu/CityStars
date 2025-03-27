@@ -55,3 +55,7 @@
 .btn-warn {
   background-color: var(--WARN);
 }
+
+.profile-bio {
+  word-wrap: break-word;
+}

@@ -18,16 +18,16 @@ Profile
     </div>
 
     <div class="container">
-        <div class="row">
-            <div class="col text-center g-5">
-                <div class="profile-image">
+        <div class="row g-0">
+            <div class="col-md-6 text-center g-5">
+                <div class="profile-image row">
                     <img src={{profile.profile_picture.url}} class="img-fluid rounded-top" alt="Profile Picture" />
                 </div>
             </div>
-            <div class="col text-center g-5">
+            <div class="col-md-6 text-center g-5">
                 <div class="profile-bio">
                     <figure class="text-start">
-                        <blockquote class="blockquote">
+                        <blockquote class="blockquote profile-bio">
                             <p>{{ profile.bio }}</p>
                         </blockquote>
                     </figure>
