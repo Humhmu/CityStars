@@ -6,10 +6,39 @@
          "desc":"Edinburgh is the capital city of Scotland and one of its 32 council areas. The city is located in southeast Scotland and is bounded to the north by the Firth of Forth and to the south by the Pentland Hills. "
       },
       "Glasgow%Scotland":{
-         "country":"Scotland",
          "rating":4,
          "image":"population resources/images/city_images/GlasgowScotland.jpg",
          "desc":"Glasgow is the most populous city in Scotland, located on the banks of the River Clyde in west central Scotland. The city is the third-most-populous city in the United Kingdom and the 27th-most-populous city in Europe. "
+      },
+      "Aberdeen%Scotland":{
+         "rating":3,
+         "image":"population resources/images/city_images/AberdeenScotland.jpg",
+         "desc":"Aberdeen received royal burgh status from David I of Scotland, which transformed the city economically. The traditional industries of fishing, paper-making, shipbuilding, and textiles have been overtaken by the oil industry and Aberdeen's seaport."
+      },
+      "Dundee%Scotland":{
+         "rating":4,
+         "image":"population resources/images/city_images/DundeeScotland.jpg",
+         "desc":"Dundee is an international research and development hub in technology, medicine and life sciences, with technological industries having arrived since the 1980s."
+      },
+      "Perth%Scotland":{
+         "rating":4,
+         "image":"population resources/images/city_images/GlasgowScotland.jpg",
+         "desc":"Perth has been known as 'The Fair City' since the publication of the novel Fair Maid of Perth by Scottish writer Sir Walter Scott in 1828. During the later medieval period the city was also called St John's Toun or Saint Johnstoun by its inhabitants—a reference to its principal church, which was dedicated to St John the Baptist."
+      },
+      "Stirling%Scotland":{
+         "rating":5,
+         "image":"population resources/images/city_images/PerthScotland.jpg",
+         "desc":"Once the capital of Scotland, Stirling is visually dominated by Stirling Castle. It has been said that 'Stirling, like a huge brooch clasps Highlands and Lowlands together'."
+      },
+      "Dunfermline%Scotland":{
+         "rating":4,
+         "image":"population resources/images/city_images/DunfermlineScotland.jpg",
+         "desc":"City, parish, and former royal burgh in Fife, Scotland, 3 miles (5 km) from the northern shore of the Firth of Forth. Dunfermline was the de facto capital of the Kingdom of Scotland between the 11th and 15th centuries."
+      },
+      "Inverness%Scotland":{
+         "rating":3,
+         "image":"population resources/images/city_images/InvernessScotland.jpg",
+         "desc":"A city in the Scottish Highlands, having been granted city status in 2000. It is the administrative centre for The Highland Council and is regarded as the capital of the Highlands."
       },
       "London%England":{
          "rating":3,
@@ -20,6 +49,41 @@
          "rating":2,
          "image":"population resources/images/city_images/LichfieldEngland.jpg",
          "desc":"Lichfield is a cathedral city and civil parish in Staffordshire, England. With a population of just 34,738 it is one of England's smallest cities."
+      },
+      "Sheffield%England":{
+         "rating":3,
+         "image":"population resources/images/city_images/SheffieldEngland.jpg",
+         "desc":"Sheffield played a crucial role in the Industrial Revolution, developing many significant technologies. In the 19th century, the city saw a huge expansion of its traditional cutlery trade, when processes for high-quality stainless steel and crucible steel were invented based on previous discoveries elsewhere."
+      },
+      "Plymouth%England":{
+         "rating":4,
+         "image":"population resources/images/city_images/PlymouthEngland.jpg",
+         "desc":"Plymouth's history extends back to the Bronze Age, evolving from a trading post at Mount Batten into the thriving market town of Sutton, which was formally re-named as Plymouth in 1439 when it was made a borough. The settlement has played a significant role in English history."
+      },
+      "Cochabamba%Bolivia":{
+         "rating":4,
+         "image":"population resources/images/city_images/CochabambaBolivia.jpg",
+         "desc":"It is known as the 'City of Eternal Spring' or 'The Garden City' because of its spring-like temperatures all year round. It is also known as 'La Llajta,' which means 'town' in Quechua. It is the largest urban center between the higher capital of La Paz and Santa Cruz de la Sierra in the tropical plains of the east."
+      },
+      "Quillacollo%Bolivia":{
+         "rating":4,
+         "image":"population resources/images/city_images/QuillacolloBolivia.jpg",
+         "desc":"Quillacollo is linked to the city of Cochabamba through the Avenida Blanco Galindo, a particularly busy stretch on the main national highway. Quillacollo is mostly a market town with a sizable agricultural hinterland, but also hosts some relevant industry and a district court which supports a relevant population of lawyers"
+      },
+      "Ipoh%Malaysia":{
+         "rating":4,
+         "image":"population resources/images/city_images/IpohMalaysia.jpg",
+         "desc":"In recent years, Ipoh's popularity as an international tourist destination has been significantly boosted by efforts to conserve its British colonial-era architecture. The city is also well known for its cuisine and natural attractions, such as its limestone hills and caves within which Buddhist temples were built."
+      },
+      "Kuching%Malaysia":{
+         "rating":5,
+         "image":"population resources/images/city_images/KuchingMalaysia.jpg",
+         "desc":"The capital and the most populous city in the state of Sarawak in Malaysia. Kuching was founded by the representative of the Sultan of Brunei in 1827. It was the third capital of Sarawak in 1827 during the administration of the Bruneian Empire."
+      },
+      "Perth%Australia":{
+         "rating":3,
+         "image":"population resources/images/city_images/PerthAustralia.jpg",
+         "desc":"Perth, capital of Western Australia, sits where the Swan River meets the southwest coast. Sandy beaches line its suburbs, and the huge, riverside Kings Park and Botanic Garden on Mount Eliza offer sweeping views of the city."
       }
    },
    "users":{
@@ -180,7 +244,22 @@
         "liked_by":[
            "mia3","samuel9","Maya 900","Julia1"
          ]
-     }
+     },
+     {
+      "city":[
+         "Perth",
+         "Australia"
+      ],
+      "user":"Julia1",
+      "date":1736457100.0,
+      "image":"population resources/images/post_images/Perth1.jpg",
+      "text":"I was excited to visit Perth for the first time, although I wasn’t sure why. I’d read a good deal about it, but even after copious research I couldn’t say exactly what there was to see and do there. Instead it sounded like a perfectly nice, clean, efficient Australia city. That’s great, but I needed to answer the question why anyone would want to travel there specifically, and I think I sort of answered it. Maybe.",
+      "rating":4,
+      "title":"Love It or Not?",
+      "liked_by":[
+         "mia3","samuel9","Maya 900","Julia1","kim89"
+       ]
+   }
    ],
    "freindships":{
       "John125%kim89":{

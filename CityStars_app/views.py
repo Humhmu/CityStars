@@ -37,7 +37,7 @@ def city_stars(request):
     context_dict = {}
     context_dict["cities"] = City.objects.filter(
         id__in=Post.objects.values_list("city", flat=True)
-    ).distinct()
+    ).distinct().order_by("-avg_rating")
 
     context_dict["posts"] = {}
     for city in context_dict["cities"]:

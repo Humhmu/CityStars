@@ -8,7 +8,7 @@ class City(models.Model):
     CITY_MAX_LENGTH = 30
     COUNTRY_MAX_LENGTH = 30
     DESC_MAX_LENGTH = 300
-    name = models.CharField(max_length=CITY_MAX_LENGTH, unique=True)
+    name = models.CharField(max_length=CITY_MAX_LENGTH)
     country = models.CharField(max_length=COUNTRY_MAX_LENGTH)
     avg_rating = models.IntegerField(default=1,validators=[MaxValueValidator(5),MinValueValidator(1)])
     image = models.ImageField(upload_to="city_images", blank=True)
