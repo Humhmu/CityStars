@@ -40,6 +40,8 @@
 
 .cc-row {
   background-color: var(--PRIMARY);
+  border-style: solid;
+  border-color: var(--ACCENT);
   border-radius: 40px;
 }
 
@@ -51,4 +53,8 @@
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 10px;
+}
+
+.cc-btn {
+  width: 90%;
 }
