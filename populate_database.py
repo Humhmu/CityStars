@@ -14,9 +14,9 @@ import json
 def populate():
     with open("population resources/populationData.json","r") as f:
         data = json.loads(f.read())
-    
+
     ##ADD DEFALUT PROFILE PICTURE
-    add_user("DEFAULT",{"bio":"","email":"","verified":False,"profile_picture":"static\images\DEFAULT_profile_photo.jpg"})
+    add_user("DEFAULT",{"bio":"","email":"","verified":False,"profile_picture":"static/images/DEFAULT_profile_photo.jpg"})
 
     for city_name_country in data["cities"].keys():
         data["cities"][city_name_country]["object"] = add_city(city_name_country,data["cities"][city_name_country])
@@ -70,7 +70,7 @@ def add_post(details,users,cities):
         title = details["title"],
         rating = details["rating"]
         )[0]
-    
+
     for name in details["liked_by"]:
         k.liked_by.add(users[name]["object"].user)
 
