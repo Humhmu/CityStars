@@ -6,135 +6,161 @@
 {% endblock %}
 
 {% block title_block %}
-    Profile
+Profile
 {% endblock %}
 
 {% block body_block %}
-    <div class="body_content">
+<div class="body_content">
 
 
-        <div class="profile-container">
-            <div class="profile-name">
-                <h1>{{ profile.user.username }}</h1>
-            </div>
+    <div class="profile-container">
+        <div class="profile-name">
+            <h1>{{ profile.user.username }}</h1>
         </div>
-        
-        <div class="container">
-            <div class="row">
-                <div class="col text-center g-5">
-                    <div class="profile-image">    
-                        <img
-                            src={{profile.profile_picture.url}}
-                            class="img-fluid rounded-top    "
-                            alt="Profile Picture"
-                        />
-                    </div>
-                </div>
-                <div class="col text-center g-5">
-                    <div class="profile-bio">
-                        <figure class="text-start">
-                            <blockquote class="blockquote">
-                                <p>{{ profile.bio }}</p>
-                            </blockquote>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                {% if user == profile.user %}
-                    <div class="col text-center g-5">
-                        <form class="profile-form" id="profile_form" method="post"
-                            enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <button
-                                type="button"
-                                class="btn btn-primary profile-btn"
-                            >
-                                Change Profile Image - 
-                                <input type="file" accept="image/*" class="form-control" name="profile_picture" id="profile_picture" placeholder=""
-                                       aria-describedby="fileHelpId" />
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-primary profile-btn"
-                            >
-                                Edit Biography -
-                                <textarea class="form-control" name="bio" id="bio" rows="3" cols="88"
-                                          maxlength="1000">{{ profile.bio }}</textarea>
-                            </button>
-
-                            <button type="submit" class="btn btn-primary">
-                                Apply changes
-                            </button>
-                        </form type="submit" name="submit" value="Update Profile">
-                    </div>
-                {% else %}
-
-                    {% if friend %}
-                    <div class="col text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                            onclick="window.location.href='{% url 'CityStars_app:chat' profile.slug profile.slug %}';"
-                        >
-                            Chat
-                        </button>
-                    </div>
-
-                    {% elif pending %}
-                    <div class="col text-center g-5 profile-container">  
-                        <div class="profile-pending">                      
-                            <p>Request Pending</p>
-                        </div>
-                    </div>
-
-                    {% elif requested %}
-                    <div class="col-md-3 text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                            onclick="window.location.href='{% url 'CityStars_app:accept_friend_request' profile.slug %}';"
-                        >
-                            Accept Friend Request
-                        </button>
-                    </div>
-
-                    <div class="col-md-3 text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                            onclick="window.location.href='{% url 'CityStars_app:reject_friend_request' profile.slug %}';"
-                        >
-                            Reject Friend Request
-                        </button>
-                    </div>
-
-                    {% else %}
-                    <div class="col text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                            onclick="window.location.href='{% url 'CityStars_app:send_friend_request' profile.slug %}';"
-                        >
-                            Send Friend Request
-                        </button>
-                    </div>
-
-                    {% endif %}
-                    <div class ="col text-center g-5">
-                        <button
-                            type="button"
-                            class="btn btn-primary profile-btn"
-                            onclick="window.location.href='{% url 'CityStars_app:posts' profile.slug %}';"
-                        >
-                            View Posts
-                        </button>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col text-center g-5">
+                <div class="profile-image">
+                    <img src={{profile.profile_picture.url}} class="img-fluid rounded-top    " alt="Profile Picture" />
+                </div>
+            </div>
+            <div class="col text-center g-5">
+                <div class="profile-bio">
+                    <figure class="text-start">
+                        <blockquote class="blockquote">
+                            <p>{{ profile.bio }}</p>
+                        </blockquote>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if user.is_authenticated %}
+
+            {% if user == profile.user %}
+            <div class="col text-center g-5">
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#profileModal">
+                    Change Profile Image
+                </button>
+
+                <div class="modal fade" id="profileModal" tabindex="-1" data-bs-backdrop="static"
+                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTitleId">
+                                    Choose an image
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="profile-form" id="profile_form" method="post"
+                                    enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" accept="image/*" class="form-control" name="profile_picture"
+                                        id="profile_picture" placeholder="" aria-describedby="fileHelpId" />
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                </form type="submit" name="submit" value="Update Profile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bioModal">
+                    Change Bio
+                </button>
+
+                <div class="modal fade" id="bioModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTitleId">
+                                    Change your bio
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="profile-form" id="profile_form" method="post"
+                                    enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <textarea class="form-control" name="bio" id="bio" rows="3" cols="88"
+                                        maxlength="1000">{{ profile.bio }}</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                </form type="submit" name="submit" value="Update Profile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            {% if friend %}
+            <div class="col text-center g-5">
+                <button type="button" class="btn btn-primary profile-btn"
+                    onclick="window.location.href='{% url 'CityStars_app:chat' user.profile.slug profile.slug %}';">
+                    Chat
+                </button>
+            </div>
+
+            {% elif pending %}
+            <div class="col text-center g-5 profile-container">
+                <div class="profile-pending">
+                    <p>Request Pending</p>
+                </div>
+            </div>
+
+            {% elif requested %}
+            <div class="col-md-3 text-center g-5">
+                <button type="button" class="btn btn-primary profile-btn"
+                    onclick="window.location.href='{% url 'CityStars_app:accept_friend_request' profile.slug %}';">
+                    Accept Friend Request
+                </button>
+            </div>
+
+            <div class="col-md-3 text-center g-5">
+                <button type="button" class="btn btn-primary profile-btn"
+                    onclick="window.location.href='{% url 'CityStars_app:reject_friend_request' profile.slug %}';">
+                    Reject Friend Request
+                </button>
+            </div>
+            {% else %}
+            <div class="col text-center g-5">
+                <button type="button" class="btn btn-primary profile-btn"
+                    onclick="window.location.href='{% url 'CityStars_app:send_friend_request' profile.slug %}';">
+                    Send Friend Request
+                </button>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            <div class="col text-center g-5">
+                <button type="button" class="btn btn-primary profile-btn"
+                    onclick="window.location.href='{% url 'CityStars_app:posts' profile.slug %}';">
+                    View Posts
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="{% static "js/profile.js" %}"></script>
 {% endblock %}

@@ -15,22 +15,22 @@ def like_post(request):
     if request.method == "GET":
         user = request.user
         if user.is_authenticated:
-            post_id = request.GET['post_id']
+            post_id = request.GET["post_id"]
             try:
                 post = Post.objects.get(id=int(post_id))
             except Post.DoesNotExist or ValueError:
                 return HttpResponse(-1)
 
             if user in post.liked_by.all():
-                img = static('images/emptyheart.png')
+                img = static("images/emptyheart.png")
                 post.liked_by.remove(user)
                 post.save()
             else:
-                img = static('images/heart.png')
+                img = static("images/heart.png")
                 post.liked_by.add(user)
                 post.save()
 
-            return JsonResponse([len(post.liked_by.all()),img], safe=False)
+            return JsonResponse([len(post.liked_by.all()), img], safe=False)
 
 
 def city_stars(request):
@@ -66,7 +66,11 @@ def city(request, city_slug):
         context_dict["city"] = city
 
         context_dict["header"] = True
-        context_dict["top_posts"] = sorted(Post.objects.filter(city=city),key = lambda post:len(post.liked_by.all()), reverse=True)[:3]
+        context_dict["top_posts"] = sorted(
+            Post.objects.filter(city=city),
+            key=lambda post: len(post.liked_by.all()),
+            reverse=True,
+        )[:3]
     except City.DoesNotExist:
         context_dict["city"] = None
 
@@ -142,11 +146,11 @@ def profile(request, profile_slug):
     context_dict = {}
 
     user = request.user
+    profile = Profile.objects.filter(slug=profile_slug)[0]
+    context_dict["profile"] = profile
+
     if user.is_authenticated:
-
         user_profile = Profile.objects.get(user=user)
-        profile = Profile.objects.filter(slug=profile_slug)[0]
-
         if request.method == "POST" and user_profile == profile:
             old_picture = profile.profile_picture
             form = UserProfileForm(request.POST, request.FILES, instance=profile)
@@ -184,7 +188,7 @@ def profile(request, profile_slug):
             [
                 (
                     True
-                    if (o.user_requested == user_profile or o.user_initiated == profile)
+                    if (o.user_requested == user_profile and o.user_initiated == profile)
                     and o.pending == True
                     else False
                 )
@@ -192,11 +196,8 @@ def profile(request, profile_slug):
                 | Friendship.objects.filter(user_requested=user_profile)
             ]
         )
-        context_dict["profile"] = profile
 
-        return render(request, "CityStars_app/profile.html", context=context_dict)
-    else:
-        return redirect("CityStars_app:login")
+    return render(request, "CityStars_app/profile.html", context=context_dict)
 
 
 @login_required
@@ -298,15 +299,11 @@ def chat(request, profile_slug, friend_slug):
 def posts(request, profile_slug):
     context_dict = {}
 
-    user = request.user
-    if user.is_authenticated:
-        profile = Profile.objects.get(slug=profile_slug)
-        context_dict["user_posts"] = Post.objects.filter(user=profile)
-        context_dict["profile"] = profile
+    profile = Profile.objects.get(slug=profile_slug)
+    context_dict["user_posts"] = Post.objects.filter(user=profile)
+    context_dict["profile"] = profile
 
-        return render(request, "CityStars_app/posts.html", context=context_dict)
-    else:
-        return redirect("CityStars_app:login")
+    return render(request, "CityStars_app/posts.html", context=context_dict)
 
 
 def post(request, post_id):
