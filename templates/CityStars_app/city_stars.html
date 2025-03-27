@@ -25,7 +25,8 @@ City Stars
 		<div class="row g-0 cc-row">
 
 			<div class="col-md-4 cc-img">
-				<img src="{{ city.image.url }}" class="img-fluid rounded" alt="Img of {{ city.name }}" />
+				<img src="{{ city.image.url }}" class="img-fluid rounded-start-5 rounded-end-5"
+					alt="Img of {{ city.name }}" />
 			</div>
 
 			<div class="col-md-8 cc-content-col">
@@ -69,14 +70,14 @@ City Stars
 				</div>
 
 				<div class="row g-0">
-					<div class="col-md-6 cc-btn">
-						<button class="btn btn-primary col-md-12"
+					<div class="col-md-6 cc-btn-div">
+						<button class="btn btn-primary col-md-12 cc-btn"
 							onclick="window.location.href='{% url 'CityStars_app:city' city.slug %}';">
 							View City Page
 						</button>
 					</div>
-					<div class="col-md-6 cc-btn">
-						<button class="btn btn-primary col-md-12"
+					<div class="col-md-6 cc-btn-div">
+						<button class="btn btn-primary col-md-12 cc-btn"
 							onclick="window.location.href='{% url 'CityStars_app:city_feed' %}?city={{city.name|urlencode}}&country={{city.country|urlencode}}';">
 							View City Feed
 						</button>
