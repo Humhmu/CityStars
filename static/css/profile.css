@@ -1,44 +1,61 @@
 @import "base.css";
 
 .profile-container {
-    display: flex;
-    justify-content: center;
-    border-style: solid;
-    border-width: thick;
-    border-color: var(--BACKGROUND);
+  display: flex;
+  justify-content: center;
+  border-style: solid;
+  border-width: thick;
+  border-color: var(--BACKGROUND);
 }
 
 .profile-name {
-    background-color: var(--PRIMARY);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: inline-block;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+  background-color: var(--PRIMARY);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .profile-image img {
-    padding: 5%;
-    background-color: var(--PRIMARY);
+  padding: 5%;
+  background-color: var(--PRIMARY);
 }
 
 .profile-bio p {
-    padding: 5%;
-    background-color: var(--PRIMARY);
-    color: white;
+  padding: 5%;
+  background-color: var(--PRIMARY);
+  color: white;
 }
 
 .profile-btn {
-    color: white;
-    background-color: var(--SECONDARY);
-    border-color: var(--SECONDARY);
+  color: white;
+  background-color: var(--SECONDARY);
+  border-color: var(--SECONDARY);
 }
 
 .profile-pending p {
-    padding: 1%;
-    background-color: var(--PRIMARY);
-    color: white;
-    font-weight: bolder;
+  padding: 1%;
+  background-color: var(--PRIMARY);
+  color: white;
+  font-weight: bolder;
+}
+
+.modal-content {
+  background-color: var(--PRIMARY);
+  color: white;
+}
+
+.modal-dialog {
+  max-width: fit-content;
+}
+
+.btn-warn {
+  background-color: var(--WARN);
+}
+
+.profile-bio {
+  word-wrap: break-word;
 }
