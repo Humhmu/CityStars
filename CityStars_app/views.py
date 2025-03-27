@@ -257,7 +257,7 @@ def delete_profile(request, profile_slug):
     profile = Profile.objects.get(slug=profile_slug)
     if request.user == profile.user:
         logout(request)
-        profile.delete()
+        profile.user.delete()
 
     return redirect("CityStars_app:city_stars")
 
