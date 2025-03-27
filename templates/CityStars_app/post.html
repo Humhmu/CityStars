@@ -17,7 +17,8 @@ Post
     </div>
     <div class="buttons">
         {% if city_post_id.user.user == user %}
-        <button onclick="window.location.href='{% url 'CityStars_app:delete_post' city_post_id.id %}';" class="feednavbutton">Delete Post</button>
+        <button onclick="window.location.href='{% url 'CityStars_app:delete_post' city_post_id.id %}';"
+            class="feednavbutton">Delete Post</button>
         {% endif %}
         <button onclick="window.location.href='{% url 'CityStars_app:city' city.slug %}';" class="feednavbutton">View
             {{ city_name }}</button>
@@ -25,11 +26,14 @@ Post
             class="feednavbutton">{{ city_post_user }}'s Profile</button>
     </div>
 </div>
-<div class="fullfeed">
-    <div>
-        <img src="{{ city_post_image.url }}" alt="image" class="feedpageimage"></img>
+<div class="fullfeed row g-0">
+    <div class="col-md-4 feedpageimagediv">
+        <img src="{{ city_post_image.url }}" alt="image" class="feedpageimage rounded-start-5 rounded-end-5"></img>
     </div>
-    <div class="post-info">
+    <div class="post-text col-md-4">
+        <p>{{ city_post_text }}</p>
+    </div>
+    <div class="post-info col-md-4">
         <div>
             {% for i in 1|to:post_rating %}
             <img src="{% static 'images/star.png' %}" alt="star" width="60" height="60" />
@@ -46,20 +50,17 @@ Post
         <div>
             {% if user.is_authenticated %}
             <button onclick="" class="feedcurrentlikes text-white like_button" id="" data-postid="{{ post.id }}">
-            {%else %}
-            <button onclick="" class="feedcurrentlikes text-white" id="" data-postid="{{ post.id }}">
-            {%endif %}
-                {%if user in post.liked_by.all%}
-                <img src="{% static 'images/heart.png' %}" alt="likes" id="heart{{ post.id }}">
                 {%else %}
-                <img src="{% static 'images/emptyheart.png' %}" alt="likes" id="heart{{ post.id }}">
-                {%endif %}
-                <p id = "likes{{ post.id }}">{{ post.liked_by.all|length }}</p>
-            </button>
+                <button onclick="" class="feedcurrentlikes text-white" id="" data-postid="{{ post.id }}">
+                    {%endif %}
+                    {%if user in post.liked_by.all%}
+                    <img src="{% static 'images/heart.png' %}" alt="likes" id="heart{{ post.id }}">
+                    {%else %}
+                    <img src="{% static 'images/emptyheart.png' %}" alt="likes" id="heart{{ post.id }}">
+                    {%endif %}
+                    <p id="likes{{ post.id }}">{{ post.liked_by.all|length }}</p>
+                </button>
         </div>
-    </div>
-    <div class="post-text">
-        <p>{{ city_post_text }}</p>
     </div>
 </div>
 
